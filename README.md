@@ -67,6 +67,18 @@ Then open the Citizen's Edge **/live** page in your browser; it connects to the 
 
 Your data lives in `~/.local/share/citizens-edge-companion/` on Linux (`%APPDATA%\CitizensEdgeCompanion` on Windows). It includes your pairing token, so do not share that folder.
 
+## The interfaces
+
+The Companion has no window of its own. You look at what it sees in three places, all talking to the program on your own PC (never to third-party sites):
+
+| Interface | What it is | In these downloads? |
+|---|---|---|
+| **/live page** | The Citizen's Edge web page, in your browser. The fullest view: log events, captures, contacts, timers. | Yes: the page is hosted by Citizen's Edge, it connects to your local Companion. |
+| **Terminal view** | `ce-companion` itself shows a live view in the terminal; `ce-companion client` opens the same view (with a command prompt) against a Companion that is already running. | Yes, part of `ce-companion`. |
+| **In-game overlay** | `ce-overlay`: a small heads-up display drawn over the game. Status strip, contact alerts, and a context box with tabs (trade, mining, contested-zone timers, and so on). It never takes keyboard focus from the game; you drive it with global hotkeys. | **Not yet.** It is a separate program that is not packaged in these downloads. Linux (Wayland) is the supported platform; Windows hotkeys are not done. |
+
+The overlay and the terminal view show the same data as `/live`, with more detail in places. They are controlled with commands such as `ce-overlay toggle`, `show`, `hide`, `compact` and `quit`, plus the hotkeys it registers (on KDE the numeric keypad with the Windows key). Run `ce-overlay --demo` to preview it with sample data and no connection. Packaging the overlay with the releases is planned; this README will say so when it ships.
+
 ## Windows: install (experimental)
 
 Download `CitizensEdgeCompanion-win-x64-Setup.exe` from the release and run it. Windows may show a SmartScreen warning because it is not signed yet. Alongside it you will find `SHA256SUMS-win-x64.txt` to verify the download:
