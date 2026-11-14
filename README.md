@@ -127,3 +127,8 @@ Releases are built automatically from a single reviewed commit: the production r
 ## Problems
 
 Open an issue in this repository. Please include the output of `ce-companion status` and the contents of `BUILD-INFO.json`, but **not** your data folder or pairing token.
+
+## Reference
+
+- [Command-line reference](docs/commands.md): every `ce-companion` and `ce-overlay` command and switch.
+- [Configuration reference](docs/configuration.md): data folder, environment variables, config files, updates and storage.
