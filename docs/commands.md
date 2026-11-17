@@ -4,7 +4,7 @@
 
 Global options accepted by every command: `--data-dir <dir>` (data folder, see [configuration](configuration.md)), `--json` (structured output where supported), `--log-format text|json|full` (`text` on a terminal, `json` when piped, `full` = text with dates), `--utc` (UTC timestamps), `-h`/`--help`. `ce-companion --version` prints the version.
 
-Windows is **experimental**: the global hotkey, window capture and the control channel are not implemented there yet, so most commands below only fully work on Linux.
+Windows is **experimental**: every command is built for it, but none has been run on a real Windows machine yet, so expect problems and report them.
 
 ## Running
 
@@ -123,7 +123,7 @@ ce-companion truth queue --limit 20
 | `update --download` | Download and stage the newest release. |
 | `update --apply` | Apply the staged release and restart (refused while a Companion runs for the data folder). |
 
-Updating works for installs made with the installer; tarball and development builds report "updates unavailable". Variables: `CE_UPDATE_URL`, `CE_UPDATE_CHANNEL`, `CE_AUTO_UPDATE` (see [configuration](configuration.md#update)).
+Updating works for installs made with the installer; the tarball and development builds report "updates unavailable". Variables: `CE_UPDATE_URL`, `CE_UPDATE_CHANNEL`, `CE_AUTO_UPDATE` (see [configuration](configuration.md#update)).
 
 ## Shell completions and help
 

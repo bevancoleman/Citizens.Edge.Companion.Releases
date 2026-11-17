@@ -7,7 +7,7 @@ Everything the Companion stores lives in one data folder. Override it with `--da
 | OS | Default |
 |---|---|
 | Linux | `$XDG_DATA_HOME/citizens-edge-companion`, else `~/.local/share/citizens-edge-companion` |
-| Windows (experimental) | `%APPDATA%\CitizensEdgeCompanion` |
+| Windows (experimental) | `%LOCALAPPDATA%\CitizensEdgeCompanion` (an existing `%APPDATA%\CitizensEdgeCompanion` from an older build is kept and used) |
 
 Contents: `companion.db` (SQLite store), `token` (pairing token), `captures/`, `logs/` (`companion.log` plus rotated copies and `crash-*.json`), and the optional config files below. Do not post this folder publicly.
 
@@ -25,7 +25,7 @@ The Companion needs the Star Citizen `LIVE` folder (it contains `Game.log` and `
 
 1. `--sc-dir <dir>` (alias `--log`)
 2. `CE_SC_DIR` environment variable
-3. The first existing of these (Linux), each followed by `drive_c/Program Files/Roberts Space Industries/StarCitizen/LIVE`: `/mnt/games/star-citizen/star-citizen`, `~/Games/star-citizen`, `~/Games/star-citizen/star-citizen`, `~/Games/star-citizen-live`, `~/.wine`. On Windows: `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
+3. The first existing of these (Linux), each followed by `drive_c/Program Files/Roberts Space Industries/StarCitizen/LIVE`: `/mnt/games/star-citizen/star-citizen`, `~/Games/star-citizen`, `~/Games/star-citizen/star-citizen`, `~/Games/star-citizen-live`, `~/.wine`. On Windows: the RSI Launcher's library setting, then `C:\Program Files\Roberts Space Industries\StarCitizen` (and the same path on other drives), channels LIVE, PTU, EPTU, HOTFIX.
 
 An explicit value is used as given, without checking it exists. If nothing is found, start fails and lists what it tried.
 
