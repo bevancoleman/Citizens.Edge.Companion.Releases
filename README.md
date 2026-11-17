@@ -53,7 +53,7 @@ cd ce-companion-linux-x64
 cat BUILD-INFO.json        # version and the exact commit it was built from
 ```
 
-The folder contains the `ce-companion` program, the `ce-overlay` in-game HUD (builds from late November 2026 on; earlier staging builds have only `ce-companion`), a `models/` folder (the OCR models, keep it next to the program) and `BUILD-INFO.json`.
+The folder contains the `ce-companion` program, the `ce-overlay` in-game HUD (newer staging builds only: the first build with it is still to be published, earlier ones have just `ce-companion`), a `models/` folder (the OCR models, keep it next to the program) and `BUILD-INFO.json`.
 
 ## Run it
 
