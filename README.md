@@ -27,10 +27,12 @@ Releases here come in two channels:
 
 | Platform | Status |
 |---|---|
-| Linux x64 | Works. Tarball. |
+| Linux x64 | Works. Currently a tarball; an **AppImage** (single file, self-updating) is planned and will replace it. |
 | Windows x64 | **Experimental, untested on real machines yet.** An installer is published, but several Windows features (global hotkey, window capture, the control channel) are not implemented, so it does not do the main job yet. Installers are unsigned, so SmartScreen will warn. |
 
-## Linux: install from the tarball
+## Linux: install from the tarball (for now)
+
+The tarball is a stop-gap. The planned Linux download is an **AppImage**: one file you make executable and run, which can update itself the same way the Windows installer does. This section will be replaced when it ships.
 
 Download the files from the [`staging` pre-release](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/releases/tag/staging) (or a `vX.Y.Z` release once there is one), then verify and unpack:
 
@@ -51,7 +53,7 @@ cd ce-companion-linux-x64
 cat BUILD-INFO.json        # version and the exact commit it was built from
 ```
 
-The folder contains the `ce-companion` program, a `models/` folder (the OCR models, keep it next to the program) and `BUILD-INFO.json`.
+The folder contains the `ce-companion` program, the `ce-overlay` in-game HUD (builds from late November 2026 on; earlier staging builds have only `ce-companion`), a `models/` folder (the OCR models, keep it next to the program) and `BUILD-INFO.json`.
 
 ## Run it
 
@@ -75,9 +77,9 @@ The Companion has no window of its own. You look at what it sees in three places
 |---|---|---|
 | **/live page** | The Citizen's Edge web page, in your browser. The fullest view: log events, captures, contacts, timers. | Yes: the page is hosted by Citizen's Edge, it connects to your local Companion. |
 | **Terminal view** | `ce-companion` itself shows a live view in the terminal; `ce-companion client` opens the same view (with a command prompt) against a Companion that is already running. | Yes, part of `ce-companion`. |
-| **In-game overlay** | `ce-overlay`: a small heads-up display drawn over the game. Status strip, contact alerts, and a context box with tabs (trade, mining, contested-zone timers, and so on). It never takes keyboard focus from the game; you drive it with global hotkeys. | **Not yet.** It is a separate program that is not packaged in these downloads. Linux (Wayland) is the supported platform; Windows hotkeys are not done. |
+| **In-game overlay** | `ce-overlay`: a small heads-up display drawn over the game. Status strip, contact alerts, and a context box with tabs (trade, mining, contested-zone timers, and so on). It never takes keyboard focus from the game; you drive it with global hotkeys. | **Linux: yes**, `ce-overlay` sits next to `ce-companion` in the tarball (newer builds). **Windows: not yet.** Linux (Wayland, KDE) is the supported platform; Windows hotkeys are not done. |
 
-The overlay and the terminal view show the same data as `/live`, with more detail in places. They are controlled with commands such as `ce-overlay toggle`, `show`, `hide`, `compact` and `quit`, plus the hotkeys it registers (on KDE the numeric keypad with the Windows key). Run `ce-overlay --demo` to preview it with sample data and no connection. Packaging the overlay with the releases is planned; this README will say so when it ships.
+The overlay and the terminal view show the same data as `/live`, with more detail in places. They are controlled with commands such as `ce-overlay toggle`, `show`, `hide`, `compact` and `quit`, plus the hotkeys it registers (on KDE the numeric keypad with the Windows key). Run `ce-overlay --demo` to preview it with sample data and no connection. On KDE you can also move it without the mouse (handy while the game holds the pointer): `ce-overlay nudge up|down|left|right` and `ce-overlay snap`, which have default keys (shown in the overlay's key hints).
 
 ## Windows: install (experimental)
 
@@ -116,7 +118,7 @@ Uninstalling never deletes your data folder.
 
 | File | What |
 |---|---|
-| `ce-companion-linux-x64.tar.gz` + `.sha256` | Linux program, models and `BUILD-INFO.json` |
+| `ce-companion-linux-x64.tar.gz` + `.sha256` | Linux programs (`ce-companion`, `ce-overlay`), models and `BUILD-INFO.json` (to be replaced by an AppImage) |
 | `CitizensEdgeCompanion-win-x64-Setup.exe` | Windows installer |
 | `CitizensEdgeCompanion-win-x64-Portable.zip` | Windows portable zip |
 | `CitizensEdgeCompanion-<version>-win-x64-full.nupkg`, `releases.win-x64.json`, `RELEASES-win-x64`, `assets.win-x64.json` | Update feed files the installer's updater reads. You do not need to download these by hand. |
