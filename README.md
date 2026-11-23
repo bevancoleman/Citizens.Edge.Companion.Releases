@@ -141,9 +141,24 @@ Uninstalling (Settings > Apps) removes the start-at-login entry but never delete
 
 Releases are built automatically from a single reviewed commit: the production release for a version is the exact build that was tested as staging, promoted without rebuilding.
 
-## Problems
+## Reporting problems, ideas and OCR misreads
 
-Open an issue in this repository. Please include the output of `ce-companion status` and the contents of `BUILD-INFO.json`, but **not** your data folder or pairing token.
+This repository is the one public place to report anything about the Citizen's Edge Companion, because the source repositories are private. Use [**New issue**](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/new/choose) and pick the form that fits:
+
+| I want to report... | Use |
+|---|---|
+| Something broken in the Companion, the terminal view, the in-game overlay, the installer or self-update | **Bug report** |
+| The Companion **crashed** | Run `ce-companion report`. It opens a ready-made issue here for you to look over and submit. |
+| Text the OCR **misread or missed** (commodity terminal, mining scan, contacts, chat) | **OCR report** |
+| An idea or an improvement | **Feature request** |
+| A problem with the **/live web page** | **Bug report**, choosing "/live web page". Once the website's own repository is public, its issues will live there and this page will say so. |
+
+Before you post:
+
+- Include the output of `ce-companion status` and the contents of `BUILD-INFO.json` (or `ce-companion --version`). The forms ask for both.
+- Say which channel you are on, **production** (`vX.Y.Z`) or **staging**. Staging is rebuilt from the newest code and can be broken, so a fix may already be on its way.
+- Search the existing issues first; adding detail to one that matches is more useful than a duplicate.
+- Do **not** paste your data folder or pairing token. Screenshots can show player handles, chat and your location, so crop or blur anything you want to keep private.
 
 ## Reference
 

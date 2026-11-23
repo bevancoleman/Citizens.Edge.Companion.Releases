@@ -1,0 +1,37 @@
+name: Feature request
+description: Suggest an improvement or a new capability for the Companion, the overlay or the /live page.
+title: "[Feature]: "
+type: Feature
+labels: ["needs-triage"]
+body:
+  - type: dropdown
+    id: product
+    attributes:
+      label: Where would it go?
+      options:
+        - Companion program
+        - Terminal view
+        - In-game overlay
+        - /live web page
+        - Installer or self-update
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the situation or the problem first, rather than the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have tried
+      description: Optional. Workarounds, or other tools that do this well.
