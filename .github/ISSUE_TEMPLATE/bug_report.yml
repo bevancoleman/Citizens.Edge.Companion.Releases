@@ -1,0 +1,80 @@
+name: Bug report
+description: Something in the Companion, the overlay, the installer or the /live page is broken or behaves wrongly.
+title: "[Bug]: "
+type: Bug
+labels: ["needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. For a **crash**, run `ce-companion report` instead: it builds a ready-made issue for you.
+        For text the OCR misread, use the **OCR report** form. For an idea, use **Feature request**.
+
+        Please do **not** paste your data folder or your pairing token.
+  - type: dropdown
+    id: product
+    attributes:
+      label: What is affected?
+      options:
+        - Companion program (daemon, commands, Game.log reading)
+        - Terminal view
+        - In-game overlay
+        - /live web page
+        - Installer or self-update
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform and download
+      options:
+        - Linux, AppImage
+        - Linux, tarball
+        - Windows, installer (Setup.exe)
+        - Windows, portable zip
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Release channel
+      options:
+        - Production (vX.Y.Z)
+        - Staging
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Optional, but it makes a fix much faster.
+      placeholder: |
+        1. ...
+        2. ...
+  - type: textarea
+    id: status
+    attributes:
+      label: "`ce-companion status` output"
+      description: Run `ce-companion status` and paste the result.
+      render: text
+  - type: textarea
+    id: build-info
+    attributes:
+      label: Build info
+      description: The contents of `BUILD-INFO.json` (in the tarball), or the output of `ce-companion --version`.
+      render: json
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, log lines, game mode (borderless or windowed), desktop environment. Crop or hide anything private first.

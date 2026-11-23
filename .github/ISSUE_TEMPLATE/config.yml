@@ -1,0 +1,11 @@
+# Blank issues stay enabled on purpose: `ce-companion report` opens a pre-filled
+# issue (title, body and the `crash` label) through a plain issues/new link, and
+# GitHub drops those values when blank issues are turned off.
+blank_issues_enabled: true
+contact_links:
+  - name: Which download do I want? (install and update help)
+    url: https://github.com/bevancoleman/Citizens.Edge.Companion.Releases#which-download-do-i-want
+    about: Production vs staging, Linux AppImage vs tarball, and the Windows installer.
+  - name: Command and configuration reference
+    url: https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/tree/main/docs
+    about: Every ce-companion and ce-overlay command, plus the data folder, environment variables and update settings.

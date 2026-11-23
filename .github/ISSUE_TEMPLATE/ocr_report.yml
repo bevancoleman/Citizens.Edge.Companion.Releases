@@ -1,0 +1,87 @@
+name: OCR report
+description: Text on screen was misread, missed or mixed up (commodity terminal, mining scan, contacts, chat).
+title: "[OCR]: "
+type: Bug
+labels: ["ocr-report", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        These reports are how the OCR gets better. Please be careful about what you share:
+        **screenshots can show player handles, chat and your own location.** Crop or blur anything you
+        do not want public, and do not paste your data folder or pairing token.
+  - type: dropdown
+    id: screen
+    attributes:
+      label: What was being read?
+      options:
+        - Commodity terminal
+        - Mining scan
+        - Radar or contacts
+        - Target panel or HUD
+        - Chat
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the screen said, and what the Companion read
+      description: One line per mistake is ideal, for example `expected "Titanium 516", read "Titanlum S16"`.
+    validations:
+      required: true
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does it happen?
+      options:
+        - Every time
+        - Often
+        - Occasionally
+        - Once
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Drag an image in here (cropped to the part that matters). Optional but very useful.
+  - type: input
+    id: display
+    attributes:
+      label: Resolution, UI scale and display mode
+      placeholder: "2560x1440, UI scale 100%, borderless"
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform and download
+      options:
+        - Linux, AppImage
+        - Linux, tarball
+        - Windows, installer (Setup.exe)
+        - Windows, portable zip
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Release channel
+      options:
+        - Production (vX.Y.Z)
+        - Staging
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: ocr-report
+    attributes:
+      label: "`ce-companion ocr-report` output"
+      description: Optional. Run `ce-companion ocr-report` and paste the result.
+      render: text
+  - type: textarea
+    id: build-info
+    attributes:
+      label: Build info
+      description: The contents of `BUILD-INFO.json` (in the tarball), or the output of `ce-companion --version`.
+      render: json
