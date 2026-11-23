@@ -145,7 +145,12 @@ Releases are built automatically from a single reviewed commit: the production r
 
 Open an issue in this repository. Please include the output of `ce-companion status` and the contents of `BUILD-INFO.json`, but **not** your data folder or pairing token.
 
+## Ideas and feature requests
+
+Open an issue in this repository with a title starting `Feature:`. Before you do, have a look at the [roadmap](docs/roadmap.md): it lists what we are considering adding, and you can add a 👍 to an existing request instead of opening a new one.
+
 ## Reference
 
+- [Roadmap](docs/roadmap.md): features we are looking at adding. Ideas, not promises.
 - [Command-line reference](docs/commands.md): every `ce-companion` and `ce-overlay` command and switch.
 - [Configuration reference](docs/configuration.md): data folder, environment variables, config files, updates and storage.
