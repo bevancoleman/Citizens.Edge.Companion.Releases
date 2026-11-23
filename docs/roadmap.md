@@ -27,7 +27,7 @@ Crafting blueprints are earned through missions and the list is long, so this is
 
 | Idea | What it would do | Reads | Notes |
 |---|---|---|---|
-| **Blueprint tracker** | Shows which blueprints you own, which you are missing, and a watch list of ones you want. Search and filter by type, class, maker or grade. Alerts you the moment a new one drops. | Log | The game writes a line to `Game.log` when you receive a blueprint. We would also read the older log files the game keeps, to fill in your collection on first run. The game deletes old logs, so we would keep our own record. |
+| **Blueprint tracker** ([#4](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/4)) | Shows which blueprints you own, which you are missing (with the missions that unlock them and a link out to a community mission database), and a watch list of ones you want. Search and filter by type, class, maker or grade. Alerts you the moment a new one drops. | Log | The game writes a line to `Game.log` when you receive a blueprint. We would also read the older log files the game keeps, to fill in your collection on first run. The game deletes old logs, so we would keep our own record. |
 | **Set and progress views** | Armour as sets ("one piece from complete"), ship weapons by size ladder, components by type and size. | Log | Builds on the blueprint tracker. |
 | **Reputation tracking** | Shows your standing with the factions and contacts you work for, as a number with progress to the next rank. The in-game screen only shows a bar. | Log, Screen | Estimated from contract results in the log, and corrected by reading the in-game reputation screen when you press the scan key. We are not yet sure how complete the log information is, so early versions may be approximate. |
 | **Find a grind partner** | For a blueprint you want, shows which people in your org have the reputation to run the missions that award it, and who already owns it. | Online | Org members only, and only for people who chose to share their blueprints and reputation. Never shared outside your org. |
@@ -50,12 +50,16 @@ Crafting blueprints are earned through missions and the list is long, so this is
 | Idea | What it would do | Reads | Notes |
 |---|---|---|---|
 | **Signature reader** | Reads the signature number on your HUD and tells you the likely mineral, multiplier and rarity. | Screen | Will need a setup step to mark where the number appears on your screen. Fast camera movement can cause missed reads. |
+| **Mining solver estimate** ([#6](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/6)) | For the rock you just scanned, which head and modules to use with your setup, and whether you need more than one player (for example in a MOLE). | Screen | Needs your mining setup entered once in the preferences screen. |
+| **Refined yield estimate** ([#7](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/7)) | Shows the SCU you can expect after refining, in brackets, on each scan. | Screen | An estimate, marked `~`: yield varies by refinery. |
+| **Spoken scan readout** ([#8](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/8)) | Optionally says the scan result aloud, for example "titanium, five". | Screen | Off by default. |
 
 ## Contacts and friend-or-foe
 
 | Idea | What it would do | Reads | Notes |
 |---|---|---|---|
 | **Nameplate detection** | A second way to spot people on your contacts list: reading nameplates in the world, in addition to the radar scan. | Screen | Needs the game in borderless or windowed mode, and clear text. Nameplates only appear at short range. |
+| **Unified contact display** ([#10](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/10)) | One panel with the latest contacts and their state (hostile, friendly, neutral, or unknown if not yet looked up), with events second. Alerts only for the last few hostile contacts scanned where you are. | None | Overlay layout change. |
 
 ## Overlay
 
@@ -66,6 +70,8 @@ Crafting blueprints are earned through missions and the list is long, so this is
 | **Look and feel options** | Adjustable transparency, hide automatically when the game is not in focus, remember position, quick click-through switch. | None | Some of this exists already on Linux. |
 | **Notes and timers** | A scratch area for notes and ad-hoc timers. | None | |
 | **Choose your panels** | Turn individual overlay panels on or off so you only see what you use. | None | |
+| **Last-scan status line** ([#12](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/12)) | One line at the top showing the last scan and how long ago, instead of a feed entry for every scan. Failures still show in the feed. | None | |
+| **Background-pause indicator** ([#9](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/9)) | Shows when background reading is paused (combat, a hostile contact marked, or heavy PC load), why, and until when. | None | Also in the terminal view and `status`. |
 
 ## From the game log
 
@@ -75,6 +81,16 @@ Crafting blueprints are earned through missions and the list is long, so this is
 | **Crash and disconnect alerts** | Tells you when the game has crashed or you were disconnected, and whether it looks like your PC or the servers. | Log | |
 | **Career and session stats** | Playtime, ships flown, missions, spending and travel, by patch. | Log | Some figures the game no longer records in the log, such as kills and wallet balance, so those would show as unavailable rather than zero. |
 | **Log backup and move between PCs** | Keeps your history even after the game deletes old logs, and lets you export and import it. | Log | |
+
+## The Companion itself
+
+| Idea | What it would do | Reads | Notes |
+|---|---|---|---|
+| **Preferences screen** ([#5](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/5)) | Set general options, feature switches, trading preferences and your mining ship from the `/live` page; the Companion stores them. | None | The overlay stays display-only. |
+| **Use it from phones, tablets and other PCs** ([#3](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/3)) | Open the `/live` page on another device and pair it with a short code, directly over your home network where possible. | None | Off by default, view-only to start, screenshots never leave your PC. |
+| **Documented, versioned API** ([#2](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/2)) | A readable, versioned reference so other tools can build on the Companion. | None | The interface is not public yet, so it can be tidied before the first version. |
+| **Memory use display** ([#11](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/11)) | Shows memory used by the Companion and the game, and free memory, in the terminal view and `status`. | None | Read-only: normal OS process figures only. |
+| **Full user documentation** ([#13](https://github.com/bevancoleman/Citizens.Edge.Companion.Releases/issues/13)) | Install, first run, every command and setting, for all the apps. | None | Where to host it is undecided. |
 
 ## Accounts and sharing
 
