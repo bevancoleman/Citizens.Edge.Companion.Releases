@@ -1,0 +1,677 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>WebSocket and HTTP API - Citizen&#x27;s Edge Companion</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="The Companion&#x27;s WebSocket API, command line, database and org sync">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-6f07f20f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-ea0de5d2.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Citizen&#x27;s Edge Companion</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/bevancoleman/Citizens.Edge.Companion.Releases" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="companion-protocol-reference"><a class="header" href="#companion-protocol-reference">Companion protocol reference</a></h1>
+<p>The WebSocket and HTTP API the Companion daemon offers to the <code>/live</code> page, the overlay and the TUI. The machine-readable spec is <code>crates/ce-protocol/protocol.schema.json</code> (current version in its <code>protocolVersion</code>: <strong>1.42.0</strong>; 55 client messages, 43 server messages). This page is the readable index of it: what connects, what each scope may do, and every message with its fields. When a message changes, change the schema, <code>src/validate.rs</code> and this page in the same PR (a test fails if a message type or the version is missing here).</p>
+<p>Rules that shape the API (<code>CLAUDE.md</code>): the UIs talk only to the Companion; the Companion decides and the UIs show (decided values come with <code>*From</code> flags); changes are additive and bump the protocol semver (<code>protocol-semver --base &lt;ref&gt;</code> in CI). The Hub is a different API: <code>Citizens.Edge.Org/docs/API.md</code>; how the Companion uses it is <code>docs/ORG-SYNC.md</code>, and the commands that share this handler layer are <code>docs/CLI.md</code>.</p>
+<h2 id="connecting"><a class="header" href="#connecting">Connecting</a></h2>
+<ul>
+<li><strong>Address:</strong> <code>ws://127.0.0.1:47823</code> by default (<code>--port</code>, <code>--host</code>). The daemon binds 127.0.0.1.</li>
+<li><strong>Token:</strong> the pairing token in the data dir (<code>token</code>, 0600). Offer it as the WebSocket subprotocol <code>ce.token.&lt;token&gt;</code> (a browser cannot set headers), as <code>Authorization: Bearer &lt;token&gt;</code>, or, for older pages, as <code>?token=</code>. The subprotocol form keeps it out of URLs, history and logs.</li>
+<li><strong>Origin:</strong> a request with no <code>Origin</code> header is a native client started by the user on this PC (overlay, TUI, CLI tools). A browser page must match the allowlist exactly: <code>https://citizensedge.space</code>, <code>https://staging.citizensedge.space</code>, <code>https://citizens-edge.pages.dev</code>, <code>https://citizens-edge-staging.pages.dev</code>, <code>http://localhost:3000</code>, <code>http://127.0.0.1:3000</code>. There is no wildcard: a preview deploy or another site works only if the user starts the daemon with <code>--allow-origin</code>.</li>
+<li><strong>Host:</strong> the <code>Host</code> header must name <code>localhost</code> or an IP address. A page reaching the daemon under another domain name (DNS rebinding) gets 403.</li>
+<li><strong>Limits:</strong> a WebSocket message or frame may be up to 1 MiB, an HTTP body up to 4 MiB (413 above that), and an HTTP request has 30 seconds. Responses carry <code>x-content-type-options: nosniff</code> and <code>referrer-policy: no-referrer</code>.</li>
+<li><strong>First message:</strong> the server sends <code>hello</code> (protocol version, status) then a <code>snapshot</code> that already holds everything on disk. Every outgoing message is validated against the schema; a breach is logged once per type and problem per five minutes.</li>
+<li><strong>Pairing a reply to a request:</strong> a request may carry <code>requestId</code>; the reply echoes it. Messages without one are matched by type.</li>
+</ul>
+<h2 id="scopes"><a class="header" href="#scopes">Scopes</a></h2>
+<p>Every client message needs one scope (<code>crates/ce-core/src/scope.rs</code>); a message above the connection’s scope is refused.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Scope</th><th>Allows</th><th>Held by</th></tr>
+</thead>
+<tbody>
+<tr><td><code>view</code></td><td>reads and subscriptions; change nothing</td><td>any connection</td></tr>
+<tr><td><code>control</code></td><td>the user’s own choices that stay on this PC: tags, notes, pins, local settings, blueprints, truth review, suggestions</td><td>a browser page</td></tr>
+<tr><td><code>admin</code></td><td>anything that opens egress (org sharing, RSI lookups), destroys data (delete, merge, cleanup, reprocess) or changes what the org sees (an officer tag)</td><td>a native client (no <code>Origin</code>); a browser page only after elevation</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Elevation:</strong> a page sends <code>auth.elevate</code>, the Companion shows a six-digit code, and the user approves it on this PC with <code>ce-companion approve &lt;code&gt;</code>. That grants that one connection <code>admin</code> for ten minutes; the request is valid for two. A script injected into an allowed site therefore cannot turn sharing on or delete a contact silently.</p>
+<h2 id="http"><a class="header" href="#http">HTTP</a></h2>
+<p>Same port, same token and Origin rules. Only GET and PUT are accepted. The machine-readable form is <code>docs/generated/http-openapi.json</code> (OpenAPI 3.1, source <code>docs/http-routes.json</code>).</p>
+<!-- generated:http-routes -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Method</th><th>Path</th><th>What</th></tr>
+</thead>
+<tbody>
+<tr><td>GET</td><td><code>/captures/:id/image</code></td><td>The screenshot</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/bundle</code></td><td>The capture bundle</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/ocr</code></td><td>The OCR result</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/annotations</code></td><td>Read annotations</td></tr>
+<tr><td>PUT</td><td><code>/captures/:id/annotations</code></td><td>Save annotations</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/rows/:row/crop</code></td><td>The raw cut of a commodity row</td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:http-routes -->
+<h2 id="control-socket"><a class="header" href="#control-socket">Control socket</a></h2>
+<p>The CLI and TUI use a local Unix socket (Windows: a named pipe) protected by filesystem permissions, and send the command tree in <code>crates/ce-cli/commands.json</code> (the reference is <code>docs/CLI.md</code>). It is not part of this protocol, but the handlers are shared, so a command and its message do the same thing.</p>
+<h2 id="client-messages"><a class="header" href="#client-messages">Client messages</a></h2>
+<p><code>Fields</code> lists every property; <code>?</code> marks an optional one. Scope is what the message needs.</p>
+<!-- generated:client-messages -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Message</th><th>Scope</th><th>Fields</th></tr>
+</thead>
+<tbody>
+<tr><td><code>auth.elevate</code></td><td>view</td><td><code>requestId</code>?</td></tr>
+<tr><td><code>blueprints.get</code></td><td>view</td><td></td></tr>
+<tr><td><code>blueprints.known</code></td><td>view</td><td><code>after</code>?, <code>faction</code>?, <code>itemType</code>?, <code>limit</code>?, <code>query</code>?, <code>requestId</code>?, <code>show</code>?, <code>system</code>?</td></tr>
+<tr><td><code>blueprints.set</code></td><td>control</td><td><code>enabled</code>?, <code>name</code></td></tr>
+<tr><td><code>capture</code></td><td>control</td><td><code>source</code>?</td></tr>
+<tr><td><code>captures.list</code></td><td>view</td><td><code>query</code></td></tr>
+<tr><td><code>captures.reprocess</code></td><td>admin</td><td><code>id</code></td></tr>
+<tr><td><code>captures.reprocess.geometry</code></td><td>admin</td><td><code>geometry</code>, <code>id</code></td></tr>
+<tr><td><code>captures.update</code></td><td>control</td><td><code>id</code>, <code>note</code>?, <code>tags</code>?</td></tr>
+<tr><td><code>combat.settings</code></td><td>control</td><td><code>settings</code>?</td></tr>
+<tr><td><code>combat.timeline</code></td><td>view</td><td><code>limit</code>?</td></tr>
+<tr><td><code>contact.correctHandle</code></td><td>control</td><td><code>corrected</code>, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.delete</code></td><td>admin</td><td><code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.lookupProfile</code></td><td>control</td><td><code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.merge</code></td><td>admin</td><td><code>corrected</code>, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.category</code></td><td>control</td><td><code>category</code>, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.chips</code></td><td>view</td><td><code>explicit</code>?, <code>org</code>?, <code>orgRole</code>?, <code>query</code>?, <code>requestId</code>?, <code>review</code>?, <code>shard</code>?, <code>source</code>?</td></tr>
+<tr><td><code>contacts.counts</code></td><td>view</td><td></td></tr>
+<tr><td><code>contacts.history</code></td><td>view</td><td><code>handle</code></td></tr>
+<tr><td><code>contacts.list</code></td><td>view</td><td><code>exact</code>?, <code>explicit</code>?, <code>limit</code>?, <code>org</code>?, <code>orgRole</code>?, <code>query</code>?, <code>requestId</code>?, <code>review</code>?, <code>shard</code>?, <code>source</code>?, <code>stance</code>?, <code>tag</code>?</td></tr>
+<tr><td><code>contacts.now</code></td><td>view</td><td><code>view</code>?</td></tr>
+<tr><td><code>contacts.pin</code></td><td>control</td><td><code>handle</code>, <code>pinned</code></td></tr>
+<tr><td><code>contacts.search</code></td><td>view</td><td><code>query</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.tag</code></td><td>control</td><td><code>handle</code>, <code>note</code>?, <code>requestId</code>?, <code>tag</code></td></tr>
+<tr><td><code>contacts.trust</code></td><td>control</td><td><code>handle</code>, <code>requestId</code>?, <code>trust</code></td></tr>
+<tr><td><code>cz.timer.start</code></td><td>control</td><td><code>key</code>, <code>startedAt</code></td></tr>
+<tr><td><code>intel.settings</code></td><td>admin</td><td><code>settings</code>?</td></tr>
+<tr><td><code>mining.watch</code></td><td>control</td><td><code>on</code></td></tr>
+<tr><td><code>org.tag</code></td><td>admin</td><td><code>handle</code>, <code>note</code>?, <code>org</code>?, <code>requestId</code>?, <code>status</code></td></tr>
+<tr><td><code>orgs.list</code></td><td>view</td><td></td></tr>
+<tr><td><code>orgs.lookup</code></td><td>control</td><td><code>force</code>?, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>orgs.refresh</code></td><td>control</td><td><code>force</code>?</td></tr>
+<tr><td><code>orgs.trust</code></td><td>control</td><td><code>sid</code>, <code>stance</code>?, <code>trust</code>?</td></tr>
+<tr><td><code>presence.list</code></td><td>view</td><td></td></tr>
+<tr><td><code>query</code></td><td>view</td><td><code>from</code>?, <code>kinds</code>?, <code>limit</code>?, <code>to</code>?</td></tr>
+<tr><td><code>sightings.confirm</code></td><td>control</td><td><code>eventId</code></td></tr>
+<tr><td><code>storage.cleanup</code></td><td>admin</td><td><code>dryRun</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>storage.configure</code></td><td>admin</td><td><code>policy</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>storage.get</code></td><td>view</td><td><code>requestId</code>?</td></tr>
+<tr><td><code>storage.protect</code></td><td>control</td><td><code>id</code>, <code>protected</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>subscribe</code></td><td>view</td><td><code>since</code>?</td></tr>
+<tr><td><code>suggestions.accept</code></td><td>control</td><td><code>id</code></td></tr>
+<tr><td><code>suggestions.bulk</code></td><td>control</td><td><code>action</code>, <code>selector</code></td></tr>
+<tr><td><code>suggestions.dismiss</code></td><td>control</td><td><code>id</code></td></tr>
+<tr><td><code>suggestions.groups</code></td><td>view</td><td><code>kind</code>?, <code>minConfidence</code>?</td></tr>
+<tr><td><code>suggestions.list</code></td><td>view</td><td><code>group</code>?, <code>status</code>?</td></tr>
+<tr><td><code>sync.now</code></td><td>admin</td><td></td></tr>
+<tr><td><code>sync.share</code></td><td>admin</td><td><code>blueprints</code>?, <code>presence</code>?, <code>sightings</code>?, <code>stock</code>?</td></tr>
+<tr><td><code>sync.status</code></td><td>view</td><td></td></tr>
+<tr><td><code>truth.confirm</code></td><td>control</td><td><code>captureId</code>, <code>confirmed</code>?, <code>requestId</code>?, <code>reviewRevision</code>?, <code>rowIndex</code>, <code>values</code>?</td></tr>
+<tr><td><code>truth.confirmed</code></td><td>view</td><td><code>limit</code>?, <code>offset</code>?, <code>requestId</code>?, <code>search</code>?</td></tr>
+<tr><td><code>truth.queue</code></td><td>view</td><td><code>aiConfirmed</code>?, <code>limit</code>?, <code>maxConfidence</code>?, <code>offset</code>?, <code>reported</code>?, <code>requestId</code>?, <code>search</code>?</td></tr>
+<tr><td><code>truth.report</code></td><td>control</td><td><code>captureId</code>, <code>notes</code>, <code>reason</code>, <code>requestId</code>?, <code>reviewRevision</code>?, <code>rowIndex</code></td></tr>
+<tr><td><code>truth.resolve</code></td><td>admin</td><td><code>captureId</code>, <code>requestId</code>?, <code>resolution</code>, <code>reviewRevision</code>?, <code>rowIndex</code></td></tr>
+<tr><td><code>truth.stats</code></td><td>view</td><td><code>requestId</code>?</td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:client-messages -->
+<h2 id="server-messages"><a class="header" href="#server-messages">Server messages</a></h2>
+<p>Replies and pushes. <code>Fields</code> as above.</p>
+<!-- generated:server-messages -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Message</th><th>Fields</th></tr>
+</thead>
+<tbody>
+<tr><td><code>alert.speak</code></td><td><code>at</code>, <code>kind</code>, <code>parts</code>, <code>severity</code>, <code>text</code></td></tr>
+<tr><td><code>auth.elevation</code></td><td><code>code</code>, <code>connection</code>, <code>expiresInS</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>auth.required</code></td><td><code>for</code>, <code>requestId</code>?, <code>scope</code></td></tr>
+<tr><td><code>auth.scope</code></td><td><code>connection</code>, <code>expiresInS</code>?, <code>scope</code></td></tr>
+<tr><td><code>background.state</code></td><td><code>engaged</code>, <code>highLoad</code>, <code>holdWhenEngaged</code>, <code>holding</code>, <code>reason</code>?, <code>until</code>?, <code>waiting</code></td></tr>
+<tr><td><code>blueprints</code></td><td><code>blueprints</code></td></tr>
+<tr><td><code>blueprints.known</code></td><td><code>counts</code>, <code>dataAvailable</code>, <code>entries</code>, <code>next</code>?, <code>requestId</code>?</td></tr>
+<tr><td><code>capture</code></td><td><code>capture</code>, <code>queue</code>?</td></tr>
+<tr><td><code>captures</code></td><td><code>captures</code>, <code>hasMore</code></td></tr>
+<tr><td><code>combat.settings</code></td><td><code>settings</code></td></tr>
+<tr><td><code>combat.timeline</code></td><td><code>sessions</code></td></tr>
+<tr><td><code>companion.update</code></td><td><code>available</code>, <code>channel</code>, <code>checkedAt</code>, <code>current</code>, <code>latest</code>?, <code>required</code></td></tr>
+<tr><td><code>contact.alert</code></td><td><code>alert</code>, <code>alertLevel</code>?, <code>at</code>, <code>entry</code>, <code>proximity</code>?</td></tr>
+<tr><td><code>contact.deleted</code></td><td><code>handleKey</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.lookupQueued</code></td><td><code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts</code></td><td><code>contacts</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.chips</code></td><td><code>counts</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.counts</code></td><td><code>counts</code></td></tr>
+<tr><td><code>contacts.history</code></td><td><code>handle</code>, <code>memberships</code>, <code>stance</code></td></tr>
+<tr><td><code>contacts.matches</code></td><td><code>contacts</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.now</code></td><td><code>entries</code>, <code>generatedAt</code>, <code>hostileWindowMinutes</code>, <code>view</code>?, <code>windowMinutes</code></td></tr>
+<tr><td><code>cz.hangar</code></td><td><code>epoch</code>, <code>fetchedAt</code>, <code>source</code></td></tr>
+<tr><td><code>cz.timers</code></td><td><code>timers</code></td></tr>
+<tr><td><code>error</code></td><td><code>message</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>event</code></td><td><code>event</code>, <code>seq</code></td></tr>
+<tr><td><code>events</code></td><td><code>events</code></td></tr>
+<tr><td><code>hello</code></td><td><code>captureShortcut</code>?, <code>companion</code>, <code>protocol</code>, <code>protocolVersion</code>?</td></tr>
+<tr><td><code>intel.settings</code></td><td><code>settings</code></td></tr>
+<tr><td><code>mining.signal</code></td><td><code>at</code>, <code>signals</code></td></tr>
+<tr><td><code>orgs</code></td><td><code>orgs</code></td></tr>
+<tr><td><code>presence</code></td><td><code>entries</code>, <code>error</code>, <code>fetchedAt</code>, <code>sharing</code>, <code>visibility</code></td></tr>
+<tr><td><code>snapshot</code></td><td><code>cursor</code>, <code>state</code></td></tr>
+<tr><td><code>storage.state</code></td><td><code>requestId</code>?, <code>state</code></td></tr>
+<tr><td><code>suggestions</code></td><td><code>suggestions</code></td></tr>
+<tr><td><code>suggestions.bulk</code></td><td><code>result</code></td></tr>
+<tr><td><code>suggestions.groups</code></td><td><code>groups</code></td></tr>
+<tr><td><code>sync.status</code></td><td><code>configured</code>, <code>epoch</code>, <code>error</code>, <code>lastPullAt</code>, <code>lastPushAt</code>, <code>lockdown</code>, <code>lockdownMode</code>, <code>needsSetup</code>, <code>pending</code>, <code>rejected</code>, <code>role</code>, <code>sharing</code>, <code>url</code></td></tr>
+<tr><td><code>system.cpu</code></td><td><code>at</code>, <code>companionMb</code>, <code>companionPercent</code>, <code>gameMb</code>, <code>gamePercent</code>, <code>gameRunning</code>, <code>history</code>, <code>relief</code>, <code>warnPercent</code>, <code>workersPercent</code></td></tr>
+<tr><td><code>truth.changed</code></td><td><code>requestId</code>?, <code>row</code>, <code>stats</code></td></tr>
+<tr><td><code>truth.confirmed</code></td><td><code>requestId</code>?, <code>rows</code>, <code>total</code></td></tr>
+<tr><td><code>truth.invalidated</code></td><td><code>captureId</code>, <code>reviewRevision</code></td></tr>
+<tr><td><code>truth.queue</code></td><td><code>items</code>, <code>requestId</code>?, <code>total</code></td></tr>
+<tr><td><code>truth.stats</code></td><td><code>requestId</code>?, <code>stats</code></td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:server-messages -->
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>Worked examples with realistic values and what each field holds (<code>docs/examples/protocol-examples.json</code>; each is validated against the schema by a test). The full machine-readable contract, with these examples attached to their messages, is <code>docs/generated/asyncapi.json</code> (AsyncAPI 3.0).</p>
+<!-- generated:message-examples -->
+<h3 id="client-messages-1"><a class="header" href="#client-messages-1">Client messages</a></h3>
+<p><strong><code>subscribe</code>: Start the live feed after the last event you have</strong></p>
+<p><code>since</code> is the <code>seq</code> of the last <code>event</code> you received (the <code>cursor</code> of the snapshot on first connect). Omit it to get only new events.</p>
+<pre><code class="language-json">{
+  "type": "subscribe",
+  "since": 18342
+}
+</code></pre>
+<p><strong><code>contacts.list</code>: Hostile contacts seen in chat, first 25</strong></p>
+<p><code>stance</code> filters on the decided stance (<code>kos</code> and <code>hostile</code> both count unless <code>exact</code>); <code>source</code> is where the player was seen; <code>requestId</code> comes back on the reply.</p>
+<pre><code class="language-json">{
+  "type": "contacts.list",
+  "stance": "hostile",
+  "source": "chat",
+  "limit": 25,
+  "requestId": "r-101"
+}
+</code></pre>
+<p><strong><code>contacts.now</code>: Who is near me now</strong></p>
+<p><code>view</code>: <code>here</code> (nearby in 15 minutes), <code>shared</code> (same shard, 2 hours) or <code>all</code>. Leave it out for the configured window.</p>
+<pre><code class="language-json">{
+  "type": "contacts.now",
+  "view": "here"
+}
+</code></pre>
+<p><strong><code>contacts.tag</code>: Mark a player hostile, with a note</strong></p>
+<p>A personal tag stays on this PC. <code>tag</code> is <code>kos</code>, <code>hostile</code>, <code>wary</code>, <code>neutral</code>, <code>friendly</code>, <code>ally</code> or <code>null</code> to clear it. <code>note</code> is free text up to 500 characters.</p>
+<pre><code class="language-json">{
+  "type": "contacts.tag",
+  "handle": "Void_Runner-7",
+  "tag": "hostile",
+  "note": "Pulled a gun at Port Tressler",
+  "requestId": "r-102"
+}
+</code></pre>
+<p><strong><code>contacts.tag</code>: Clear the tag</strong></p>
+<pre><code class="language-json">{
+  "type": "contacts.tag",
+  "handle": "Void_Runner-7",
+  "tag": null
+}
+</code></pre>
+<p><strong><code>contacts.category</code>: How you know someone</strong></p>
+<p><code>category</code> is one of <code>my-org</code>, <code>org-affiliate</code>, <code>alliance</code>, <code>friend</code>, <code>frequent-party</code>, <code>mission-partner</code>, <code>encountered</code>, <code>stranger</code>, or <code>null</code> to go back to the Companion’s own decision.</p>
+<pre><code class="language-json">{
+  "type": "contacts.category",
+  "handle": "Quiet_Trader",
+  "category": "friend"
+}
+</code></pre>
+<p><strong><code>org.tag</code>: An officer’s org tag</strong></p>
+<p>Needs <code>admin</code> (a native client, or a page after <code>ce-companion approve</code>) and an officer role on the Hub. <code>org</code> is the SID the tag applies to; leave it out for your main org. The tag is shared with the org.</p>
+<pre><code class="language-json">{
+  "type": "org.tag",
+  "handle": "Void_Runner-7",
+  "status": "hostile",
+  "org": "SIXTHWATCH",
+  "note": "Interdicted two members",
+  "requestId": "r-103"
+}
+</code></pre>
+<p><strong><code>contact.delete</code>: Delete a contact</strong></p>
+<p>Needs <code>admin</code>. Removes the contact’s rows and suppresses the name so it is not re-created.</p>
+<pre><code class="language-json">{
+  "type": "contact.delete",
+  "handle": "Misread_Name",
+  "requestId": "r-104"
+}
+</code></pre>
+<p><strong><code>suggestions.accept</code>: Accept one suggestion</strong></p>
+<p><code>id</code> is the suggestion’s <code>id</code> from <code>suggestions.list</code>.</p>
+<pre><code class="language-json">{
+  "type": "suggestions.accept",
+  "id": "sug-8f3a2c1d"
+}
+</code></pre>
+<p><strong><code>truth.confirm</code>: Confirm a commodity row with a corrected price</strong></p>
+<p><code>rowIndex</code> counts from 0 in the terminal listing. Send <code>reviewRevision</code> from the queue item: a stale revision (the capture was reprocessed) is rejected. <code>values</code> holds only what you corrected; prices are whole aUEC per SCU.</p>
+<pre><code class="language-json">{
+  "type": "truth.confirm",
+  "captureId": "C-261125-214310-482",
+  "rowIndex": 3,
+  "reviewRevision": 2,
+  "values": {
+    "commodity": "Laranite",
+    "pricePerScu": 2870,
+    "quantityScu": 412,
+    "status": "Medium Demand"
+  },
+  "requestId": "r-105"
+}
+</code></pre>
+<p><strong><code>sync.share</code>: Share confirmed sightings and presence, not stock or blueprints</strong></p>
+<p>Needs <code>admin</code>. <code>sightings</code> is <code>off</code>, <code>confirmed</code> or <code>auto</code>; the others are on/off. Fields you leave out stay as they are.</p>
+<pre><code class="language-json">{
+  "type": "sync.share",
+  "sightings": "confirmed",
+  "presence": true,
+  "stock": false,
+  "blueprints": false
+}
+</code></pre>
+<p><strong><code>blueprints.set</code>: Say you have a blueprint the log did not report</strong></p>
+<p><code>name</code> is the blueprint’s name as the game shows it; the Companion matches it case-insensitively. <code>enabled: false</code> says you do not have it.</p>
+<pre><code class="language-json">{
+  "type": "blueprints.set",
+  "name": "P4-AR Rifle",
+  "enabled": true
+}
+</code></pre>
+<p><strong><code>storage.cleanup</code>: Preview the storage cleanup</strong></p>
+<p>Needs <code>admin</code>. <code>dryRun: true</code> changes nothing and returns what would be reduced or expired.</p>
+<pre><code class="language-json">{
+  "type": "storage.cleanup",
+  "dryRun": true,
+  "requestId": "r-106"
+}
+</code></pre>
+<p><strong><code>auth.elevate</code>: Ask for admin on this connection</strong></p>
+<p>The Companion answers with <code>auth.elevation</code> (a six-digit code); the user then runs <code>ce-companion approve &lt;code&gt;</code> on this PC.</p>
+<pre><code class="language-json">{
+  "type": "auth.elevate",
+  "requestId": "r-107"
+}
+</code></pre>
+<h3 id="server-messages-1"><a class="header" href="#server-messages-1">Server messages</a></h3>
+<p><strong><code>error</code>: A request failed</strong></p>
+<p><code>requestId</code> echoes the request, when it had one.</p>
+<pre><code class="language-json">{
+  "type": "error",
+  "message": "unknown contact: Nobody_Here",
+  "requestId": "r-102"
+}
+</code></pre>
+<p><strong><code>auth.required</code>: The connection needs a higher scope</strong></p>
+<p><code>for</code> is the message type that was refused and <code>scope</code> what it needs.</p>
+<pre><code class="language-json">{
+  "type": "auth.required",
+  "for": "sync.share",
+  "scope": "admin",
+  "requestId": "r-108"
+}
+</code></pre>
+<p><strong><code>auth.elevation</code>: Approve this on the PC</strong></p>
+<p><code>code</code> is shown to the user, who runs <code>ce-companion approve &lt;code&gt;</code>. <code>connection</code> identifies this socket; <code>expiresInS</code> is how long the code is valid (120).</p>
+<pre><code class="language-json">{
+  "type": "auth.elevation",
+  "connection": 7,
+  "code": "483920",
+  "expiresInS": 120,
+  "requestId": "r-107"
+}
+</code></pre>
+<p><strong><code>auth.scope</code>: The connection holds admin for ten minutes</strong></p>
+<pre><code class="language-json">{
+  "type": "auth.scope",
+  "connection": 7,
+  "scope": "admin",
+  "expiresInS": 600
+}
+</code></pre>
+<p><strong><code>sync.status</code>: Org sync set up and healthy</strong></p>
+<p><code>pending</code> are outbox entries not yet sent, <code>rejected</code> those the Hub refused. <code>lastPullAt</code> and <code>lastPushAt</code> are ISO times. <code>role</code> is the Hub’s view of you. <code>sharing</code> shows the four switches.</p>
+<pre><code class="language-json">{
+  "type": "sync.status",
+  "configured": true,
+  "url": "https://hub.example.org",
+  "role": "member",
+  "lastPullAt": "2026-11-28T10:41:07.000Z",
+  "lastPushAt": "2026-11-28T10:41:06.000Z",
+  "pending": 0,
+  "rejected": 1,
+  "epoch": "e-2026-11-20",
+  "lockdown": false,
+  "lockdownMode": "off",
+  "needsSetup": false,
+  "error": null,
+  "sharing": {
+    "sightings": "confirmed",
+    "stock": false,
+    "presence": true,
+    "blueprints": false
+  }
+}
+</code></pre>
+<p><strong><code>sync.status</code>: Sync not set up</strong></p>
+<pre><code class="language-json">{
+  "type": "sync.status",
+  "configured": false,
+  "url": null,
+  "role": null,
+  "lastPullAt": null,
+  "lastPushAt": null,
+  "pending": 0,
+  "rejected": 0,
+  "epoch": null,
+  "lockdown": false,
+  "lockdownMode": "off",
+  "needsSetup": true,
+  "error": null,
+  "sharing": {
+    "sightings": "confirmed",
+    "stock": false,
+    "presence": true,
+    "blueprints": false
+  }
+}
+</code></pre>
+<p><strong><code>contact.deleted</code>: A contact was deleted</strong></p>
+<p><code>handleKey</code> is the lowercase handle, the key every contact table uses.</p>
+<pre><code class="language-json">{
+  "type": "contact.deleted",
+  "handleKey": "misread_name",
+  "requestId": "r-104"
+}
+</code></pre>
+<p><strong><code>cz.timers</code>: Two running timers</strong></p>
+<p><code>startedAt</code> is unix milliseconds; <code>key</code> names the timer.</p>
+<pre><code class="language-json">{
+  "type": "cz.timers",
+  "timers": [
+    {
+      "key": "cz-ruin-station",
+      "startedAt": 1795859000000
+    }
+  ]
+}
+</code></pre>
+<p><strong><code>companion.update</code>: A newer version is available</strong></p>
+<pre><code class="language-json">{
+  "type": "companion.update",
+  "current": "0.1.0",
+  "latest": "0.1.1",
+  "available": true,
+  "required": false,
+  "channel": "production",
+  "checkedAt": 1795859000000
+}
+</code></pre>
+<p><strong><code>background.state</code>: Background work paused while the game is busy</strong></p>
+<p><code>waiting</code> is the number of queued jobs; <code>until</code> an ISO time when the hold ends, when known.</p>
+<pre><code class="language-json">{
+  "type": "background.state",
+  "engaged": true,
+  "highLoad": false,
+  "holdWhenEngaged": true,
+  "holding": true,
+  "waiting": 12,
+  "reason": "in combat",
+  "until": "2026-11-28T10:50:00.000Z"
+}
+</code></pre>
+<!-- /generated:message-examples -->
+<h2 id="families"><a class="header" href="#families">Families</a></h2>
+<ul>
+<li><strong>Capture and truth:</strong> <code>capture</code>, <code>captures.*</code> (list, update, reprocess), <code>truth.*</code> (queue, confirmed, confirm, stats, report, resolve; <code>truth.changed</code> and <code>truth.invalidated</code> are pushed). Reprocessing deletes that capture’s confirmations (admin).</li>
+<li><strong>Contacts:</strong> <code>contacts.*</code> and <code>contact.*</code>. Lists, filters, chip counts and views are decided here; a page renders them.</li>
+<li><strong>Orgs and suggestions:</strong> <code>orgs.*</code>, <code>org.tag</code> (an officer tag that is then shared; admin), <code>suggestions.*</code> (<code>suggestions.groups</code> returns the grouped, ordered, counted inbox).</li>
+<li><strong>Blueprints:</strong> <code>blueprints.get</code> (what the user has, with <code>ownedFrom</code>), <code>blueprints.set</code> (the user’s own switch), <code>blueprints.known</code> (the game’s published list with who has each and the missions that unlock them; a paged read).</li>
+<li><strong>Sync:</strong> <code>sync.status</code>, <code>sync.now</code>, <code>sync.share</code> (admin: org sharing switches).</li>
+<li><strong>State pushes:</strong> <code>event</code>, <code>contacts</code>, <code>contacts.now</code>, <code>contact.alert</code>, <code>alert.speak</code>, <code>background.state</code>, <code>presence</code>, <code>system.cpu</code>, <code>sync.status</code>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="INDEX.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="CLI.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="INDEX.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="CLI.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-53b67c53.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Daemon - Citizen&#x27;s Edge Companion</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="The Companion&#x27;s WebSocket API, command line, database and org sync">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-6f07f20f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-ea0de5d2.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Citizen&#x27;s Edge Companion</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/bevancoleman/Citizens.Edge.Companion.Releases" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="the-rust-core-daemon-ce-companion-__daemon"><a class="header" href="#the-rust-core-daemon-ce-companion-__daemon">The Rust core daemon (<code>ce-companion __daemon</code>)</a></h1>
+<p><code>ce-companion start --sc-dir &lt;Star Citizen LIVE&gt; [--data-dir D] [--port 47823] [--host 127.0.0.1] [--allow-origin O] [--web-url U] [--data-url U] [--ocr-model small|medium] [--ocr-threads N] [--no-hotkey] [--no-lookups]</code></p>
+<p>The whole Companion core in one process: it tails Game.log into the SQLite store and the live state, serves the live protocol over
+WebSocket, takes and reads screenshots, answers the control socket for the Rust CLI and TUI, and runs contacts, org sync, RSI lookups,
+commodity truth review, combat, notifications and the CPU card. It uses the same <code>companion.db</code>, <code>token</code> file and port as the Node core, so run
+<strong>one or the other</strong> on a data dir: a live control socket for the data dir stops a second core starting.</p>
+<p>Flags for tests and cautious runs: <code>--no-hotkey</code> skips the desktop portal binding (the first bind shows a dialog), <code>--no-lookups</code> never starts
+the RSI queue. Environment: <code>CE_CREDENTIAL_STORE=file</code> keeps the org sync key out of the OS keyring, <code>CE_NOTIFY=off</code> plays no sound and shows no
+pop-up, <code>CE_FILE_LOG=off</code>, <code>CE_LOG_MAX_MB</code>, <code>CE_LOG_FILES</code> as in the Node core.</p>
+<h2 id="crates"><a class="header" href="#crates">Crates</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Crate</th><th>What it is</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ce-core</code></td><td>the <code>ce-companion</code> executable and the daemon library: <code>core</code> (store + state + tailer), <code>server</code> (WebSocket hub), <code>http</code>, <code>control</code> (socket), <code>capture</code> (worker), <code>runtime</code> (contacts, sync, RSI, presence, alerts, handlers), <code>intel</code> (the contacts intelligence service), <code>truth</code> and <code>truth_rows</code>, <code>combat</code>, <code>notify</code>, <code>status</code>, <code>cpu</code>, <code>game</code>, <code>ships</code>, <code>data</code>, <code>diagnostics</code>, <code>commands*</code></td></tr>
+<tr><td><code>ce-sync</code></td><td>org sync above the store: derived org state, ratings, the <code>[KOS]</code> wire encoding, the opt-in outbox, the Worker’s HTTP client (retries, epoch reset, batches), presence, key storage (libsecret, Windows Credential Manager, a 0600 file) and the sync service</td></tr>
+<tr><td><code>ce-rsi</code></td><td>RSI page parsers, the polite cached client (one request at a time, at least 1 s apart), profile and org lookups, handle probes (OCR confusables) and the background lookup queue</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What it does</a></h2>
+<p><strong>Start-up:</strong> open the store, ingest log backups not seen yet, restore the live state from its snapshot plus newer events, resume the tailer
+from its checkpoint, <strong>catch up to the end of Game.log</strong>, then start the capture worker, the contacts runtime and the control socket, bind and
+print the <code>/live</code> link. A client that connects gets a snapshot that already holds everything on disk.</p>
+<p><strong>Live protocol:</strong> token and Origin checks, <code>hello</code>, <code>snapshot</code>, live <code>event</code>, <code>subscribe</code> replay, <code>query</code>; the capture messages
+(<code>capture</code>, <code>captures.list</code>, <code>captures.update</code>, <code>captures.reprocess</code>); contacts (<code>contacts.now|counts|pin|category|trust|history|list|search|tag</code>,
+<code>contact.lookupProfile|correctHandle|merge|delete</code>), orgs (<code>orgs.list|refresh|lookup|trust</code>, <code>org.tag</code>), <code>suggestions.*</code>, <code>intel.settings</code>,
+<code>presence.list</code>, <code>sync.status|now|share</code>, <code>sightings.confirm</code>, <code>combat.timeline|settings</code>, <code>truth.queue|confirmed|confirm|stats|report|resolve</code>.
+Pushes: <code>contacts</code>, <code>contacts.now</code>, <code>contact.alert</code>, <code>alert.speak</code> (an alert worth saying aloud, in parts, for the UI to speak: the daemon no longer speaks), <code>background.state</code> (whether the player is engaged and the Companion is holding its background reads, why, until when and how many are waiting: sent when it changes and on connect; a UI shows it so a hold is never silent), <code>contact.deleted</code>, <code>contacts.counts</code>, <code>presence</code>, <code>suggestions</code>, <code>sync.status</code>,
+<code>truth.changed</code>, <code>system.cpu</code>. Every outgoing message is validated against the exported protocol schema; a breach is logged once per type and
+problem per five minutes.</p>
+<p><strong>HTTP:</strong> <code>/captures/:id/image|bundle|ocr|annotations</code> (GET, PUT for annotations) and <code>/captures/:id/rows/:n/crop</code> (the raw row cut; the upright
+rectified cut needs OpenCV and the Node route falls back to the raw cut too), with the WebSocket’s token and Origin rules.</p>
+<p><strong>Capture path:</strong> the portal hotkey, the <code>capture</code> request and <code>ce-companion capture [import &lt;file&gt;]</code> queue a screenshot. One worker thread grabs
+through the gated KWin provider (no desktop fallback; an optional local ONNX privacy classifier vetoes the capture, and a configured one that cannot load refuses it), writes the <code>processing</code> sidecar, reads it, stores the events and pushes the result. A live HUD read leaves the canopy area and the colour
+passes to a background completion (the result is <code>deferred</code>), reads speculatively within two minutes of a HUD capture (a speculative read that turns
+out to be another screen retracts its contacts), and a kiosk gets a background read with every voter. Live captures run before background work and
+never preempt a running read. The OCR engine loads on first use and unloads after five idle minutes. It runs on the capture thread, which is lowered to nice 10 (I/O best-effort level 7) before the engine loads so that ONNX Runtime’s threads inherit it and the game keeps the CPU (<code>ce-core/src/priority.rs</code>; <code>CE_OCR_NICE=&lt;0-19&gt;</code> or <code>off</code>; Linux only).</p>
+<p><strong>Contacts, sync and RSI:</strong> a store connection per background job (WAL + a 5 s busy timeout), never the core’s lock held across the network. The org
+sync loop runs every 60 s; RSI lookups follow the Node queue’s rules (2 s spacing, 300 per hour, exponential backoff, forced lookups first). A
+hostile or KOS contact seen in the window raises one alert per level per session, pushed to clients and through the notification channels (audio
+and desktop; plans for Linux, macOS and Windows, run detached at <code>nice 19</code>). A stance change recomputes only the handles concerned and re-evaluates
+their recent target captures.</p>
+<p><strong>Build-time downloads (nothing is fetched while the Companion runs):</strong> ONNX Runtime is linked into the executable (<code>ort</code> <code>download-binaries</code>, cached in
+<code>~/.cache/ort.pyke.io</code>). The PP-OCR V6 models are pinned by sha256 in <code>models.lock.json</code>; <code>cargo build</code> downloads the small model itself (ce-recognizer/build.rs; <code>CE_OFFLINE=1</code> skips it); <code>cargo run --release -p ce-core --bin fetch-models</code> puts them
+in <code>models/</code>, the small model is then compiled into the executable (<code>CE_REQUIRE_BUNDLED_MODELS=1</code> makes a missing file a build error), and the medium
+one is packaged in a <code>models/</code> folder beside it (development falls back to <code>~/.cache/ppu-paddle-ocr</code>; <code>CE_OCR_MODELS_DIR</code> overrides). The reference data
+(<code>ce-core/data/reference.json</code>) is committed. CI caches the cargo registry and target, the ONNX Runtime binaries and the models. <code>models</code> shows where each size
+comes from.</p>
+<p><strong>Control socket:</strong> <code>status</code>, <code>capture</code>, <code>captures</code>, <code>contacts</code>, <code>tag</code>, <code>now</code>, <code>category</code>, <code>lookup</code>, <code>orgs</code>, <code>suggestions</code>, <code>sync</code>, <code>combat</code>,
+<code>notify</code>, <code>truth queue|confirm|unconfirm|report|reports|resolve|crop|stats</code>, <code>logs</code>, <code>backfill [--captures] [--geometry on|off]</code>, <code>ocr-report [--quality [--truth &lt;file&gt;|confirmed] [--baseline &lt;report&gt;]]</code>, <code>annotations export</code>, <code>models</code>, <code>truth export|import|check|corpus|history</code>.
+The printed lines equal the Node CLI’s (<code>commands-check.mjs</code> compares them on a copy of the real database).</p>
+<p><strong>Diagnostics:</strong> <code>&lt;dataDir&gt;/logs/companion.log</code> (JSON lines, rotated by size), redaction of tokens and keys before anything is written, a panic hook
+that writes <code>crash-&lt;time&gt;-&lt;component&gt;.json</code> (message, source location, backtrace, a fingerprint and the last 20 log entries; the newest 10
+kept), <code>status.recentCrash</code>.</p>
+<p><strong>Crash reports:</strong> every executable (<code>ce-companion</code>, its TUI, <code>ce-overlay</code>) installs the hook through the <code>ce-crash</code> crate; paths under the home
+folder are shown as <code>~</code>. The next terminal run prints a one-line hint when a crash has not been looked at. <code>ce-companion report</code> shows the newest
+one and, only when you answer yes (or pass <code>--open</code>), opens a prefilled GitHub issue in the browser: <code>--print</code> shows the link instead, <code>--list</code>
+every record, <code>--file &lt;name&gt;</code> a particular one, <code>--dismiss</code> stops the hint, <code>--repo owner/name</code> (or <code>CE_REPORT_REPO</code>) files elsewhere. Issues go to
+the public releases repository (the Companion’s own is private). The program sends nothing and holds no token: you review the form and press
+Submit. The link is cut to fit a URL; the complete report is saved as <code>logs/report-&lt;fingerprint&gt;.md</code> to attach. The fingerprint (component,
+message without digits, source file) lets repeats be recognised. Native crashes (segfaults, GPU drivers) are not covered yet: that needs a
+minidump handler.</p>
+<h2 id="geometry-reader-and-the-golden-set"><a class="header" href="#geometry-reader-and-the-golden-set">Geometry reader and the golden set</a></h2>
+<p>Kiosk captures are read by the geometry-first reader (<code>ce-rectify</code>, <code>ce-pipeline/src/geometry.rs</code>): the theme is classified, the panel localised
+(accent frame, observed edges, anchor snap), warped upright at 2x, re-straightened from its own lines, its dividers found, and the grid read cell by
+cell (else a checked text read of the same panel); the table lines go back through the normal parse. It is pure Rust: the OpenCV operations it needs
+are re-implemented after OpenCV’s own algorithms (<code>ce-rectify/src/cv.rs</code>). <code>&lt;dataDir&gt;/ocr-settings.json</code> <code>{"ocr": {"geometryReader": true|false|"auto"}}</code>
+is read for every capture (unset = on); <code>captures.reprocess.geometry {id, geometry}</code> and <code>backfill --captures --geometry on|off</code> override it for one
+run. The trace is <code>commodity.geometry</code> in the sidecar.</p>
+<p><code>truth export|import|check|corpus|history</code> work on the same <code>tests/golden</code> folder as the Node CLI (labels, <code>baseline.json</code>, <code>history.jsonl</code> and the
+corpus manifest are byte-compatible). The check reads the cases on the capture worker: the fast tier is the OCR over each crop, the full tier the whole
+pipeline (voters and geometry reader) over scratch copies of the originals. On the repo’s 78 golden cases the full tier scores 100% on every field,
+as the Node core does.</p>
+<h2 id="not-in-the-rust-core-yet"><a class="header" href="#not-in-the-rust-core-yet">Not in the Rust core yet</a></h2>
+<ul>
+<li><code>backfill --captures --deep</code> and <code>truth check --deep</code> (the Florence-2 deep reader is not ported; there is no Tesseract reader either).</li>
+<li>Incremental staged publication of a live HUD read (the result is published once the aim, target and chat areas are read, not area by area).</li>
+<li>The supervisor lock hand-off, the main-loop and work-queue figures of <code>status</code> (there is no event loop to measure).</li>
+<li>Windows: the capture provider, the CPU figures, the CI leg (the <code>ce-ocr</code> spike uses Linux-only libc calls) and the Velopack updater run.</li>
+<li>Rust-native replacements for the end-to-end checks the Node tree used to provide (below): the daemon is covered by crate tests and the golden gate.</li>
+</ul>
+<h2 id="parity-checks-history"><a class="header" href="#parity-checks-history">Parity checks (history)</a></h2>
+<p>The Node tree was removed in stage 6. While it existed, <code>.mjs</code> scripts compared the Rust core with it on scratch copies of real data (WebSocket replay, capture reprocessing, contacts/sync handlers, truth queue, printed command lines, golden-set commands) and <code>(removed)/bench.py</code> benchmarked the two; the results are in <code>rust/baselines/</code>. Both the scripts and the Node implementation are at the tag <code>node-parity-oracle</code>.</p>
+<h2 id="one-executable-three-modes"><a class="header" href="#one-executable-three-modes">One executable, three modes</a></h2>
+<p><code>ce-companion</code> is the only binary a user runs.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>What runs</th></tr>
+</thead>
+<tbody>
+<tr><td><code>start</code>, or no arguments</td><td>The Companion and, on a terminal, its live view, in one process. The Companion runs on its own thread; the view is a client of its control socket on the main thread; leaving the view stops the Companion. <code>--no-ui</code>, or stdin/stdout not a terminal, runs it headless with plain logs.</td></tr>
+<tr><td><code>daemon</code></td><td>The Companion headless, for a service, systemd unit or autostart entry. <code>--supervise</code> (Linux) wraps it in the supervisor: <code>ce-companion daemon</code> is spawned as a child, restarted after a crash, SIGINT/SIGTERM forwarded, crashes logged to <code>logs/supervisor.log</code>.</td></tr>
+<tr><td><code>client</code> (alias <code>tui</code>)</td><td>The live view of a Companion that is already running, over the control socket.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The view (<code>ce-cli/src/tui.rs</code>) is a console, not just a status display: status panes on tall terminals, a scrolling feed (the Companion’s log lines, finished captures and events, polled from the hidden <code>feed --since &lt;seq&gt;</code> control command), and a prompt. Typed commands go to the Companion over the control socket on their own thread and their output lands in the feed. Prompt: <code>help [command]</code>, <code>clear</code>, <code>quit</code>; Tab completes commands, subcommands and flags; Up/Down is history (<code>&lt;data dir&gt;/prompt-history.txt</code>); PgUp/PgDn scroll the feed, Ctrl-End returns to live; Ctrl-C clears the line, then quits on an empty one. <code>start</code>, <code>daemon</code>, <code>client</code> and <code>update</code> run outside the view.</p>
+<p>Every other command talks to the running Companion over the control socket; the read-only ones also run with none. One Companion per data dir (an <code>flock</code> on <code>companion.lock</code>; under <code>--supervise</code> the supervisor holds it for the child). <code>--core &lt;exe&gt;</code> / <code>CE_CORE</code> run another executable under <code>--supervise</code> (the tests do). A Windows updater swaps the one file after stopping the process.</p>
+<h2 id="with-no-companion-running"><a class="header" href="#with-no-companion-running">With no Companion running</a></h2>
+<p>The read-only commands listed in <code>CLAUDE.md</code> run in the calling process (<code>offline.rs</code>): the store is opened as the daemon would open it, the command’s handler runs, the answer is printed as usual (<code>status</code> says the Companion is not running). Opening ingests Game.log backups not yet seen, as the daemon does at start. Commands that change data, use the network or need live state print “the Companion is not running”.</p>
+<h2 id="finding-star-citizen"><a class="header" href="#finding-star-citizen">Finding Star Citizen</a></h2>
+<p><code>--sc-dir</code> (alias <code>--log</code>), then <code>CE_SC_DIR</code>, then the first existing of the usual install places (<code>/mnt/games/star-citizen/star-citizen</code>, <code>~/Games/star-citizen</code>, <code>~/Games/star-citizen/star-citizen</code>, <code>~/Games/star-citizen-live</code>, <code>~/.wine</code>, each under <code>drive_c/Program Files/Roberts Space Industries/StarCitizen/LIVE</code>; on Windows <code>C:\Program Files\Roberts Space Industries\StarCitizen\LIVE</code>). If none exists the daemon lists what it tried. Commands that read the store do not need the folder.</p>
+<h2 id="contact-links-alts-and-renames"><a class="header" href="#contact-links-alts-and-renames">Contact links (alts and renames)</a></h2>
+<p><code>contact_links</code> (ce-store) holds one row per link between two contacts: <code>handle_key</code>, <code>linked_key</code>, <code>link_kind</code> (<code>alt</code>, <code>same</code>, <code>renamed</code> = <code>handle_key</code> was renamed to <code>linked_key</code>), <code>link_source</code> (<code>manual</code>/<code>suggested</code>), <code>confidence</code>, <code>reasons</code>, <code>linked_at</code>. Local only, never synced. Each handle stays its own contact (own RSI profile, orgs, sightings); a group is whatever you reach following links either way.</p>
+<ul>
+<li><code>contacts link &lt;handle&gt; &lt;handle&gt; [--kind alt|same|renamed]</code>, <code>contacts unlink &lt;handle&gt; &lt;handle&gt;</code>, <code>contacts aliases &lt;handle&gt;</code> (the last also works with no Companion running).</li>
+<li><strong>Only warnings travel.</strong> A contact with no stance of its own takes the worst of <code>wary</code>/<code>hostile</code>/<code>kos</code> tagged on a linked handle (<code>intel.stanceSource</code> = <code>linked</code>, <code>intel.linkedStance</code> = <code>{stance, via}</code>); <code>friendly</code>/<code>neutral</code>/<code>ally</code> are never passed on, so a wrong link can make a contact look more dangerous, never safer. An own tag (or org tag) always wins. The same rule feeds the stance counts.</li>
+<li>The contact view lists the group in <code>intel.linked</code> (protocol 1.15.0, additive); <code>contacts</code> lines show <code>also:&lt;handles&gt;</code>.</li>
+<li>Deleting a contact removes its links; folding a misread into the real handle moves its links.</li>
+</ul>
+<h2 id="stances-and-alerts-hostile-wary-kos"><a class="header" href="#stances-and-alerts-hostile-wary-kos">Stances and alerts: hostile, wary, KOS</a></h2>
+<p><code>kos</code> and <code>hostile</code> are hostile: the friend-or-foe rank <code>hostile</code>, “turned hostile”, hostile-org suggestions and the combat target flag all key off <code>is_hostile_stance</code> (ce-contacts). <code>wary</code> is a lesser warning for a contact to watch (a PvP group such as ZAP, say), not a threat:</p>
+<ul>
+<li>rank <code>wary</code> (sorts just below <code>hostile</code> on the “now” list and keeps the hostile window), alert level <code>wary</code>, notification kind <code>wary-sighted</code> (severity <code>info</code>, so a softer sound; spoken as “Wary, &lt;handle&gt;”). It is on by default and has its own switches: <code>notify set wary on|off</code>, <code>notify set desktop-wary on|off</code>, <code>notify test --kind wary</code>.</li>
+<li>a wary alert fires once per level: a wary contact who later turns hostile alerts again as hostile.</li>
+<li>a wary tag (or a wary org) still lowers trust, like a hostile one (<code>is_warning_stance</code>).</li>
+<li>the org sync wire carries <code>wary</code> as a hostile status with a <code>[WARY]</code> note marker (unchanged), so older Workers keep working.</li>
+</ul>
+<h2 id="who-may-do-what-scopes"><a class="header" href="#who-may-do-what-scopes">Who may do what (scopes)</a></h2>
+<p>Every WebSocket message needs one of three scopes (<code>crates/ce-core/src/scope.rs</code> lists them):</p>
+<ul>
+<li><strong>view</strong>: reads and subscriptions.</li>
+<li><strong>control</strong>: the user’s own choices that stay on this PC (tags, notes, pins, local settings, blueprints, truth review).</li>
+<li><strong>admin</strong>: anything that opens egress (<code>sync.share</code>, <code>intel.settings</code>, <code>sync.now</code>, <code>org.tag</code>), destroys data (<code>contact.delete</code>, <code>contact.merge</code>, <code>storage.configure</code>, <code>storage.cleanup</code>, <code>captures.reprocess*</code>, <code>truth.resolve</code>).</li>
+</ul>
+<p>A native client (the overlay, the TUI: no <code>Origin</code> header) was started by the user on this PC and holds <strong>admin</strong>. A browser page holds <strong>control</strong>. A page that needs an admin action gets <code>auth.required { for, scope }</code>, sends <code>auth.elevate</code>, and receives <code>auth.elevation { code, expiresInS }</code>. The user approves on this PC with <code>ce-companion approve [code]</code> (the control socket, which only a process that can read the token reaches); the daemon then broadcasts <code>auth.scope { connection, scope: "admin", expiresInS }</code> and that connection keeps admin for ten minutes. Each connection is told its own id and scope right after <code>hello</code> (<code>auth.scope</code>).</p>
+<p>A page offers the token as the WebSocket subprotocol <code>ce.token.&lt;token&gt;</code> (a browser cannot set headers on a WebSocket) instead of <code>?token=</code> in the URL, where it ends up in history and logs. <code>?token=</code> still works for older pages and will be removed once the web app has moved (protocol 1.42.0).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ORG-SYNC.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ORG-SYNC.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-53b67c53.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,892 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Database - Citizen&#x27;s Edge Companion</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="The Companion&#x27;s WebSocket API, command line, database and org sync">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-6f07f20f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-ea0de5d2.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Citizen&#x27;s Edge Companion</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/bevancoleman/Citizens.Edge.Companion.Releases" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="companion-database"><a class="header" href="#companion-database">Companion database</a></h1>
+<p>The Companion keeps everything in one SQLite file, <code>companion.db</code>, in its data folder (Linux <code>~/.local/share/citizens-edge-companion/</code>, Windows <code>%LOCALAPPDATA%\CitizensEdgeCompanion</code>). Only the running Companion writes to it (the <code>ce-store</code> crate). <code>status</code>, <code>captures</code>, <code>logs</code>, <code>ocr-report</code>, <code>models</code>, <code>contacts aliases</code> and <code>truth stats|queue|history</code> can read it with the Companion stopped. The Hub has its own database: <code>Citizens.Edge.Org/docs/DATABASE.md</code>. How the two connect: <code>docs/DB-API-REPORT.md</code>.</p>
+<p>This is schema version 4, with 32 tables and 42 indexes. The schema as SQLite stores it is <code>docs/generated/companion-schema.sql</code>, made by <code>cargo run -p ce-core --bin docgen</code>; CI fails if it is out of date. A test fails if a table or column is missing from this page, so change this page in the same PR as a table. Findings and measurements are in <code>DB-API-AUDIT.md</code> and <code>DB-API-REPORT.md</code>.</p>
+<h2 id="versioning"><a class="header" href="#versioning">Versioning</a></h2>
+<p>The version is stored in SQLite’s <code>user_version</code> (<code>crates/ce-store/src/schema_version.rs</code>).</p>
+<ul>
+<li><strong>Version 1</strong> is the original set of tables, created when the store opens. A file with no version is brought to version 1.</li>
+<li><strong>Later versions</strong> are entries in <code>MIGRATIONS</code>. They are only ever added, applied in order, each in a transaction that also records the version. Never change one that has shipped.</li>
+<li><strong>A newer file is refused.</strong> An older Companion will not open a store written by a newer one.</li>
+<li><strong>Version 2:</strong> <code>contact_seen</code> (a copy of four <code>contact_events</code> columns) was merged into <code>contact_events</code> and dropped.</li>
+<li><strong>Version 3:</strong> <code>CHECK</code> constraints on three columns with a fixed set of values: <code>sync_outbox.status</code>, <code>contact_suggestions.status</code> and <code>contact_links.link_kind</code>. Each table is rebuilt with its rows and indexes. A value outside the set is changed to <code>rejected</code>, <code>stale</code> or <code>alt</code> first, so no row is lost. Tested on a copy of a real store: every row count was the same afterwards.</li>
+<li><strong>Version 4:</strong> HTML entities in names read from RSI (<code>W&amp;ouml;lfe</code>, <code>DraXon&amp;trade;</code>, <code>Alor&amp;amp;amp;rsquo;ad</code>) are decoded in <code>org_memberships</code>, <code>orgs</code>, <code>citizen_profiles</code>, <code>citizen_profile_lookups</code> and <code>rsi_cache</code>. The decoder now knows every named entity and decodes names RSI escaped twice.</li>
+<li>The store can be rebuilt: <code>events</code> comes from <code>raw_lines</code>, and the contact tables from <code>events</code>, <code>contact_events</code> and <code>captures</code>.</li>
+</ul>
+<h2 id="how-the-tables-relate"><a class="header" href="#how-the-tables-relate">How the tables relate</a></h2>
+<p>The store has no foreign keys. Tables join by value and the Companion keeps them consistent. A foreign key would be wrong or unsafe in each case: contacts appear in sightings, profiles and org data before (or without) a <code>contacts</code> row; <code>commodity_truth</code> rows outlive an expired capture; a truth report outlives the truth row it was raised on; <code>deleted_contacts</code>, <code>handle_aliases</code> and <code>storage_registrations</code> keep their key after the thing is gone; and <code>org_memberships</code> is written for orgs the Companion has no <code>orgs</code> row for. A contact is identified by <code>handle_key</code> (the handle in lower case), a capture by <code>id</code> and an org by <code>sid</code>.</p>
+<pre class="mermaid">erDiagram
+  raw_lines ||--o{ events : "parsed into"
+  ingested_files ||--o{ raw_lines : "file"
+  events }o--o{ contact_events : "sighting from a log event"
+  captures ||--o{ contact_events : "capture_id"
+  captures ||--o{ commodity_truth : "capture_id"
+  captures ||--o{ storage_registrations : "protected by"
+  commodity_truth ||--o{ commodity_truth_reports : "reported"
+  contacts ||--o| contact_categories : "decided category, trust"
+  contacts ||--o{ contact_events : "sightings"
+  contacts ||--o{ contact_stance_history : "stance changes"
+  contacts ||--o{ contact_suggestions : "proposals"
+  contacts ||--o{ contact_links : "alt / same / renamed"
+  contacts ||--o| contact_pins : "pinned"
+  contacts ||--o{ handle_aliases : "misread spellings"
+  contacts ||--o| deleted_contacts : "deleted, suppressed"
+  contacts ||--o| citizen_profiles : "RSI profile"
+  citizen_profiles ||--o{ citizen_profile_lookups : "each attempt"
+  contacts ||--o{ org_memberships : "member of"
+  orgs ||--o{ org_memberships : "members"
+  org_memberships ||--o{ org_membership_changes : "joins, leaves"
+  sync_outbox }o--o| contact_events : "a shared sighting"
+  org_events }o--o{ contacts : "org tags and sightings"
+  org_ratings }o--o{ contacts : "rating by handle"
+  raw_lines { text file PK }
+  ingested_files { text name PK }
+  events { integer seq PK }
+  checkpoints { text name PK }
+  captures { text id PK }
+  commodity_truth { text capture_id PK }
+  commodity_truth_reports { text report_id PK }
+  storage_registrations { text capture_id PK }
+  contacts { text handle_key PK }
+  contact_categories { text handle_key PK }
+  contact_events { text handle_key PK }
+  contact_stance_history { integer id PK }
+  contact_suggestions { text id PK }
+  contact_links { text handle_key PK }
+  contact_pins { text handle_key PK }
+  handle_aliases { text alias_key PK }
+  deleted_contacts { text handle_key PK }
+  citizen_profiles { text handle_key PK }
+  citizen_profile_lookups { integer id PK }
+  rsi_cache { text key PK }
+  orgs { text sid PK }
+  org_memberships { text handle_key PK }
+  org_membership_changes { integer id PK }
+  sync_settings { integer id PK }
+  sync_state { integer id PK }
+  sync_outbox { text local_id PK }
+  org_ratings { text kind PK }
+  org_events { integer seq PK }
+  intel_settings { integer id PK }
+  combat_settings { integer id PK }
+  blueprint_overrides { text key PK }
+  maintenance_runs { integer id PK }
+</pre>
+
+<h2 id="tables"><a class="header" href="#tables">Tables</a></h2>
+<p>Types: <code>text</code>, <code>integer</code>, <code>number</code>, <code>JSON</code> (JSON stored as text). Times are ISO 8601 UTC text, e.g. <code>2026-10-26T07:40:43.938Z</code>, unless the column says milliseconds. “optional” means the column can be empty. Examples are made-up or taken from real use.</p>
+<h3 id="the-log"><a class="header" href="#the-log">The log</a></h3>
+<h4 id="raw_lines"><a class="header" href="#raw_lines"><code>raw_lines</code></a></h4>
+<p>Raw lines from the Game.log files. Key: <code>file</code>, <code>line_no</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>file</code></td><td>text</td><td>Log file name, e.g. <code>Game.log</code> or <code>Game Build(13220821) 25 Nov 26 (23 11 30).log</code></td></tr>
+<tr><td><code>line_no</code></td><td>integer</td><td>Line number in that file</td></tr>
+<tr><td><code>text</code></td><td>text</td><td>The line as written in the log</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="events"><a class="header" href="#events"><code>events</code></a></h4>
+<p>Events parsed from the log lines, and from screenshots read by OCR. Key: <code>seq</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>seq</code></td><td>integer</td><td>Running number in insertion order. Clients subscribe from it</td></tr>
+<tr><td><code>id</code></td><td>text</td><td>Unique event id, e.g. <code>b7fd105117ef1a4b</code></td></tr>
+<tr><td><code>kind</code></td><td>text</td><td>Event type, e.g. <code>session.start</code>, <code>location.change</code>, <code>party.joined</code>, <code>ocr.sighting</code></td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When it happened, ISO 8601 UTC, e.g. <code>2026-10-26T07:40:43.938Z</code></td></tr>
+<tr><td><code>payload</code></td><td>JSON</td><td>The event as JSON: its id, time, source (<code>log</code> or <code>ocr</code>, with the file or screenshot) and the fields for its kind, e.g. <code>handle</code> for a sighting</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="ingested_files"><a class="header" href="#ingested_files"><code>ingested_files</code></a></h4>
+<p>Log files that have been read, so a backup log is not read twice. Key: <code>name</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>name</code></td><td>text</td><td>Log file name</td></tr>
+<tr><td><code>size</code></td><td>integer</td><td>Size in bytes when it was read</td></tr>
+<tr><td><code>mtime_ms</code></td><td>integer</td><td>File modified time, unix milliseconds</td></tr>
+<tr><td><code>ingested_at</code></td><td>text</td><td>When it was read, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="checkpoints"><a class="header" href="#checkpoints"><code>checkpoints</code></a></h4>
+<p>Named positions and one-time job markers. Key: <code>name</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>name</code></td><td>text</td><td>What it marks, e.g. <code>tail:Game.log</code> (how far the log has been read), <code>live-state</code>, <code>captures:folders</code>, <code>chat-text-scrubbed</code></td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>Its data as JSON, e.g. <code>{"offset":1829479,"lineNo":8276}</code></td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When it was last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="captures-and-commodity-truth"><a class="header" href="#captures-and-commodity-truth">Captures and commodity truth</a></h3>
+<h4 id="captures"><a class="header" href="#captures"><code>captures</code></a></h4>
+<p>One row per screenshot. The image files are in the <code>captures/</code> folder, not in the database. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>text</td><td>Capture id, the screenshot time, e.g. <code>2026-10-29T07-27-31.899Z</code></td></tr>
+<tr><td><code>captured_at</code></td><td>text</td><td>When the screenshot was taken, ISO 8601 UTC</td></tr>
+<tr><td><code>kind</code></td><td>text</td><td>What the screen shows: <code>commodity-terminal</code>, <code>chat</code>, <code>target</code>, <code>party</code>, <code>nameplate</code>, <code>mobiglas-chat</code>, <code>fleet-manager</code>, <code>item-shop</code>, <code>main-menu</code>, <code>inventory</code> or <code>other</code></td></tr>
+<tr><td><code>status</code></td><td>text</td><td><code>processed</code>, <code>unrecognised</code>, <code>failed</code>, <code>ignored</code> or <code>processing</code></td></tr>
+<tr><td><code>tags</code></td><td>JSON</td><td>JSON list of tags, from <code>evidence</code>, <code>report-example</code>, <code>favourite</code>. Tagged captures are kept when old ones are cleaned up</td></tr>
+<tr><td><code>search</code></td><td>text</td><td>Text the capture search looks in. Does not include other players’ chat</td></tr>
+<tr><td><code>meta</code></td><td>JSON</td><td>The capture’s details as JSON: image file, what triggered it (e.g. <code>hotkey</code>), the player, shard and location at the time, and the OCR result</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="commodity_truth"><a class="header" href="#commodity_truth"><code>commodity_truth</code></a></h4>
+<p>The reviewed value of each row on a commodity terminal screenshot. Used to check the OCR. Key: <code>capture_id</code>, <code>row_index</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>capture_id</code></td><td>text</td><td>The screenshot, e.g. <code>2026-10-29T07-27-31.899Z</code></td></tr>
+<tr><td><code>row_index</code></td><td>integer</td><td>Row number in the terminal list, from 0</td></tr>
+<tr><td><code>commodity</code></td><td>text</td><td>Commodity name, e.g. <code>Ship Ammunition - Size 2</code></td></tr>
+<tr><td><code>price</code></td><td>integer, optional</td><td>Price per SCU in aUEC, e.g. <code>7126</code></td></tr>
+<tr><td><code>quantity</code></td><td>integer, optional</td><td>Quantity in SCU, e.g. <code>12000</code></td></tr>
+<tr><td><code>status</code></td><td>text, optional</td><td>Stock or demand text on the terminal, e.g. <code>Max Inventory</code></td></tr>
+<tr><td><code>tab</code></td><td>text</td><td><code>buy</code> or <code>sell</code></td></tr>
+<tr><td><code>terminal_title</code></td><td>text, optional</td><td>Terminal name, e.g. <code>Admin - Orbituary</code></td></tr>
+<tr><td><code>confirmed</code></td><td>integer</td><td>1 when a person (or the AI reviewer) has confirmed the row, otherwise 0</td></tr>
+<tr><td><code>confirmed_by</code></td><td>text, optional</td><td>Who confirmed it</td></tr>
+<tr><td><code>confirmed_at</code></td><td>text, optional</td><td>When it was confirmed, ISO 8601 UTC</td></tr>
+<tr><td><code>crop</code></td><td>JSON, optional</td><td>Where the row is in the screenshot, as JSON: <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code> in pixels</td></tr>
+<tr><td><code>resolution</code></td><td>text</td><td>Screenshot size in pixels, e.g. <code>2567x1472</code></td></tr>
+<tr><td><code>ui_scale</code></td><td>number, optional</td><td>In-game UI scale, e.g. <code>1.39</code></td></tr>
+<tr><td><code>terminal_type</code></td><td>text</td><td>Terminal layout, e.g. <code>admin</code></td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When the row was last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="commodity_truth_reports"><a class="header" href="#commodity_truth_reports"><code>commodity_truth_reports</code></a></h4>
+<p>Problems raised against a truth row, e.g. a bad crop. One open report per row. Key: <code>report_id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>report_id</code></td><td>integer</td><td>Report number</td></tr>
+<tr><td><code>capture_id</code></td><td>text</td><td>The screenshot</td></tr>
+<tr><td><code>row_index</code></td><td>integer</td><td>The row in it</td></tr>
+<tr><td><code>record</code></td><td>JSON</td><td>The report as JSON: the reason (<code>needs-reprocessing</code>, <code>bad-crop</code> or <code>unreadable</code>), the note, and the findings once resolved</td></tr>
+<tr><td><code>resolved_at</code></td><td>text, optional</td><td>When it was resolved, ISO 8601 UTC. Empty while open</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="storage_registrations"><a class="header" href="#storage_registrations"><code>storage_registrations</code></a></h4>
+<p>Reasons a screenshot must not be deleted or reduced by the storage cleanup. Key: <code>capture_id</code>, <code>reason</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>capture_id</code></td><td>text</td><td>The screenshot</td></tr>
+<tr><td><code>reason</code></td><td>text</td><td>Why it is kept, e.g. <code>confirmed-truth</code></td></tr>
+<tr><td><code>created_at</code></td><td>text</td><td>When the reason was registered, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="contacts"><a class="header" href="#contacts">Contacts</a></h3>
+<h4 id="contacts-1"><a class="header" href="#contacts-1"><code>contacts</code></a></h4>
+<p>The players you have seen, with your own tag and note. A player is identified by <code>handle_key</code>, the handle in lower case. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>Lower-case handle, used to find the player everywhere, e.g. <code>void_runner-7</code></td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as the game shows it, e.g. <code>Void_Runner-7</code></td></tr>
+<tr><td><code>personal_tag</code></td><td>text, optional</td><td>Your own tag: <code>kos</code>, <code>hostile</code>, <code>wary</code>, <code>neutral</code>, <code>friendly</code> or <code>ally</code>. Empty when not set</td></tr>
+<tr><td><code>note</code></td><td>text</td><td>Your note about the player. Empty text when none</td></tr>
+<tr><td><code>tag_updated_at</code></td><td>text, optional</td><td>When you last changed the tag, ISO 8601 UTC</td></tr>
+<tr><td><code>handle_status</code></td><td>text, optional</td><td>Whether the name is real: <code>unlooked</code> (not looked up on RSI yet), <code>verified</code> (found on RSI), <code>gone</code> (was on RSI, now not: renamed or banned), <code>log-only</code> (not on RSI but named by the game log, so exact), <code>unverified</code> (not on RSI and only read by OCR: probably a misread)</td></tr>
+<tr><td><code>hidden</code></td><td>integer</td><td>1 when the contact is hidden from lists (unverified names), otherwise 0</td></tr>
+<tr><td><code>keep_separate</code></td><td>integer</td><td>1 when the contact must never be merged into another, otherwise 0</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_events"><a class="header" href="#contact_events"><code>contact_events</code></a></h4>
+<p>Each time a player was seen. Key: <code>handle_key</code>, <code>event_id</code>, <code>source</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>event_id</code></td><td>text</td><td>The event or screenshot the sighting came from</td></tr>
+<tr><td><code>source</code></td><td>text</td><td>Where the name was seen: <code>chat</code>, <code>target</code>, <code>party</code>, <code>other</code> (e.g. a contact marker), or <code>sync</code> (reported by the org)</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as read</td></tr>
+<tr><td><code>shard</code></td><td>text, optional</td><td>Server instance, e.g. <code>pub_apse2a_11135423_030</code></td></tr>
+<tr><td><code>location</code></td><td>text, optional</td><td>Where the player was, e.g. <code>RR_JP_StantonMagnus</code></td></tr>
+<tr><td><code>capture_id</code></td><td>text, optional</td><td>The screenshot it was read from, when it came from one</td></tr>
+<tr><td><code>log_file</code></td><td>text, optional</td><td>The log file it came from, when it came from one</td></tr>
+<tr><td><code>observer_location</code></td><td>text, optional</td><td>Where you were at the time</td></tr>
+<tr><td><code>read_as</code></td><td>text, optional</td><td>The misread spelling, when the name was corrected afterwards. Lets a merge be undone</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_categories"><a class="header" href="#contact_categories"><code>contact_categories</code></a></h4>
+<p>How you know a player and how far you trust them, with where each value came from. One row per player. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>category</code></td><td>text</td><td><code>my-org</code>, <code>org-affiliate</code>, <code>alliance</code>, <code>friend</code>, <code>frequent-party</code>, <code>mission-partner</code>, <code>encountered</code> or <code>stranger</code></td></tr>
+<tr><td><code>category_source</code></td><td>text</td><td>Who set the category: <code>user</code> or <code>auto</code></td></tr>
+<tr><td><code>confidence</code></td><td>number</td><td>How sure the Companion is, 0 to 1. 1 when you set it</td></tr>
+<tr><td><code>reasons</code></td><td>JSON</td><td>JSON list of the reasons, e.g. <code>["member of FROSS (Recruit)","2 sessions in party"]</code></td></tr>
+<tr><td><code>trust</code></td><td>text, optional</td><td>Trust: <code>high</code>, <code>medium-high</code>, <code>medium</code>, <code>neutral</code>, <code>unknown</code> or <code>low</code>. Empty when not set</td></tr>
+<tr><td><code>trust_source</code></td><td>text, optional</td><td>Who set the trust, e.g. <code>user</code></td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When it was last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_stance_history"><a class="header" href="#contact_stance_history"><code>contact_stance_history</code></a></h4>
+<p>Every change to a player’s stance or category. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>scope</code></td><td>text</td><td>What changed: <code>personal</code> (your tag), <code>category</code> or <code>correction</code></td></tr>
+<tr><td><code>value</code></td><td>text, optional</td><td>The new value, e.g. <code>friendly</code></td></tr>
+<tr><td><code>by</code></td><td>text</td><td>Who changed it, e.g. <code>me</code></td></tr>
+<tr><td><code>reason</code></td><td>text, optional</td><td>Why, when given</td></tr>
+<tr><td><code>orgs_snapshot</code></td><td>JSON</td><td>JSON list of the player’s orgs at that moment</td></tr>
+<tr><td><code>ref</code></td><td>text, optional</td><td>Unique reference that stops the same change being recorded twice</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_suggestions"><a class="header" href="#contact_suggestions"><code>contact_suggestions</code></a></h4>
+<p>Changes the Companion proposes for you to accept or dismiss. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>text</td><td>Suggestion id</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as shown</td></tr>
+<tr><td><code>kind</code></td><td>text</td><td><code>category</code>, <code>trust</code>, <code>membership</code> or <code>security</code></td></tr>
+<tr><td><code>message</code></td><td>text</td><td>The text shown to you, e.g. <code>FSS_Maulkin: member of FROSS (Recruit). Change category from encountered to my-org?</code></td></tr>
+<tr><td><code>proposed</code></td><td>JSON, optional</td><td>The change as JSON, e.g. <code>{"category":"my-org"}</code></td></tr>
+<tr><td><code>created_at</code></td><td>text</td><td>When it was proposed, ISO 8601 UTC</td></tr>
+<tr><td><code>status</code></td><td>text</td><td><code>open</code>, <code>accepted</code>, <code>dismissed</code>, <code>stale</code> (the contact changed since) or <code>superseded</code> (replaced by a newer suggestion)</td></tr>
+<tr><td><code>resolved_at</code></td><td>text, optional</td><td>When it was accepted, dismissed or replaced, ISO 8601 UTC</td></tr>
+<tr><td><code>field</code></td><td>text, optional</td><td>Which value it would change, e.g. <code>category</code></td></tr>
+<tr><td><code>from_value</code></td><td>text, optional</td><td>The value now, e.g. <code>encountered</code></td></tr>
+<tr><td><code>to_value</code></td><td>text, optional</td><td>The proposed value, e.g. <code>my-org</code></td></tr>
+<tr><td><code>confidence</code></td><td>number, optional</td><td>How sure the Companion is, 0 to 1</td></tr>
+<tr><td><code>reasons</code></td><td>JSON, optional</td><td>JSON list of the reasons</td></tr>
+<tr><td><code>source</code></td><td>text, optional</td><td>The rule that made it, e.g. <code>auto-categorise</code>, <code>hostile-org-member</code>, <code>tier:known-org</code>, <code>org-left</code></td></tr>
+<tr><td><code>resolved_by</code></td><td>text, optional</td><td>Who resolved it, e.g. <code>me</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_links"><a class="header" href="#contact_links"><code>contact_links</code></a></h4>
+<p>Players known to be the same person (alts and renames). A warning on one applies to the others. Key: <code>handle_key</code>, <code>linked_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>One player</td></tr>
+<tr><td><code>linked_key</code></td><td>text</td><td>The other player</td></tr>
+<tr><td><code>link_kind</code></td><td>text</td><td><code>alt</code>, <code>same</code> or <code>renamed</code> (the first was renamed to the second)</td></tr>
+<tr><td><code>link_source</code></td><td>text</td><td>Who made the link, e.g. <code>user</code></td></tr>
+<tr><td><code>confidence</code></td><td>number, optional</td><td>How sure, 0 to 1</td></tr>
+<tr><td><code>reasons</code></td><td>JSON, optional</td><td>JSON list of the reasons</td></tr>
+<tr><td><code>linked_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_pins"><a class="header" href="#contact_pins"><code>contact_pins</code></a></h4>
+<p>Players you have pinned. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as shown</td></tr>
+<tr><td><code>pinned_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="handle_aliases"><a class="header" href="#handle_aliases"><code>handle_aliases</code></a></h4>
+<p>Misread spellings that point to the real handle. Key: <code>alias_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>alias_key</code></td><td>text</td><td>The misread spelling in lower case, e.g. <code>v0id_runner-7</code></td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>The real handle, e.g. <code>Void_Runner-7</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="deleted_contacts"><a class="header" href="#deleted_contacts"><code>deleted_contacts</code></a></h4>
+<p>Players you deleted. Kept so the name is not added again. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>deleted_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="rsi-data"><a class="header" href="#rsi-data">RSI data</a></h3>
+<h4 id="citizen_profiles"><a class="header" href="#citizen_profiles"><code>citizen_profiles</code></a></h4>
+<p>The latest RSI profile of a player. Public data from the RSI site, fetched only when lookups are on. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>display_name</code></td><td>text, optional</td><td>Display name on the profile</td></tr>
+<tr><td><code>enlisted</code></td><td>text, optional</td><td>Enlisted date, e.g. <code>2016-02-10</code></td></tr>
+<tr><td><code>country</code></td><td>text, optional</td><td>Country on the profile, e.g. <code>Australia</code></td></tr>
+<tr><td><code>time_zone</code></td><td>text, optional</td><td>Time zone, when the profile shows one</td></tr>
+<tr><td><code>fluency</code></td><td>text, optional</td><td>Languages, e.g. <code>English</code></td></tr>
+<tr><td><code>title</code></td><td>text, optional</td><td>Profile title, e.g. <code>Mercenary</code></td></tr>
+<tr><td><code>main_org_sid</code></td><td>text, optional</td><td>Main org SID, e.g. <code>JAILBREAK</code></td></tr>
+<tr><td><code>main_org_name</code></td><td>text, optional</td><td>Main org name</td></tr>
+<tr><td><code>main_org_rank</code></td><td>text, optional</td><td>Rank in the main org</td></tr>
+<tr><td><code>affiliations</code></td><td>JSON</td><td>JSON list of the other orgs shown, each with SID, name and rank</td></tr>
+<tr><td><code>fetched_at</code></td><td>text</td><td>When it was fetched, ISO 8601 UTC</td></tr>
+<tr><td><code>not_found</code></td><td>integer</td><td>1 when RSI has no such player, otherwise 0</td></tr>
+<tr><td><code>hidden_orgs</code></td><td>integer</td><td>How many orgs the profile hides</td></tr>
+<tr><td><code>orgs_status</code></td><td>text, optional</td><td><code>listed</code> when the profile shows orgs, otherwise why none were read, e.g. <code>unknown</code></td></tr>
+<tr><td><code>main_org_redacted</code></td><td>integer</td><td>1 when the main org is hidden on the profile, otherwise 0</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="citizen_profile_lookups"><a class="header" href="#citizen_profile_lookups"><code>citizen_profile_lookups</code></a></h4>
+<p>Every RSI lookup attempt. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>fetched_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>outcome</code></td><td>text</td><td><code>ok</code>, <code>not-found</code> or <code>error</code></td></tr>
+<tr><td><code>error</code></td><td>text, optional</td><td>The error text, e.g. <code>The operation was aborted due to timeout</code></td></tr>
+<tr><td><code>snapshot</code></td><td>JSON, optional</td><td>What was read, as JSON</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="rsi_cache"><a class="header" href="#rsi_cache"><code>rsi_cache</code></a></h4>
+<p>Cached RSI answers. Key: <code>key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>key</code></td><td>text</td><td>What was asked, e.g. <code>citizen:void_runner-7</code> or an org</td></tr>
+<tr><td><code>fetched_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>The answer as JSON</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="orgs"><a class="header" href="#orgs"><code>orgs</code></a></h4>
+<p>Orgs the Companion knows about, with your own trust and stance for each. Key: <code>sid</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>sid</code></td><td>text</td><td>Org SID, e.g. <code>JAILBREAK</code></td></tr>
+<tr><td><code>name</code></td><td>text, optional</td><td>Org name</td></tr>
+<tr><td><code>members</code></td><td>integer, optional</td><td>Member count shown by RSI</td></tr>
+<tr><td><code>hidden_members</code></td><td>integer, optional</td><td>Members RSI does not list</td></tr>
+<tr><td><code>my_relationship</code></td><td>text</td><td>How the org relates to you: <code>none</code>, <code>main</code> or <code>affiliate</code></td></tr>
+<tr><td><code>trust</code></td><td>text, optional</td><td>Your trust in the org: <code>high</code>, <code>medium-high</code>, <code>medium</code>, <code>neutral</code>, <code>unknown</code> or <code>low</code></td></tr>
+<tr><td><code>stance</code></td><td>text, optional</td><td>Your stance on the org, e.g. <code>hostile</code>. Members inherit it</td></tr>
+<tr><td><code>refreshed_at</code></td><td>text, optional</td><td>When it was last read from RSI, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_memberships"><a class="header" href="#org_memberships"><code>org_memberships</code></a></h4>
+<p>Who is in which org, as read from RSI. Key: <code>handle_key</code>, <code>org_sid</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>org_sid</code></td><td>text</td><td>The org</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as shown</td></tr>
+<tr><td><code>main</code></td><td>integer</td><td>1 when it is the player’s main org, otherwise 0</td></tr>
+<tr><td><code>rank</code></td><td>text, optional</td><td>Rank in the org</td></tr>
+<tr><td><code>seen_at</code></td><td>text</td><td>When the membership was last seen, ISO 8601 UTC</td></tr>
+<tr><td><code>left_at</code></td><td>text, optional</td><td>When the player was no longer in the org, ISO 8601 UTC. Empty while a member</td></tr>
+<tr><td><code>source</code></td><td>text</td><td>Where it was read: <code>citizen</code> (the player’s profile) or <code>members</code> (the org’s member list)</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_membership_changes"><a class="header" href="#org_membership_changes"><code>org_membership_changes</code></a></h4>
+<p>Joins, leaves and rank changes. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>org_sid</code></td><td>text</td><td>The org</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>change</code></td><td>text</td><td><code>joined</code>, <code>left</code>, <code>rank</code>, <code>main</code> or <code>affiliate</code></td></tr>
+<tr><td><code>previous</code></td><td>text, optional</td><td>The value before, e.g. <code>main</code></td></tr>
+<tr><td><code>current</code></td><td>text, optional</td><td>The value after, e.g. <code>affiliate</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="org-sync"><a class="header" href="#org-sync">Org sync</a></h3>
+<h4 id="sync_settings"><a class="header" href="#sync_settings"><code>sync_settings</code></a></h4>
+<p>What you share with the org. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>url</code> (the Hub), <code>shareSightings</code> (<code>off</code>, <code>confirmed</code> or <code>auto</code>), <code>shareStock</code>, <code>sharePresence</code>, <code>shareBlueprints</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="sync_state"><a class="header" href="#sync_state"><code>sync_state</code></a></h4>
+<p>Where the sync has got to. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>cursor</code> and <code>ratingsCursor</code> (how far events and ratings have been pulled), <code>epoch</code>, <code>role</code>, <code>memberName</code>, <code>lockdown</code>, <code>lockdownMode</code>, <code>needsSetup</code>, <code>lastPullAt</code>, <code>lastPushAt</code>, <code>lastError</code>, <code>blueprintsDigest</code> (fingerprint of the last blueprint list queued)</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="sync_outbox"><a class="header" href="#sync_outbox"><code>sync_outbox</code></a></h4>
+<p>Events waiting to be sent to the Hub, and what happened to them. Key: <code>local_id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>local_id</code></td><td>text</td><td>Local id</td></tr>
+<tr><td><code>sync_id</code></td><td>text</td><td>The event id sent to the Hub (a random UUID)</td></tr>
+<tr><td><code>status</code></td><td>text</td><td><code>pending</code>, <code>sent</code> or <code>rejected</code></td></tr>
+<tr><td><code>reason</code></td><td>text, optional</td><td>Why the Hub rejected it, e.g. <code>consent not given for stances</code></td></tr>
+<tr><td><code>event</code></td><td>JSON</td><td>The event exactly as sent, as JSON</td></tr>
+<tr><td><code>created_at</code></td><td>text</td><td>When it was queued, ISO 8601 UTC</td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When its status last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_ratings"><a class="header" href="#org_ratings"><code>org_ratings</code></a></h4>
+<p>The org’s rating of players and orgs, as pulled from the Hub. Only sync changes it. Key: <code>kind</code>, <code>key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kind</code></td><td>text</td><td><code>contact</code> or <code>org</code></td></tr>
+<tr><td><code>key</code></td><td>text</td><td>Lower-case handle, or org SID</td></tr>
+<tr><td><code>rev</code></td><td>integer</td><td>Hub revision number, used as the pull cursor</td></tr>
+<tr><td><code>rating</code></td><td>JSON</td><td>JSON: <code>standing</code>, <code>threat</code> and <code>tags</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_events"><a class="header" href="#org_events"><code>org_events</code></a></h4>
+<p>Events from org members, as pulled from the Hub. Key: <code>seq</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>seq</code></td><td>integer</td><td>The Hub’s sequence number</td></tr>
+<tr><td><code>id</code></td><td>text</td><td>Event id</td></tr>
+<tr><td><code>type</code></td><td>text</td><td>Event type: <code>sighting</code>, <code>tag</code>, <code>note</code>, <code>suggestion</code>, <code>stance</code>, <code>blueprints</code>, <code>fight</code>, <code>stock</code>, <code>void</code> or <code>unvoid</code></td></tr>
+<tr><td><code>payload</code></td><td>JSON</td><td>The event as JSON, with the author</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="settings-and-state"><a class="header" href="#settings-and-state">Settings and state</a></h3>
+<h4 id="intel_settings"><a class="header" href="#intel_settings"><code>intel_settings</code></a></h4>
+<p>Contact and RSI lookup settings. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>rsiLookups</code>, <code>rsiHandle</code>, <code>refreshDays</code>, <code>lookupIntervalMs</code>, <code>lookupHourlyCap</code>, <code>nowWindowMinutes</code>, <code>hostileWindowMinutes</code>, <code>nowLimit</code>, <code>hostileAlerts</code> and the <code>notifications</code> settings</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="combat_settings"><a class="header" href="#combat_settings"><code>combat_settings</code></a></h4>
+<p>Combat timeline settings. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>autoCaptureOn</code>, the triggers that take a screenshot automatically</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="blueprint_overrides"><a class="header" href="#blueprint_overrides"><code>blueprint_overrides</code></a></h4>
+<p>Blueprints you have switched on or off by hand. Kept apart from what the log reports. Key: <code>key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>key</code></td><td>text</td><td>Lower-case blueprint name</td></tr>
+<tr><td><code>name</code></td><td>text</td><td>Blueprint name, e.g. <code>P4-AR Rifle</code></td></tr>
+<tr><td><code>enabled</code></td><td>integer</td><td>1 when you say you have it, 0 when you say you do not</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When you set it, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="maintenance_runs"><a class="header" href="#maintenance_runs"><code>maintenance_runs</code></a></h4>
+<p>History of the background upkeep tasks. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>task</code></td><td>text</td><td><code>db-health</code>, <code>capture-audit</code> or <code>data-audit</code></td></tr>
+<tr><td><code>started_at</code></td><td>text</td><td>ISO 8601 UTC</td></tr>
+<tr><td><code>finished_at</code></td><td>text</td><td>ISO 8601 UTC</td></tr>
+<tr><td><code>outcome</code></td><td>text</td><td><code>ok</code>, or what went wrong or why it was held</td></tr>
+<tr><td><code>dry_run</code></td><td>integer</td><td>1 when it only reported what it would do, otherwise 0</td></tr>
+<tr><td><code>changed</code></td><td>integer</td><td>How many things it changed</td></tr>
+<tr><td><code>duration_ms</code></td><td>integer</td><td>How long it took in milliseconds</td></tr>
+<tr><td><code>detail</code></td><td>text</td><td>JSON with a <code>summary</code> line and details, e.g. <code>database sound: 90.9 MB, 0.0% free pages</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="who-writes-what"><a class="header" href="#who-writes-what">Who writes what</a></h2>
+<ul>
+<li><strong>Log reader:</strong> <code>raw_lines</code>, <code>events</code>, <code>ingested_files</code>, <code>checkpoints</code>, and the contacts and org memberships found in log events.</li>
+<li><strong>Screenshot reader:</strong> <code>captures</code>, <code>contact_events</code> (names read from screenshots), <code>commodity_truth</code>.</li>
+<li><strong>Background work (lookups, upkeep, storage):</strong> <code>contact_categories</code>, <code>contact_suggestions</code>, <code>citizen_profiles</code>, <code>citizen_profile_lookups</code>, <code>rsi_cache</code>, <code>maintenance_runs</code>, <code>storage_registrations</code>.</li>
+<li><strong>Org sync:</strong> <code>org_ratings</code>, <code>org_events</code>, <code>sync_state</code>, <code>sync_outbox</code>, and <code>orgs</code> and <code>org_memberships</code> from the org feed.</li>
+<li><strong>You</strong> (web page, overlay, CLI, TUI): <code>contacts</code>, <code>contact_categories</code> (category, trust), <code>contact_pins</code>, <code>contact_links</code>, <code>handle_aliases</code>, <code>deleted_contacts</code>, <code>blueprint_overrides</code>, <code>intel_settings</code>, <code>combat_settings</code>, <code>sync_settings</code>, truth confirmations and reports, <code>orgs</code> (trust, stance), annotations and storage policy.</li>
+</ul>
+<p>Your value and the org’s value for the same thing are stored separately (<code>orgs.stance</code> and <code>contacts.personal_tag</code>, against <code>org_ratings</code>). Yours wins, and the Companion decides which one is shown (<code>docs/UI-LOGIC-AUDIT.md</code>).</p>
+<h2 id="what-stays-on-the-machine"><a class="header" href="#what-stays-on-the-machine">What stays on the machine</a></h2>
+<ul>
+<li>Everything above stays here until you delete it. <code>raw_lines</code> is never trimmed. Screenshots are tiered by <code>storage</code>.</li>
+<li>Other players’ chat text is not stored (since protocol 1.42.0). A one-time job (<code>chat-text-scrubbed</code>) removed it from older captures.</li>
+<li><code>contact_events</code> records where a named player was seen: shard, location, and where you were. It is only sent to the org as opt-in sightings.</li>
+<li><code>contact.delete</code> removes the contact’s rows from <code>contact_events</code> and the other contact tables, and stops the name being added again. The handle still appears in <code>events</code> payloads, in the <code>handles</code> of <code>captures.meta</code> and in <code>raw_lines</code> (open item C2 in <code>docs/DB-API-REPORT.md</code>).</li>
+<li>Data leaves the machine only through the opt-in paths in section 2 of <code>docs/DB-API-AUDIT.md</code>: org sync (the outbox), RSI lookups, the update check, reference data, the voice pack and hangar sync.</li>
+</ul>
+<h2 id="not-in-this-database"><a class="header" href="#not-in-this-database">Not in this database</a></h2>
+<ul>
+<li><strong>Reference data</strong> (ships, places, models, the game’s blueprints and missions) is built into the program from <code>crates/ce-core/data/reference.json</code>, made by <code>fetch-reference-data</code> from the Citizens.Edge.Data views. It is read-only.</li>
+<li><strong>Files:</strong> <code>captures/</code>, <code>token</code>, <code>ocr-settings.json</code>, <code>logs/</code>.</li>
+<li><strong>The pairing token</strong> is also kept in the browser’s <code>localStorage</code>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="CLI.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ORG-SYNC.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="CLI.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ORG-SYNC.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-53b67c53.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

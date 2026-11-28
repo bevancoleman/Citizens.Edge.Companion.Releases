@@ -1,0 +1,1962 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Citizen&#x27;s Edge Companion</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="The Companion&#x27;s WebSocket API, command line, database and org sync">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-6f07f20f.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-ea0de5d2.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Citizen&#x27;s Edge Companion</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/bevancoleman/Citizens.Edge.Companion.Releases" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="citizens-edge-companion"><a class="header" href="#citizens-edge-companion">Citizen’s Edge Companion</a></h1>
+<p>Reference for what the Companion offers and stores. These pages are generated or checked against the code on every merge.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Page</th><th>What</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#companion-protocol-reference">WebSocket and HTTP API</a></td><td>Connecting, scopes, every message with its fields and worked examples</td></tr>
+<tr><td><a href="#companion-command-line-reference">Command line</a></td><td>Every <code>ce-companion</code> command and option</td></tr>
+<tr><td><a href="#companion-database">Database</a></td><td>The SQLite store: relationship diagram, every table, example rows</td></tr>
+<tr><td><a href="#org-sync-reference">Org sync</a></td><td>How the Companion talks to an org’s Hub</td></tr>
+</tbody>
+</table>
+</div>
+<p>Machine-readable files, regenerated with the docs:</p>
+<ul>
+<li><a href="generated/asyncapi.json"><code>asyncapi.json</code></a>: the WebSocket API as AsyncAPI 3.0, with an example for each documented message.</li>
+<li><a href="generated/companion-schema.sql"><code>companion-schema.sql</code></a>: the store’s schema as SQLite stores it.</li>
+<li><a href="examples/protocol-examples.json"><code>protocol-examples.json</code></a> and <a href="examples/companion-rows.sql"><code>companion-rows.sql</code></a>: the examples, validated by tests.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="companion-protocol-reference"><a class="header" href="#companion-protocol-reference">Companion protocol reference</a></h1>
+<p>The WebSocket and HTTP API the Companion daemon offers to the <code>/live</code> page, the overlay and the TUI. The machine-readable spec is <code>crates/ce-protocol/protocol.schema.json</code> (current version in its <code>protocolVersion</code>: <strong>1.42.0</strong>; 55 client messages, 43 server messages). This page is the readable index of it: what connects, what each scope may do, and every message with its fields. When a message changes, change the schema, <code>src/validate.rs</code> and this page in the same PR (a test fails if a message type or the version is missing here).</p>
+<p>Rules that shape the API (<code>CLAUDE.md</code>): the UIs talk only to the Companion; the Companion decides and the UIs show (decided values come with <code>*From</code> flags); changes are additive and bump the protocol semver (<code>protocol-semver --base &lt;ref&gt;</code> in CI). The Hub is a different API: <code>Citizens.Edge.Org/docs/API.md</code>; how the Companion uses it is <code>docs/ORG-SYNC.md</code>, and the commands that share this handler layer are <code>docs/CLI.md</code>.</p>
+<h2 id="connecting"><a class="header" href="#connecting">Connecting</a></h2>
+<ul>
+<li><strong>Address:</strong> <code>ws://127.0.0.1:47823</code> by default (<code>--port</code>, <code>--host</code>). The daemon binds 127.0.0.1.</li>
+<li><strong>Token:</strong> the pairing token in the data dir (<code>token</code>, 0600). Offer it as the WebSocket subprotocol <code>ce.token.&lt;token&gt;</code> (a browser cannot set headers), as <code>Authorization: Bearer &lt;token&gt;</code>, or, for older pages, as <code>?token=</code>. The subprotocol form keeps it out of URLs, history and logs.</li>
+<li><strong>Origin:</strong> a request with no <code>Origin</code> header is a native client started by the user on this PC (overlay, TUI, CLI tools). A browser page must match the allowlist exactly: <code>https://citizensedge.space</code>, <code>https://staging.citizensedge.space</code>, <code>https://citizens-edge.pages.dev</code>, <code>https://citizens-edge-staging.pages.dev</code>, <code>http://localhost:3000</code>, <code>http://127.0.0.1:3000</code>. There is no wildcard: a preview deploy or another site works only if the user starts the daemon with <code>--allow-origin</code>.</li>
+<li><strong>Host:</strong> the <code>Host</code> header must name <code>localhost</code> or an IP address. A page reaching the daemon under another domain name (DNS rebinding) gets 403.</li>
+<li><strong>Limits:</strong> a WebSocket message or frame may be up to 1 MiB, an HTTP body up to 4 MiB (413 above that), and an HTTP request has 30 seconds. Responses carry <code>x-content-type-options: nosniff</code> and <code>referrer-policy: no-referrer</code>.</li>
+<li><strong>First message:</strong> the server sends <code>hello</code> (protocol version, status) then a <code>snapshot</code> that already holds everything on disk. Every outgoing message is validated against the schema; a breach is logged once per type and problem per five minutes.</li>
+<li><strong>Pairing a reply to a request:</strong> a request may carry <code>requestId</code>; the reply echoes it. Messages without one are matched by type.</li>
+</ul>
+<h2 id="scopes"><a class="header" href="#scopes">Scopes</a></h2>
+<p>Every client message needs one scope (<code>crates/ce-core/src/scope.rs</code>); a message above the connection’s scope is refused.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Scope</th><th>Allows</th><th>Held by</th></tr>
+</thead>
+<tbody>
+<tr><td><code>view</code></td><td>reads and subscriptions; change nothing</td><td>any connection</td></tr>
+<tr><td><code>control</code></td><td>the user’s own choices that stay on this PC: tags, notes, pins, local settings, blueprints, truth review, suggestions</td><td>a browser page</td></tr>
+<tr><td><code>admin</code></td><td>anything that opens egress (org sharing, RSI lookups), destroys data (delete, merge, cleanup, reprocess) or changes what the org sees (an officer tag)</td><td>a native client (no <code>Origin</code>); a browser page only after elevation</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Elevation:</strong> a page sends <code>auth.elevate</code>, the Companion shows a six-digit code, and the user approves it on this PC with <code>ce-companion approve &lt;code&gt;</code>. That grants that one connection <code>admin</code> for ten minutes; the request is valid for two. A script injected into an allowed site therefore cannot turn sharing on or delete a contact silently.</p>
+<h2 id="http"><a class="header" href="#http">HTTP</a></h2>
+<p>Same port, same token and Origin rules. Only GET and PUT are accepted. The machine-readable form is <code>docs/generated/http-openapi.json</code> (OpenAPI 3.1, source <code>docs/http-routes.json</code>).</p>
+<!-- generated:http-routes -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Method</th><th>Path</th><th>What</th></tr>
+</thead>
+<tbody>
+<tr><td>GET</td><td><code>/captures/:id/image</code></td><td>The screenshot</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/bundle</code></td><td>The capture bundle</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/ocr</code></td><td>The OCR result</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/annotations</code></td><td>Read annotations</td></tr>
+<tr><td>PUT</td><td><code>/captures/:id/annotations</code></td><td>Save annotations</td></tr>
+<tr><td>GET</td><td><code>/captures/:id/rows/:row/crop</code></td><td>The raw cut of a commodity row</td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:http-routes -->
+<h2 id="control-socket"><a class="header" href="#control-socket">Control socket</a></h2>
+<p>The CLI and TUI use a local Unix socket (Windows: a named pipe) protected by filesystem permissions, and send the command tree in <code>crates/ce-cli/commands.json</code> (the reference is <code>docs/CLI.md</code>). It is not part of this protocol, but the handlers are shared, so a command and its message do the same thing.</p>
+<h2 id="client-messages"><a class="header" href="#client-messages">Client messages</a></h2>
+<p><code>Fields</code> lists every property; <code>?</code> marks an optional one. Scope is what the message needs.</p>
+<!-- generated:client-messages -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Message</th><th>Scope</th><th>Fields</th></tr>
+</thead>
+<tbody>
+<tr><td><code>auth.elevate</code></td><td>view</td><td><code>requestId</code>?</td></tr>
+<tr><td><code>blueprints.get</code></td><td>view</td><td></td></tr>
+<tr><td><code>blueprints.known</code></td><td>view</td><td><code>after</code>?, <code>faction</code>?, <code>itemType</code>?, <code>limit</code>?, <code>query</code>?, <code>requestId</code>?, <code>show</code>?, <code>system</code>?</td></tr>
+<tr><td><code>blueprints.set</code></td><td>control</td><td><code>enabled</code>?, <code>name</code></td></tr>
+<tr><td><code>capture</code></td><td>control</td><td><code>source</code>?</td></tr>
+<tr><td><code>captures.list</code></td><td>view</td><td><code>query</code></td></tr>
+<tr><td><code>captures.reprocess</code></td><td>admin</td><td><code>id</code></td></tr>
+<tr><td><code>captures.reprocess.geometry</code></td><td>admin</td><td><code>geometry</code>, <code>id</code></td></tr>
+<tr><td><code>captures.update</code></td><td>control</td><td><code>id</code>, <code>note</code>?, <code>tags</code>?</td></tr>
+<tr><td><code>combat.settings</code></td><td>control</td><td><code>settings</code>?</td></tr>
+<tr><td><code>combat.timeline</code></td><td>view</td><td><code>limit</code>?</td></tr>
+<tr><td><code>contact.correctHandle</code></td><td>control</td><td><code>corrected</code>, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.delete</code></td><td>admin</td><td><code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.lookupProfile</code></td><td>control</td><td><code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.merge</code></td><td>admin</td><td><code>corrected</code>, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.category</code></td><td>control</td><td><code>category</code>, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.chips</code></td><td>view</td><td><code>explicit</code>?, <code>org</code>?, <code>orgRole</code>?, <code>query</code>?, <code>requestId</code>?, <code>review</code>?, <code>shard</code>?, <code>source</code>?</td></tr>
+<tr><td><code>contacts.counts</code></td><td>view</td><td></td></tr>
+<tr><td><code>contacts.history</code></td><td>view</td><td><code>handle</code></td></tr>
+<tr><td><code>contacts.list</code></td><td>view</td><td><code>exact</code>?, <code>explicit</code>?, <code>limit</code>?, <code>org</code>?, <code>orgRole</code>?, <code>query</code>?, <code>requestId</code>?, <code>review</code>?, <code>shard</code>?, <code>source</code>?, <code>stance</code>?, <code>tag</code>?</td></tr>
+<tr><td><code>contacts.now</code></td><td>view</td><td><code>view</code>?</td></tr>
+<tr><td><code>contacts.pin</code></td><td>control</td><td><code>handle</code>, <code>pinned</code></td></tr>
+<tr><td><code>contacts.search</code></td><td>view</td><td><code>query</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.tag</code></td><td>control</td><td><code>handle</code>, <code>note</code>?, <code>requestId</code>?, <code>tag</code></td></tr>
+<tr><td><code>contacts.trust</code></td><td>control</td><td><code>handle</code>, <code>requestId</code>?, <code>trust</code></td></tr>
+<tr><td><code>cz.timer.start</code></td><td>control</td><td><code>key</code>, <code>startedAt</code></td></tr>
+<tr><td><code>intel.settings</code></td><td>admin</td><td><code>settings</code>?</td></tr>
+<tr><td><code>mining.watch</code></td><td>control</td><td><code>on</code></td></tr>
+<tr><td><code>org.tag</code></td><td>admin</td><td><code>handle</code>, <code>note</code>?, <code>org</code>?, <code>requestId</code>?, <code>status</code></td></tr>
+<tr><td><code>orgs.list</code></td><td>view</td><td></td></tr>
+<tr><td><code>orgs.lookup</code></td><td>control</td><td><code>force</code>?, <code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>orgs.refresh</code></td><td>control</td><td><code>force</code>?</td></tr>
+<tr><td><code>orgs.trust</code></td><td>control</td><td><code>sid</code>, <code>stance</code>?, <code>trust</code>?</td></tr>
+<tr><td><code>presence.list</code></td><td>view</td><td></td></tr>
+<tr><td><code>query</code></td><td>view</td><td><code>from</code>?, <code>kinds</code>?, <code>limit</code>?, <code>to</code>?</td></tr>
+<tr><td><code>sightings.confirm</code></td><td>control</td><td><code>eventId</code></td></tr>
+<tr><td><code>storage.cleanup</code></td><td>admin</td><td><code>dryRun</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>storage.configure</code></td><td>admin</td><td><code>policy</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>storage.get</code></td><td>view</td><td><code>requestId</code>?</td></tr>
+<tr><td><code>storage.protect</code></td><td>control</td><td><code>id</code>, <code>protected</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>subscribe</code></td><td>view</td><td><code>since</code>?</td></tr>
+<tr><td><code>suggestions.accept</code></td><td>control</td><td><code>id</code></td></tr>
+<tr><td><code>suggestions.bulk</code></td><td>control</td><td><code>action</code>, <code>selector</code></td></tr>
+<tr><td><code>suggestions.dismiss</code></td><td>control</td><td><code>id</code></td></tr>
+<tr><td><code>suggestions.groups</code></td><td>view</td><td><code>kind</code>?, <code>minConfidence</code>?</td></tr>
+<tr><td><code>suggestions.list</code></td><td>view</td><td><code>group</code>?, <code>status</code>?</td></tr>
+<tr><td><code>sync.now</code></td><td>admin</td><td></td></tr>
+<tr><td><code>sync.share</code></td><td>admin</td><td><code>blueprints</code>?, <code>presence</code>?, <code>sightings</code>?, <code>stock</code>?</td></tr>
+<tr><td><code>sync.status</code></td><td>view</td><td></td></tr>
+<tr><td><code>truth.confirm</code></td><td>control</td><td><code>captureId</code>, <code>confirmed</code>?, <code>requestId</code>?, <code>reviewRevision</code>?, <code>rowIndex</code>, <code>values</code>?</td></tr>
+<tr><td><code>truth.confirmed</code></td><td>view</td><td><code>limit</code>?, <code>offset</code>?, <code>requestId</code>?, <code>search</code>?</td></tr>
+<tr><td><code>truth.queue</code></td><td>view</td><td><code>aiConfirmed</code>?, <code>limit</code>?, <code>maxConfidence</code>?, <code>offset</code>?, <code>reported</code>?, <code>requestId</code>?, <code>search</code>?</td></tr>
+<tr><td><code>truth.report</code></td><td>control</td><td><code>captureId</code>, <code>notes</code>, <code>reason</code>, <code>requestId</code>?, <code>reviewRevision</code>?, <code>rowIndex</code></td></tr>
+<tr><td><code>truth.resolve</code></td><td>admin</td><td><code>captureId</code>, <code>requestId</code>?, <code>resolution</code>, <code>reviewRevision</code>?, <code>rowIndex</code></td></tr>
+<tr><td><code>truth.stats</code></td><td>view</td><td><code>requestId</code>?</td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:client-messages -->
+<h2 id="server-messages"><a class="header" href="#server-messages">Server messages</a></h2>
+<p>Replies and pushes. <code>Fields</code> as above.</p>
+<!-- generated:server-messages -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Message</th><th>Fields</th></tr>
+</thead>
+<tbody>
+<tr><td><code>alert.speak</code></td><td><code>at</code>, <code>kind</code>, <code>parts</code>, <code>severity</code>, <code>text</code></td></tr>
+<tr><td><code>auth.elevation</code></td><td><code>code</code>, <code>connection</code>, <code>expiresInS</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>auth.required</code></td><td><code>for</code>, <code>requestId</code>?, <code>scope</code></td></tr>
+<tr><td><code>auth.scope</code></td><td><code>connection</code>, <code>expiresInS</code>?, <code>scope</code></td></tr>
+<tr><td><code>background.state</code></td><td><code>engaged</code>, <code>highLoad</code>, <code>holdWhenEngaged</code>, <code>holding</code>, <code>reason</code>?, <code>until</code>?, <code>waiting</code></td></tr>
+<tr><td><code>blueprints</code></td><td><code>blueprints</code></td></tr>
+<tr><td><code>blueprints.known</code></td><td><code>counts</code>, <code>dataAvailable</code>, <code>entries</code>, <code>next</code>?, <code>requestId</code>?</td></tr>
+<tr><td><code>capture</code></td><td><code>capture</code>, <code>queue</code>?</td></tr>
+<tr><td><code>captures</code></td><td><code>captures</code>, <code>hasMore</code></td></tr>
+<tr><td><code>combat.settings</code></td><td><code>settings</code></td></tr>
+<tr><td><code>combat.timeline</code></td><td><code>sessions</code></td></tr>
+<tr><td><code>companion.update</code></td><td><code>available</code>, <code>channel</code>, <code>checkedAt</code>, <code>current</code>, <code>latest</code>?, <code>required</code></td></tr>
+<tr><td><code>contact.alert</code></td><td><code>alert</code>, <code>alertLevel</code>?, <code>at</code>, <code>entry</code>, <code>proximity</code>?</td></tr>
+<tr><td><code>contact.deleted</code></td><td><code>handleKey</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contact.lookupQueued</code></td><td><code>handle</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts</code></td><td><code>contacts</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.chips</code></td><td><code>counts</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.counts</code></td><td><code>counts</code></td></tr>
+<tr><td><code>contacts.history</code></td><td><code>handle</code>, <code>memberships</code>, <code>stance</code></td></tr>
+<tr><td><code>contacts.matches</code></td><td><code>contacts</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>contacts.now</code></td><td><code>entries</code>, <code>generatedAt</code>, <code>hostileWindowMinutes</code>, <code>view</code>?, <code>windowMinutes</code></td></tr>
+<tr><td><code>cz.hangar</code></td><td><code>epoch</code>, <code>fetchedAt</code>, <code>source</code></td></tr>
+<tr><td><code>cz.timers</code></td><td><code>timers</code></td></tr>
+<tr><td><code>error</code></td><td><code>message</code>, <code>requestId</code>?</td></tr>
+<tr><td><code>event</code></td><td><code>event</code>, <code>seq</code></td></tr>
+<tr><td><code>events</code></td><td><code>events</code></td></tr>
+<tr><td><code>hello</code></td><td><code>captureShortcut</code>?, <code>companion</code>, <code>protocol</code>, <code>protocolVersion</code>?</td></tr>
+<tr><td><code>intel.settings</code></td><td><code>settings</code></td></tr>
+<tr><td><code>mining.signal</code></td><td><code>at</code>, <code>signals</code></td></tr>
+<tr><td><code>orgs</code></td><td><code>orgs</code></td></tr>
+<tr><td><code>presence</code></td><td><code>entries</code>, <code>error</code>, <code>fetchedAt</code>, <code>sharing</code>, <code>visibility</code></td></tr>
+<tr><td><code>snapshot</code></td><td><code>cursor</code>, <code>state</code></td></tr>
+<tr><td><code>storage.state</code></td><td><code>requestId</code>?, <code>state</code></td></tr>
+<tr><td><code>suggestions</code></td><td><code>suggestions</code></td></tr>
+<tr><td><code>suggestions.bulk</code></td><td><code>result</code></td></tr>
+<tr><td><code>suggestions.groups</code></td><td><code>groups</code></td></tr>
+<tr><td><code>sync.status</code></td><td><code>configured</code>, <code>epoch</code>, <code>error</code>, <code>lastPullAt</code>, <code>lastPushAt</code>, <code>lockdown</code>, <code>lockdownMode</code>, <code>needsSetup</code>, <code>pending</code>, <code>rejected</code>, <code>role</code>, <code>sharing</code>, <code>url</code></td></tr>
+<tr><td><code>system.cpu</code></td><td><code>at</code>, <code>companionMb</code>, <code>companionPercent</code>, <code>gameMb</code>, <code>gamePercent</code>, <code>gameRunning</code>, <code>history</code>, <code>relief</code>, <code>warnPercent</code>, <code>workersPercent</code></td></tr>
+<tr><td><code>truth.changed</code></td><td><code>requestId</code>?, <code>row</code>, <code>stats</code></td></tr>
+<tr><td><code>truth.confirmed</code></td><td><code>requestId</code>?, <code>rows</code>, <code>total</code></td></tr>
+<tr><td><code>truth.invalidated</code></td><td><code>captureId</code>, <code>reviewRevision</code></td></tr>
+<tr><td><code>truth.queue</code></td><td><code>items</code>, <code>requestId</code>?, <code>total</code></td></tr>
+<tr><td><code>truth.stats</code></td><td><code>requestId</code>?, <code>stats</code></td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:server-messages -->
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>Worked examples with realistic values and what each field holds (<code>docs/examples/protocol-examples.json</code>; each is validated against the schema by a test). The full machine-readable contract, with these examples attached to their messages, is <code>docs/generated/asyncapi.json</code> (AsyncAPI 3.0).</p>
+<!-- generated:message-examples -->
+<h3 id="client-messages-1"><a class="header" href="#client-messages-1">Client messages</a></h3>
+<p><strong><code>subscribe</code>: Start the live feed after the last event you have</strong></p>
+<p><code>since</code> is the <code>seq</code> of the last <code>event</code> you received (the <code>cursor</code> of the snapshot on first connect). Omit it to get only new events.</p>
+<pre><code class="language-json">{
+  "type": "subscribe",
+  "since": 18342
+}
+</code></pre>
+<p><strong><code>contacts.list</code>: Hostile contacts seen in chat, first 25</strong></p>
+<p><code>stance</code> filters on the decided stance (<code>kos</code> and <code>hostile</code> both count unless <code>exact</code>); <code>source</code> is where the player was seen; <code>requestId</code> comes back on the reply.</p>
+<pre><code class="language-json">{
+  "type": "contacts.list",
+  "stance": "hostile",
+  "source": "chat",
+  "limit": 25,
+  "requestId": "r-101"
+}
+</code></pre>
+<p><strong><code>contacts.now</code>: Who is near me now</strong></p>
+<p><code>view</code>: <code>here</code> (nearby in 15 minutes), <code>shared</code> (same shard, 2 hours) or <code>all</code>. Leave it out for the configured window.</p>
+<pre><code class="language-json">{
+  "type": "contacts.now",
+  "view": "here"
+}
+</code></pre>
+<p><strong><code>contacts.tag</code>: Mark a player hostile, with a note</strong></p>
+<p>A personal tag stays on this PC. <code>tag</code> is <code>kos</code>, <code>hostile</code>, <code>wary</code>, <code>neutral</code>, <code>friendly</code>, <code>ally</code> or <code>null</code> to clear it. <code>note</code> is free text up to 500 characters.</p>
+<pre><code class="language-json">{
+  "type": "contacts.tag",
+  "handle": "Void_Runner-7",
+  "tag": "hostile",
+  "note": "Pulled a gun at Port Tressler",
+  "requestId": "r-102"
+}
+</code></pre>
+<p><strong><code>contacts.tag</code>: Clear the tag</strong></p>
+<pre><code class="language-json">{
+  "type": "contacts.tag",
+  "handle": "Void_Runner-7",
+  "tag": null
+}
+</code></pre>
+<p><strong><code>contacts.category</code>: How you know someone</strong></p>
+<p><code>category</code> is one of <code>my-org</code>, <code>org-affiliate</code>, <code>alliance</code>, <code>friend</code>, <code>frequent-party</code>, <code>mission-partner</code>, <code>encountered</code>, <code>stranger</code>, or <code>null</code> to go back to the Companion’s own decision.</p>
+<pre><code class="language-json">{
+  "type": "contacts.category",
+  "handle": "Quiet_Trader",
+  "category": "friend"
+}
+</code></pre>
+<p><strong><code>org.tag</code>: An officer’s org tag</strong></p>
+<p>Needs <code>admin</code> (a native client, or a page after <code>ce-companion approve</code>) and an officer role on the Hub. <code>org</code> is the SID the tag applies to; leave it out for your main org. The tag is shared with the org.</p>
+<pre><code class="language-json">{
+  "type": "org.tag",
+  "handle": "Void_Runner-7",
+  "status": "hostile",
+  "org": "SIXTHWATCH",
+  "note": "Interdicted two members",
+  "requestId": "r-103"
+}
+</code></pre>
+<p><strong><code>contact.delete</code>: Delete a contact</strong></p>
+<p>Needs <code>admin</code>. Removes the contact’s rows and suppresses the name so it is not re-created.</p>
+<pre><code class="language-json">{
+  "type": "contact.delete",
+  "handle": "Misread_Name",
+  "requestId": "r-104"
+}
+</code></pre>
+<p><strong><code>suggestions.accept</code>: Accept one suggestion</strong></p>
+<p><code>id</code> is the suggestion’s <code>id</code> from <code>suggestions.list</code>.</p>
+<pre><code class="language-json">{
+  "type": "suggestions.accept",
+  "id": "sug-8f3a2c1d"
+}
+</code></pre>
+<p><strong><code>truth.confirm</code>: Confirm a commodity row with a corrected price</strong></p>
+<p><code>rowIndex</code> counts from 0 in the terminal listing. Send <code>reviewRevision</code> from the queue item: a stale revision (the capture was reprocessed) is rejected. <code>values</code> holds only what you corrected; prices are whole aUEC per SCU.</p>
+<pre><code class="language-json">{
+  "type": "truth.confirm",
+  "captureId": "C-261125-214310-482",
+  "rowIndex": 3,
+  "reviewRevision": 2,
+  "values": {
+    "commodity": "Laranite",
+    "pricePerScu": 2870,
+    "quantityScu": 412,
+    "status": "Medium Demand"
+  },
+  "requestId": "r-105"
+}
+</code></pre>
+<p><strong><code>sync.share</code>: Share confirmed sightings and presence, not stock or blueprints</strong></p>
+<p>Needs <code>admin</code>. <code>sightings</code> is <code>off</code>, <code>confirmed</code> or <code>auto</code>; the others are on/off. Fields you leave out stay as they are.</p>
+<pre><code class="language-json">{
+  "type": "sync.share",
+  "sightings": "confirmed",
+  "presence": true,
+  "stock": false,
+  "blueprints": false
+}
+</code></pre>
+<p><strong><code>blueprints.set</code>: Say you have a blueprint the log did not report</strong></p>
+<p><code>name</code> is the blueprint’s name as the game shows it; the Companion matches it case-insensitively. <code>enabled: false</code> says you do not have it.</p>
+<pre><code class="language-json">{
+  "type": "blueprints.set",
+  "name": "P4-AR Rifle",
+  "enabled": true
+}
+</code></pre>
+<p><strong><code>storage.cleanup</code>: Preview the storage cleanup</strong></p>
+<p>Needs <code>admin</code>. <code>dryRun: true</code> changes nothing and returns what would be reduced or expired.</p>
+<pre><code class="language-json">{
+  "type": "storage.cleanup",
+  "dryRun": true,
+  "requestId": "r-106"
+}
+</code></pre>
+<p><strong><code>auth.elevate</code>: Ask for admin on this connection</strong></p>
+<p>The Companion answers with <code>auth.elevation</code> (a six-digit code); the user then runs <code>ce-companion approve &lt;code&gt;</code> on this PC.</p>
+<pre><code class="language-json">{
+  "type": "auth.elevate",
+  "requestId": "r-107"
+}
+</code></pre>
+<h3 id="server-messages-1"><a class="header" href="#server-messages-1">Server messages</a></h3>
+<p><strong><code>error</code>: A request failed</strong></p>
+<p><code>requestId</code> echoes the request, when it had one.</p>
+<pre><code class="language-json">{
+  "type": "error",
+  "message": "unknown contact: Nobody_Here",
+  "requestId": "r-102"
+}
+</code></pre>
+<p><strong><code>auth.required</code>: The connection needs a higher scope</strong></p>
+<p><code>for</code> is the message type that was refused and <code>scope</code> what it needs.</p>
+<pre><code class="language-json">{
+  "type": "auth.required",
+  "for": "sync.share",
+  "scope": "admin",
+  "requestId": "r-108"
+}
+</code></pre>
+<p><strong><code>auth.elevation</code>: Approve this on the PC</strong></p>
+<p><code>code</code> is shown to the user, who runs <code>ce-companion approve &lt;code&gt;</code>. <code>connection</code> identifies this socket; <code>expiresInS</code> is how long the code is valid (120).</p>
+<pre><code class="language-json">{
+  "type": "auth.elevation",
+  "connection": 7,
+  "code": "483920",
+  "expiresInS": 120,
+  "requestId": "r-107"
+}
+</code></pre>
+<p><strong><code>auth.scope</code>: The connection holds admin for ten minutes</strong></p>
+<pre><code class="language-json">{
+  "type": "auth.scope",
+  "connection": 7,
+  "scope": "admin",
+  "expiresInS": 600
+}
+</code></pre>
+<p><strong><code>sync.status</code>: Org sync set up and healthy</strong></p>
+<p><code>pending</code> are outbox entries not yet sent, <code>rejected</code> those the Hub refused. <code>lastPullAt</code> and <code>lastPushAt</code> are ISO times. <code>role</code> is the Hub’s view of you. <code>sharing</code> shows the four switches.</p>
+<pre><code class="language-json">{
+  "type": "sync.status",
+  "configured": true,
+  "url": "https://hub.example.org",
+  "role": "member",
+  "lastPullAt": "2026-11-28T10:41:07.000Z",
+  "lastPushAt": "2026-11-28T10:41:06.000Z",
+  "pending": 0,
+  "rejected": 1,
+  "epoch": "e-2026-11-20",
+  "lockdown": false,
+  "lockdownMode": "off",
+  "needsSetup": false,
+  "error": null,
+  "sharing": {
+    "sightings": "confirmed",
+    "stock": false,
+    "presence": true,
+    "blueprints": false
+  }
+}
+</code></pre>
+<p><strong><code>sync.status</code>: Sync not set up</strong></p>
+<pre><code class="language-json">{
+  "type": "sync.status",
+  "configured": false,
+  "url": null,
+  "role": null,
+  "lastPullAt": null,
+  "lastPushAt": null,
+  "pending": 0,
+  "rejected": 0,
+  "epoch": null,
+  "lockdown": false,
+  "lockdownMode": "off",
+  "needsSetup": true,
+  "error": null,
+  "sharing": {
+    "sightings": "confirmed",
+    "stock": false,
+    "presence": true,
+    "blueprints": false
+  }
+}
+</code></pre>
+<p><strong><code>contact.deleted</code>: A contact was deleted</strong></p>
+<p><code>handleKey</code> is the lowercase handle, the key every contact table uses.</p>
+<pre><code class="language-json">{
+  "type": "contact.deleted",
+  "handleKey": "misread_name",
+  "requestId": "r-104"
+}
+</code></pre>
+<p><strong><code>cz.timers</code>: Two running timers</strong></p>
+<p><code>startedAt</code> is unix milliseconds; <code>key</code> names the timer.</p>
+<pre><code class="language-json">{
+  "type": "cz.timers",
+  "timers": [
+    {
+      "key": "cz-ruin-station",
+      "startedAt": 1795859000000
+    }
+  ]
+}
+</code></pre>
+<p><strong><code>companion.update</code>: A newer version is available</strong></p>
+<pre><code class="language-json">{
+  "type": "companion.update",
+  "current": "0.1.0",
+  "latest": "0.1.1",
+  "available": true,
+  "required": false,
+  "channel": "production",
+  "checkedAt": 1795859000000
+}
+</code></pre>
+<p><strong><code>background.state</code>: Background work paused while the game is busy</strong></p>
+<p><code>waiting</code> is the number of queued jobs; <code>until</code> an ISO time when the hold ends, when known.</p>
+<pre><code class="language-json">{
+  "type": "background.state",
+  "engaged": true,
+  "highLoad": false,
+  "holdWhenEngaged": true,
+  "holding": true,
+  "waiting": 12,
+  "reason": "in combat",
+  "until": "2026-11-28T10:50:00.000Z"
+}
+</code></pre>
+<!-- /generated:message-examples -->
+<h2 id="families"><a class="header" href="#families">Families</a></h2>
+<ul>
+<li><strong>Capture and truth:</strong> <code>capture</code>, <code>captures.*</code> (list, update, reprocess), <code>truth.*</code> (queue, confirmed, confirm, stats, report, resolve; <code>truth.changed</code> and <code>truth.invalidated</code> are pushed). Reprocessing deletes that capture’s confirmations (admin).</li>
+<li><strong>Contacts:</strong> <code>contacts.*</code> and <code>contact.*</code>. Lists, filters, chip counts and views are decided here; a page renders them.</li>
+<li><strong>Orgs and suggestions:</strong> <code>orgs.*</code>, <code>org.tag</code> (an officer tag that is then shared; admin), <code>suggestions.*</code> (<code>suggestions.groups</code> returns the grouped, ordered, counted inbox).</li>
+<li><strong>Blueprints:</strong> <code>blueprints.get</code> (what the user has, with <code>ownedFrom</code>), <code>blueprints.set</code> (the user’s own switch), <code>blueprints.known</code> (the game’s published list with who has each and the missions that unlock them; a paged read).</li>
+<li><strong>Sync:</strong> <code>sync.status</code>, <code>sync.now</code>, <code>sync.share</code> (admin: org sharing switches).</li>
+<li><strong>State pushes:</strong> <code>event</code>, <code>contacts</code>, <code>contacts.now</code>, <code>contact.alert</code>, <code>alert.speak</code>, <code>background.state</code>, <code>presence</code>, <code>system.cpu</code>, <code>sync.status</code>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="companion-command-line-reference"><a class="header" href="#companion-command-line-reference">Companion command-line reference</a></h1>
+<p><code>ce-companion &lt;command&gt; [options]</code>. The WebSocket API is <code>docs/PROTOCOL.md</code>. Org sync, which the <code>sync</code> command drives, is <code>docs/ORG-SYNC.md</code>. The summary, options and command text below are generated from <code>crates/ce-cli/commands.json</code>, the same file <code>--help</code> and the shell completions read.Change the JSON, then this page.</p>
+<h2 id="how-a-command-runs"><a class="header" href="#how-a-command-runs">How a command runs</a></h2>
+<ul>
+<li><strong>Exit codes:</strong> 0 ok, 1 command error, 2 usage error.</li>
+<li><strong>With the Companion running</strong> (<code>ce-companion start</code> or <code>daemon</code>), commands run inside it over the local control socket (Unix socket; Windows named pipe, protected by filesystem permissions), on its own low-priority queues, through the same handlers as the matching WebSocket message. A command and its message do the same thing.</li>
+<li><strong>Without it,</strong> commands open <code>companion.db</code> directly. The offline reads (<code>status</code>, <code>captures</code>, <code>logs</code>, <code>ocr-report</code>, <code>models</code>, <code>contacts aliases</code>, <code>truth stats|queue|history</code>) open it read-only.</li>
+<li><strong>One Companion per data folder:</strong> <code>start</code>, <code>daemon</code>, <code>demo</code> and <code>client</code> are standalone; a second <code>start</code> finds <code>companion.lock</code> (an exclusive file lock holding the pid) or a listening socket and exits.</li>
+<li><strong>Heavy work waits for the game.</strong> Commands marked <em>heavy</em> (OCR re-reads, cleanup, maintenance) are held while Star Citizen runs; <code>--now</code> or <code>--force</code> overrides where the usage text says so.</li>
+<li><strong><code>--json</code></strong> prints a machine-readable result on commands marked <code>--json</code>.</li>
+<li><strong>Confirmation:</strong> commands marked <em>confirms</em> ask first on a terminal; <code>--yes</code> skips the question and is required without one; <code>--dry-run</code> shows the plan and changes nothing.</li>
+<li><strong>Output</strong> is plain text without colour or spinners unless stdout is a terminal.</li>
+</ul>
+<p>Environment: <code>CE_ENV</code> (selects the environment), <code>CE_SC_CHANNEL</code> (the Star Citizen channel), <code>CE_UPDATE_URL</code> and <code>CE_UPDATE_CHANNEL</code> (the release feed), <code>CE_REPORT_REPO</code> (where crash reports are filed).</p>
+<h2 id="launcher-commands"><a class="header" href="#launcher-commands">Launcher commands</a></h2>
+<p>These are handled by the launcher before the command tree, so they are not in <code>commands.json</code> (they are in <code>--help</code> and the shell completions: <code>EXTRA_COMMANDS</code> in <code>crates/ce-cli/src/registry.rs</code>).</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>What</th></tr>
+</thead>
+<tbody>
+<tr><td><code>tui [--data-dir &lt;dir&gt;]</code></td><td>Live view of a running Companion: status, feed and a prompt (alias: <code>client</code>)</td></tr>
+<tr><td><code>stop [--data-dir &lt;dir&gt;]</code></td><td>Stop the running Companion (exit 0 when stopped or nothing was running, 1 when it did not stop)</td></tr>
+<tr><td><code>update --check [--json] | --download | --apply</code></td><td>Check the release feed, download a newer version, or apply it</td></tr>
+<tr><td><code>autostart enable|disable|status</code></td><td>Start the Companion at login, headless and supervised (Windows: a per-user Run key; Linux: an XDG autostart file). Disabling keeps your data</td></tr>
+<tr><td><code>overlay [args...]</code></td><td>Run the in-game overlay (<code>ce-overlay</code>), or send it <code>toggle</code>, <code>hide</code>, <code>nudge left</code>, <code>snap</code> …</td></tr>
+<tr><td><code>report [--open | --print [--full] | --list | --file &lt;name&gt; | --dismiss] [--repo owner/name]</code></td><td>Look at a crash record and, if you say so, open a prefilled GitHub issue for it</td></tr>
+<tr><td><code>--version</code>, <code>-V</code></td><td>Print the version</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="command-summary"><a class="header" href="#command-summary">Command summary</a></h2>
+<!-- generated:cli-summary -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>Subcommands</th><th>Runs</th><th>What</th></tr>
+</thead>
+<tbody>
+<tr><td><code>start</code></td><td></td><td>standalone</td><td>The Companion and, on a terminal, its live view, in one process (also plain <code>ce-companion</code>)</td></tr>
+<tr><td><code>daemon</code></td><td></td><td>standalone</td><td>Headless Companion for a service or autostart entry (no live view)</td></tr>
+<tr><td><code>demo</code></td><td></td><td>standalone</td><td>Try the Companion on made-up players and orgs, with no game and none of your data</td></tr>
+<tr><td><code>client</code></td><td></td><td>standalone</td><td>Live view of a Companion that is already running, with a prompt (alias: tui)</td></tr>
+<tr><td><code>backfill</code></td><td></td><td>any, heavy: always, confirms, <code>--json</code></td><td>Ingest new logbackups/*.log and Game.log into the store (–full: re-parse every log)</td></tr>
+<tr><td><code>reevaluate</code></td><td></td><td>any, heavy: always, confirms, <code>--json</code></td><td>Re-evaluate every derived result after a code change: re-parse all logs (backfill –full), re-run OCR on saved captures (backfill –captures),</td></tr>
+<tr><td><code>status</code></td><td></td><td>any, <code>--json</code></td><td>Store location and event counts; with a Companion running also: tailing, ship, location, shard,</td></tr>
+<tr><td><code>capture</code></td><td><code>import</code></td><td>any, <code>--json</code></td><td>Take a screenshot + OCR (on the running companion if there is one)</td></tr>
+<tr><td><code>captures</code></td><td></td><td>any, <code>--json</code></td><td>List captures (filters: –status, –tag; –limit n); captures –id &lt;id&gt;: one capture (full id or C-YYMMDD-HHMMSS-mmm)</td></tr>
+<tr><td><code>ocr-report</code></td><td></td><td>any, heavy: when, <code>--json</code></td><td>OCR recall by screen type, from the captures you annotated</td></tr>
+<tr><td><code>truth</code></td><td><code>queue</code>, <code>crop</code>, <code>confirm</code>, <code>unconfirm</code>, <code>report</code>, <code>reports</code>, <code>resolve</code>, <code>stats</code>, <code>export</code>, <code>import</code>, <code>check</code>, <code>history</code>, <code>corpus</code></td><td>any, heavy: when, <code>--json</code></td><td>Ground truth for commodity terminal OCR: review, confirm, export a golden set, check for regressions</td></tr>
+<tr><td><code>annotations</code></td><td><code>export</code></td><td>any, <code>--json</code></td><td>Annotated captures as a references.md table (stdout, or &lt;dir&gt;/references.md)</td></tr>
+<tr><td><code>storage</code></td><td><code>status</code>, <code>configure</code>, <code>cleanup</code>, <code>protect</code>, <code>register</code></td><td>any, <code>--json</code></td><td>Capture storage budget, previews, expiry and protection</td></tr>
+<tr><td><code>maintenance</code></td><td><code>status</code>, <code>log</code>, <code>run</code></td><td>any, <code>--json</code></td><td>Background upkeep: what ran, and run a task now</td></tr>
+<tr><td><code>sync</code></td><td><code>setup</code>, <code>status</code>, <code>now</code>, <code>catch-up</code>, <code>share</code></td><td>any</td><td>Store the org sync key (OS keyring) and check it (“-” reads stdin)</td></tr>
+<tr><td><code>contacts</code></td><td><code>correct</code>, <code>link</code>, <code>unlink</code>, <code>aliases</code>, <code>tidy</code>, <code>separate</code>, <code>unmerge</code></td><td>any</td><td>List contacts (personal + org tags, effective stance); link alts and renames; –tag hostile includes kos unless –exact</td></tr>
+<tr><td><code>tag</code></td><td></td><td>any</td><td>Personal tag (local only); –org-tag posts an org tag (officers)</td></tr>
+<tr><td><code>approve</code></td><td></td><td>any, <code>--json</code></td><td>Let the web page that asked make admin changes for ten minutes</td></tr>
+<tr><td><code>now</code></td><td></td><td>any, <code>--json</code></td><td>Contacts to know about now (ranked)</td></tr>
+<tr><td><code>lookup</code></td><td></td><td>any</td><td>Look up a contact’s RSI profile and orgs now (adds a history entry; see ‘contacts &lt;handle&gt;’)</td></tr>
+<tr><td><code>category</code></td><td></td><td>any</td><td>Set how you know someone (my-org, org-affiliate, alliance, friend, frequent-party, mission-partner, encountered, stranger)</td></tr>
+<tr><td><code>orgs</code></td><td><code>lookups</code>, <code>refresh</code>, <code>lookup</code>, <code>trust</code></td><td>any</td><td>My orgs and known orgs with trust settings</td></tr>
+<tr><td><code>notify</code></td><td><code>test</code>, <code>set</code></td><td>any</td><td>Notification settings (hostile, KOS and wary alerts play audio by default)</td></tr>
+<tr><td><code>suggestions</code></td><td><code>show</code>, <code>accept</code>, <code>dismiss</code></td><td>any, confirms, <code>--json</code></td><td>Open suggestions in groups (kind/from/to/source) with counts and confidence</td></tr>
+<tr><td><code>combat</code></td><td><code>auto-capture</code></td><td>any, <code>--json</code></td><td>Combat timeline: sessions from leaving armistice to entering it (newest first), with CrimeStat,</td></tr>
+<tr><td><code>voice</code></td><td><code>status</code>, <code>install</code></td><td>any</td><td>Spoken alerts: is the voice pack installed, and install it (about 126 MB, only when you ask)</td></tr>
+<tr><td><code>ocr-audit</code></td><td><code>verdicts</code>, <code>quick</code>, <code>check</code>, <code>send</code>, <code>run</code>, <code>report</code>, <code>show</code>, <code>submit</code>, <code>runs</code></td><td>any</td><td>Find problems in the live OCR: read your recent captures again, check a few examples, send them (needs the game closed)</td></tr>
+<tr><td><code>blueprints</code></td><td></td><td>any, <code>--json</code></td><td>The crafting blueprints you have received, from Game.log (backfill fills in old logs)</td></tr>
+<tr><td><code>models</code></td><td></td><td>any, <code>--json</code></td><td>Where the PP-OCR models come from in this build (the executable, a packaged folder or the development cache)</td></tr>
+<tr><td><code>logs</code></td><td></td><td>any, <code>--json</code></td><td>The Companion’s rotating log file: its path and the last lines (–limit n, default 50)</td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:cli-summary -->
+<h2 id="options-shared-by-many-commands"><a class="header" href="#options-shared-by-many-commands">Options shared by many commands</a></h2>
+<!-- generated:cli-options -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Takes</th><th>What</th></tr>
+</thead>
+<tbody>
+<tr><td><code>--sc-dir</code></td><td><code>&lt;dir&gt;</code></td><td>Star Citizen LIVE folder (alias: –log)</td></tr>
+<tr><td><code>--channel</code></td><td><code>&lt;channel&gt;</code></td><td>Star Citizen channel: LIVE (default), PTU, EPTU, HOTFIX or TECH-PREVIEW (or CE_SC_CHANNEL); –sc-dir wins</td></tr>
+<tr><td><code>--data-dir</code></td><td><code>&lt;dir&gt;</code></td><td>Companion data folder</td></tr>
+<tr><td><code>--port</code></td><td><code>&lt;n&gt;</code></td><td>WebSocket port (default 47823) (default 47823)</td></tr>
+<tr><td><code>--allow-origin</code></td><td><code>&lt;url&gt;</code></td><td>Extra allowed browser origin (repeatable) (repeatable)</td></tr>
+<tr><td><code>--status</code></td><td><code>&lt;status&gt;</code></td><td>captures: processed | unrecognised | failed | ignored | processing (repeatable); truth confirm: the correct status text (repeatable)</td></tr>
+<tr><td><code>--tag</code></td><td><code>&lt;tag&gt;</code></td><td>captures: evidence | report-example | favourite (repeatable) (repeatable)</td></tr>
+<tr><td><code>--limit</code></td><td><code>&lt;n&gt;</code></td><td>captures, contacts: maximum rows; combat: maximum sessions (default 50) (default 50)</td></tr>
+<tr><td><code>--help</code> (<code>-h</code>)</td><td>—</td><td>Show this help</td></tr>
+<tr><td><code>--no-capture</code></td><td>—</td><td>start: disable screen capture + OCR</td></tr>
+<tr><td><code>--no-hotkey</code></td><td>—</td><td>start: don’t register the global capture shortcut</td></tr>
+<tr><td>(bind <code>ce-companion capture</code> in your desktop’s shortcut settings instead)</td><td></td><td></td></tr>
+<tr><td><code>--no-lookups</code></td><td>—</td><td>start: no RSI lookups, no hangar schedule or update checks (nothing goes out to the network)</td></tr>
+<tr><td><code>--no-ui</code></td><td>—</td><td>start: plain log output even on a terminal (no live view)</td></tr>
+<tr><td><code>--no-alt-screen</code></td><td>—</td><td>start: live view on the normal screen so the terminal scrollback works (or set CE_NO_ALT_SCREEN=1)</td></tr>
+<tr><td><code>--full-desktop</code></td><td>—</td><td>Removed: rejected for privacy; only the game window may be captured</td></tr>
+<tr><td><code>--ocr-threads</code></td><td><code>&lt;n&gt;</code></td><td>start/capture: onnxruntime threads for the low-priority OCR worker (default: 2 while Star Citizen has focus, 4 otherwise; giving a number fixes it) (default 2)</td></tr>
+<tr><td><code>--url</code></td><td><code>&lt;url&gt;</code></td><td>sync setup: the org Worker URL</td></tr>
+<tr><td><code>--key</code></td><td><code>&lt;key&gt;</code></td><td>sync setup: the org sync key (“-” reads stdin); never printed</td></tr>
+<tr><td><code>--sightings</code></td><td><code>&lt;mode&gt;</code></td><td>sync share: off | confirmed | auto</td></tr>
+<tr><td><code>--stock</code></td><td>`&lt;on</td><td>off&gt;`</td></tr>
+<tr><td><code>--presence</code></td><td>`&lt;on</td><td>off&gt;`</td></tr>
+<tr><td><code>--blueprints</code></td><td>`&lt;on</td><td>off&gt;`</td></tr>
+<tr><td><code>--stance</code></td><td><code>&lt;stance&gt;</code></td><td>orgs trust: kos | hostile | neutral | friendly | unknown | clear</td></tr>
+<tr><td><code>--exact</code></td><td>—</td><td>contacts –tag hostile: hostile only, without kos (default: hostile includes kos)</td></tr>
+<tr><td><code>--handle</code></td><td><code>&lt;handle&gt;</code></td><td>orgs lookups: your own handle</td></tr>
+<tr><td><code>--id</code></td><td><code>&lt;id&gt;</code></td><td>captures: show one capture by full id or short id (C-YYMMDD-HHMMSS-mmm)</td></tr>
+<tr><td><code>--force</code></td><td>—</td><td>orgs refresh|lookup: ignore the cache; storage cleanup –apply: run even while the game is running</td></tr>
+<tr><td><code>--kind</code></td><td><code>&lt;kind&gt;</code></td><td>notify test: hostile | kos | wary; backfill –captures: only captures of this kind (e.g. commodity-terminal) (contacts link: alt, same or renamed)</td></tr>
+<tr><td><code>--note</code></td><td><code>&lt;text&gt;</code></td><td>tag: a note</td></tr>
+<tr><td><code>--org</code></td><td><code>&lt;ORG&gt;</code></td><td>tag –org-tag: which org</td></tr>
+<tr><td><code>--org-tag</code></td><td>—</td><td>tag: post an org tag (officers)</td></tr>
+<tr><td><code>--log-format</code></td><td><code>&lt;fmt&gt;</code></td><td>text (default on a terminal) | json (default when piped) | full (text with dates)</td></tr>
+<tr><td><code>--now</code></td><td>—</td><td>backfill, ocr-report –quality, truth check: run now even while Star Citizen is running (otherwise held until the game exits)</td></tr>
+<tr><td><code>--utc</code></td><td>—</td><td>Timestamps in UTC instead of local time</td></tr>
+<tr><td><code>--verbose</code></td><td>—</td><td>start: report every Game.log batch (lines read, events stored)</td></tr>
+<tr><td><code>--full</code></td><td>—</td><td>backfill: re-parse every log (after a parser upgrade); captures: reindex every folder; truth check: the full tier (original captures, whole pipeline)</td></tr>
+<tr><td><code>--raw</code></td><td>—</td><td>truth crop refresh: return the raw row crop instead of the upright crop</td></tr>
+<tr><td><code>--captures</code></td><td>—</td><td>backfill: re-run OCR on saved captures instead of ingesting logs</td></tr>
+<tr><td><code>--dry-run</code></td><td>—</td><td>reevaluate, backfill –places, contacts tidy: report what would change, change nothing</td></tr>
+<tr><td><code>--places</code></td><td>—</td><td>backfill: rebuild where each stored contact sighting happened instead of ingesting logs</td></tr>
+<tr><td><code>--geometry</code></td><td>`&lt;on</td><td>off&gt;`</td></tr>
+<tr><td><code>--deep</code></td><td>—</td><td>backfill –captures: also read every kiosk row with the deep model (status and quantity; needs models fetch deep; slow, asks first); truth check: add it as a voter</td></tr>
+<tr><td><code>--only-missing</code></td><td>—</td><td>backfill –captures: skip captures that already have sidecar v2</td></tr>
+<tr><td><code>--since</code></td><td><code>&lt;date&gt;</code></td><td>ocr-report, annotations export: only captures from this date (ISO); logs: 30m | 1h | 2d | an ISO date</td></tr>
+<tr><td><code>--errors</code></td><td>—</td><td>logs: only warnings, errors and crash records</td></tr>
+<tr><td><code>--crashes</code></td><td>—</td><td>logs: list the crash records</td></tr>
+<tr><td><code>--group</code></td><td><code>&lt;key&gt;</code></td><td>suggestions accept|dismiss: the group key from <code>suggestions</code> (kind/from/to/source)</td></tr>
+<tr><td><code>--min-confidence</code></td><td><code>&lt;0-1&gt;</code></td><td>suggestions accept|dismiss: only items at least this confident (0.8 or 80); unknown confidence is excluded</td></tr>
+<tr><td><code>--all</code></td><td>—</td><td>suggestions accept|dismiss: every open suggestion (asks to confirm); now: every known contact (top 100)</td></tr>
+<tr><td><code>--here</code></td><td>—</td><td>now: only contacts sighted nearby (target) in the last 15 min</td></tr>
+<tr><td><code>--shared</code></td><td>—</td><td>now: only contacts sighted on my shard in the last 2 h</td></tr>
+<tr><td><code>--yes</code></td><td>—</td><td>suggestions –all, reevaluate: skip the confirmation (scripts)</td></tr>
+<tr><td><code>--quality</code></td><td>—</td><td>ocr-report: commodity field quality (price checks, read agreement, held-back rows) instead of recall</td></tr>
+<tr><td><code>--truth</code></td><td><code>&lt;file&gt;</code></td><td>ocr-report –quality: JSON of hand-checked rows per capture id, to score exact matches against; <code>confirmed</code> = the rows confirmed with <code>truth confirm</code></td></tr>
+<tr><td><code>--baseline</code></td><td><code>&lt;file&gt;</code></td><td>ocr-report –quality: a saved –json report to show the change from</td></tr>
+<tr><td><code>--price</code></td><td><code>&lt;n&gt;</code></td><td>truth confirm: the correct price per SCU (or none)</td></tr>
+<tr><td><code>--quantity</code></td><td><code>&lt;n&gt;</code></td><td>truth confirm: the correct quantity in SCU (or none)</td></tr>
+<tr><td><code>--name</code></td><td><code>&lt;text&gt;</code></td><td>truth confirm: the correct commodity name</td></tr>
+<tr><td><code>--corpus</code></td><td><code>&lt;dir&gt;</code></td><td>truth corpus, check –full: the regression corpus folder (default ~/GitHub/Citizens.Edge/ocr-reference/regression, or CE_OCR_CORPUS)</td></tr>
+<tr><td><code>--last</code></td><td><code>&lt;n&gt;</code></td><td>truth history: only the last n runs (default 0)</td></tr>
+<tr><td><code>--golden</code></td><td><code>&lt;dir&gt;</code></td><td>truth check, import: the golden folder (default tests/golden/commodity)</td></tr>
+<tr><td><code>--all-agreed</code></td><td>—</td><td>truth confirm: every unconfirmed row whose fields all have 2+ agreeing reads and no disagreement</td></tr>
+<tr><td><code>--update-baseline</code></td><td>—</td><td>truth check: raise baseline.json to this run (refuses to lower it without –force)</td></tr>
+<tr><td><code>--json</code></td><td>—</td><td>Print the structured result as JSON (status, captures, backfill, now, combat, ocr-report, annotations, truth)</td></tr>
+<tr><td><code>--out</code></td><td><code>&lt;dir&gt;</code></td><td>annotations export: write &lt;dir&gt;/references.md instead of stdout; truth export: the golden folder</td></tr>
+<tr><td><code>--env</code></td><td><code>&lt;name&gt;</code></td><td>start/status: which site the web link and QR code open: production, staging, local (default production, or CE_ENV) (default “production”)</td></tr>
+<tr><td><code>--no-qr</code></td><td>—</td><td>start/status: do not print the QR code for the web link</td></tr>
+<tr><td><code>--web-url</code></td><td><code>&lt;url&gt;</code></td><td>start/status: the /live page the web link opens (default https://citizensedge.space/live/; e.g. http://localhost:3000/live/)</td></tr>
+<tr><td><code>--supervise</code></td><td>—</td><td>daemon: restart the Companion after a crash (Linux)</td></tr>
+<tr><td><code>--enable</code></td><td>—</td><td>storage configure|protect: turn on</td></tr>
+<tr><td><code>--disable</code></td><td>—</td><td>storage configure|protect: turn off</td></tr>
+<tr><td><code>--apply</code></td><td>—</td><td>storage cleanup|register: do it (otherwise a dry run)</td></tr>
+<tr><td><code>--max-bytes</code></td><td><code>&lt;bytes&gt;</code></td><td>storage configure: capture budget in bytes</td></tr>
+<tr><td><code>--protected-bytes</code></td><td><code>&lt;bytes&gt;</code></td><td>storage configure: protected allocation in bytes</td></tr>
+<tr><td><code>--manifest</code></td><td><code>&lt;file&gt;</code></td><td>storage register: JSON file of capture ids</td></tr>
+<tr><td><code>--reason</code></td><td><code>&lt;text&gt;</code></td><td>storage register: why these captures are kept</td></tr>
+<tr><td><code>--hidden</code></td><td>—</td><td>contacts: include the contacts tidy hid (unverified handles that only OCR ever read)</td></tr>
+</tbody>
+</table>
+</div>
+<!-- /generated:cli-options -->
+<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
+<p>The usage text is exactly what <code>ce-companion --help</code> prints for each command. Under each, <code>Flags</code> lists the options that command reads.</p>
+<!-- generated:cli-commands -->
+<h3 id="start"><a class="header" href="#start"><code>start</code></a></h3>
+<pre><code class="language-text">start      The Companion and, on a terminal, its live view, in one process (also plain `ce-companion`)
+           Backfills, tails Game.log, serves the live feed and the local control socket. --no-ui or a pipe: plain logs; --no-alt-screen: normal screen (terminal scrollback)
+</code></pre>
+<p>Flags: <code>--sc-dir</code>, <code>--channel</code>, <code>--port</code>, <code>--allow-origin</code>, <code>--no-capture</code>, <code>--no-ui</code>, <code>--no-alt-screen</code>, <code>--ocr-threads</code>, <code>--full-desktop</code>, <code>--no-hotkey</code>, <code>--no-lookups</code>, <code>--verbose</code>, <code>--env</code>, <code>--web-url</code>, <code>--no-qr</code></p>
+<h3 id="daemon"><a class="header" href="#daemon"><code>daemon</code></a></h3>
+<pre><code class="language-text">daemon     Headless Companion for a service or autostart entry (no live view)
+           --supervise: restart it after a crash (Linux), forward SIGINT/SIGTERM and keep a crash log
+</code></pre>
+<p>Flags: <code>--sc-dir</code>, <code>--channel</code>, <code>--port</code>, <code>--allow-origin</code>, <code>--no-capture</code>, <code>--ocr-threads</code>, <code>--full-desktop</code>, <code>--no-hotkey</code>, <code>--no-lookups</code>, <code>--verbose</code>, <code>--env</code>, <code>--web-url</code>, <code>--supervise</code></p>
+<h3 id="demo"><a class="header" href="#demo"><code>demo</code></a></h3>
+<pre><code class="language-text">demo       Try the Companion on made-up players and orgs: no game, no capture, no lookups, none of your data
+           Builds a scratch folder (default: the system temp folder) and runs `start` on it, on its own port (47833). --port &lt;n&gt;: another port; --data-dir &lt;dir&gt;: another scratch folder (refused unless it is a demo folder). Then `ce-overlay --data-dir &lt;that folder&gt;` shows it in the overlay.
+</code></pre>
+<p>Flags: <code>--port</code>, <code>--data-dir</code>, <code>--no-ui</code>, <code>--no-alt-screen</code>, <code>--allow-origin</code>, <code>--web-url</code>, <code>--no-qr</code></p>
+<h3 id="client"><a class="header" href="#client"><code>client</code></a></h3>
+<pre><code class="language-text">client     Live view of a Companion that is already running, started with `start` or `daemon` (alias: tui)
+</code></pre>
+<p>Flags: <code>--data-dir</code></p>
+<h3 id="backfill"><a class="header" href="#backfill"><code>backfill</code></a></h3>
+<pre><code class="language-text">backfill   Ingest new logbackups/*.log and Game.log into the store (--full: re-parse every log)
+           backfill --captures [--kind &lt;kind&gt;] [--geometry on|off]: re-run OCR on saved captures to regenerate sidecar v2 (geometry, detections), optionally one kind only
+           (with a Companion running it runs there, on the OCR queue, in the background)
+           backfill --places [--dry-run]: replay every stored event and fill in where each contact sighting happened (near-me location, and where you were); back up companion.db first
+</code></pre>
+<p>Flags: <code>--full</code>, <code>--captures</code>, <code>--places</code>, <code>--dry-run</code>, <code>--only-missing</code>, <code>--kind</code>, <code>--now</code>, <code>--sc-dir</code>, <code>--channel</code>, <code>--full-desktop</code>, <code>--ocr-threads</code>, <code>--geometry</code>, <code>--deep</code>, <code>--yes</code></p>
+<h3 id="reevaluate"><a class="header" href="#reevaluate"><code>reevaluate</code></a></h3>
+<pre><code class="language-text">reevaluate Re-evaluate every derived result after a code change: re-parse all logs (backfill --full), re-run OCR on saved captures (backfill --captures),
+           run `truth check --full`, re-check the confirmed truth against the new rows (moved / stale / orphaned), remove stale derived data, then print truth stats
+           and the doubtful-queue size. Slow (about 2.6 s per capture, plus the check)
+           reevaluate [--kind &lt;kind&gt;] [--dry-run] [--yes]
+             --dry-run   print the plan, the warning and the stale-data counts; change nothing and never ask
+             --yes       skip the confirmation question (the warning is still printed); without a terminal it is required
+           Removed: unconfirmed truth rows whose capture or row no longer exists, derived OCR files (detections, row crops) whose capture is gone.
+           Reported only: unconfirmed truth rows the machine now reads at another row index, captures still without sidecar v2.
+           Never touched: captures and images, confirmed truth values.
+</code></pre>
+<p>Flags: <code>--kind</code>, <code>--dry-run</code>, <code>--yes</code>, <code>--json</code>, <code>--golden</code>, <code>--corpus</code>, <code>--now</code>, <code>--sc-dir</code>, <code>--channel</code>, <code>--full-desktop</code>, <code>--ocr-threads</code></p>
+<h3 id="status"><a class="header" href="#status"><code>status</code></a></h3>
+<pre><code class="language-text">status     Store location and event counts; with a Companion running also: tailing, ship, location, shard,
+           capture queue + OCR timing, RSI lookup backlog, web clients, uptime (--json for scripts)
+</code></pre>
+<p>Flags: <code>--port</code>, <code>--env</code>, <code>--web-url</code>, <code>--no-qr</code>, <code>--json</code></p>
+<h3 id="capture"><a class="header" href="#capture"><code>capture</code></a></h3>
+<pre><code class="language-text">capture    Take a screenshot + OCR (on the running companion if there is one)
+capture import &lt;file&gt;   Import an existing screenshot and OCR it
+</code></pre>
+<p>Flags: <code>--full-desktop</code>, <code>--ocr-threads</code></p>
+<h3 id="captures"><a class="header" href="#captures"><code>captures</code></a></h3>
+<pre><code class="language-text">captures   List captures (filters: --status, --tag; --limit n); captures --id &lt;id&gt;: one capture (full id or C-YYMMDD-HHMMSS-mmm)
+</code></pre>
+<p>Flags: <code>--status</code>, <code>--tag</code>, <code>--limit</code>, <code>--id</code>, <code>--full</code></p>
+<h3 id="ocr-report"><a class="header" href="#ocr-report"><code>ocr-report</code></a></h3>
+<pre><code class="language-text">ocr-report [--since &lt;date&gt;] [--json]
+                                OCR recall by screen type, from the captures you annotated
+ocr-report --quality [--truth &lt;file&gt;|confirmed] [--baseline &lt;file&gt;] [--since &lt;date&gt;] [--json]
+                                Commodity field quality: price checks, read agreement, held-back rows; exact match
+                                against a truth file and your annotations; change from a saved --json report
+</code></pre>
+<p>Flags: <code>--since</code>, <code>--json</code>, <code>--quality</code>, <code>--truth</code>, <code>--baseline</code>, <code>--now</code></p>
+<h3 id="truth"><a class="header" href="#truth"><code>truth</code></a></h3>
+<pre><code class="language-text">truth      Ground truth for commodity terminal OCR: review, confirm, export a golden set, check for regressions
+           truth queue [--limit n] [--json]     unconfirmed rows, most doubtful first (disagreeing reads, single reads, unchecked price, held back), with a row crop PNG
+           truth crop refresh &lt;truth-id&gt; [--raw]  regenerate a row crop (also accepts &lt;capture&gt; &lt;row&gt;; available at the crop URL with ?refresh=1)
+           truth confirm &lt;truth-id&gt; [--price n] [--quantity n] [--status text] [--name text]
+                                                confirm a row as read, or with the corrections given; the queue also accepts &lt;capture&gt; &lt;row&gt;
+           truth confirm --all-agreed [--yes]   confirm every row whose fields all have 2+ agreeing reads and no disagreement (prints the count; --yes does it)
+           truth unconfirm &lt;truth-id&gt;          take a confirmation back (also accepts &lt;capture&gt; &lt;row&gt;)
+           truth report &lt;truth-id&gt; &lt;needs-reprocessing|bad-crop|unreadable&gt; [--note text]
+                                                save evidence for local agent investigation; remove from confirmed truth without deleting the sample
+           truth reports [--all] [--json] [--out &lt;dir&gt;]
+                                                active reports (all includes resolution history); --out exports reports.json, original captures and detections for agents
+           truth resolve &lt;truth-id&gt; --note text  record investigation findings and return the row for review, without confirming it
+           truth stats [--json]                 confirmed vs unconfirmed, machine accuracy against the truth, coverage by resolution / UI scale / terminal type
+           truth export --out &lt;dir&gt;             write the confirmed rows as golden cases (row crop PNG + JSON label each) under &lt;dir&gt;/cases
+           truth import [dir]                   load a golden folder's labels back into the truth table (default tests/golden/commodity)
+           truth check [--golden &lt;dir&gt;] [--full] [--update-baseline [--force]] [--json]
+                                                re-read the golden cases with the current OCR (fast: the crops; --full: the original captures) and compare with baseline.json;
+                                                exits 1 when a previously right case turns wrong or accuracy drops; appends a line to history.jsonl;
+                                                --full reads the originals from the regression corpus when it is present (else from the data dir)
+           truth history [--json] [--last n] [--golden &lt;dir&gt;]
+                                                the check runs from history.jsonl: whole-row accuracy per run (change against the previous run of the same tier), per terminal type and window size,
+                                                commit and parser version; REGRESSION marks a drop of more than 2 points overall or in a group
+           truth corpus sync|verify [--golden &lt;dir&gt;] [--corpus &lt;dir&gt;]
+                                                sync: copy the original captures behind the golden rows (PNG + sidecar) into the regression corpus outside git
+                                                (~/GitHub/Citizens.Edge/ocr-reference/regression/&lt;terminal type&gt;/) and write tests/golden/corpus-manifest.json;
+                                                verify: check every manifest image exists there and still has its sha256
+</code></pre>
+<p>Flags: <code>--limit</code>, <code>--json</code>, <code>--price</code>, <code>--quantity</code>, <code>--status</code>, <code>--deep</code>, <code>--name</code>, <code>--note</code>, <code>--all</code>, <code>--out</code>, <code>--golden</code>, <code>--corpus</code>, <code>--last</code>, <code>--all-agreed</code>, <code>--yes</code>, <code>--update-baseline</code>, <code>--force</code>, <code>--full</code>, <code>--raw</code>, <code>--now</code>, <code>--sc-dir</code>, <code>--channel</code>, <code>--full-desktop</code>, <code>--ocr-threads</code></p>
+<h3 id="annotations"><a class="header" href="#annotations"><code>annotations</code></a></h3>
+<pre><code class="language-text">annotations export [--out &lt;dir&gt;]
+                                Annotated captures as a references.md table (stdout, or &lt;dir&gt;/references.md)
+</code></pre>
+<p>Flags: <code>--since</code>, <code>--out</code></p>
+<h3 id="storage"><a class="header" href="#storage"><code>storage</code></a></h3>
+<pre><code class="language-text">storage    Show capture-storage status and policy
+           storage configure [--enable|--disable] [--max-bytes n] [--protected-bytes n]
+           storage cleanup [--apply [--force]]     preview old captures and expire the oldest (a dry run without --apply; held while the game runs unless --force)
+           storage protect &lt;capture-id&gt; --enable|--disable
+           storage register --manifest &lt;json&gt; [--reason text] [--apply]
+           Defaults: 10 GB budget with 2 GiB protected; PNG for 30 days, then a reduced preview, expiry at 180 days (6 months); sooner when the budget is nearly full (over 90%: the oldest are reduced, then expired, down to 80%). Favourites, evidence and registered captures are never touched. Automatic cleanup is off until enabled.
+</code></pre>
+<p>Flags: <code>--enable</code>, <code>--disable</code>, <code>--apply</code>, <code>--force</code>, <code>--max-bytes</code>, <code>--protected-bytes</code>, <code>--manifest</code>, <code>--reason</code>, <code>--id</code>, <code>--json</code></p>
+<h3 id="maintenance"><a class="header" href="#maintenance"><code>maintenance</code></a></h3>
+<pre><code class="language-text">maintenance  Show what the background maintenance tasks last did and when each is next due
+             maintenance log [task] [--limit n]   the recent runs
+             maintenance run &lt;task|all&gt; [--dry-run] [--apply]   run now (held while the game runs; a task that deletes is a dry run until --apply)
+             Tasks run by themselves while Star Citizen is closed, one at a time at the lowest priority: db-health, capture-audit, data-audit.
+</code></pre>
+<p>Flags: <code>--dry-run</code>, <code>--apply</code>, <code>--limit</code>, <code>--json</code></p>
+<h3 id="sync"><a class="header" href="#sync"><code>sync</code></a></h3>
+<pre><code class="language-text">sync setup --url &lt;worker&gt; --key &lt;key|-&gt;   Store the org sync key (OS keyring) and check it ("-" reads stdin)
+sync status                     Show org sync state
+sync now                        Push shared events and pull org updates
+sync catch-up [--since &lt;iso date&gt;] [--dry-run]
+                                Queue what the sharing settings allow from captures taken before sync was set up or while sharing was off; safe to repeat
+sync share [--sightings off|confirmed|auto] [--stock on|off] [--presence on|off] [--blueprints on|off]
+                                Choose what is shared (default: sightings confirmed, stock off, presence on, blueprints off)
+</code></pre>
+<p>Flags: <code>--url</code>, <code>--key</code>, <code>--sightings</code>, <code>--stock</code>, <code>--presence</code>, <code>--blueprints</code>, <code>--since</code>, <code>--dry-run</code></p>
+<h3 id="contacts"><a class="header" href="#contacts"><code>contacts</code></a></h3>
+<pre><code class="language-text">contacts [text] [--tag kos|hostile|neutral|friendly] [--exact] [--limit n]
+                                List contacts (personal + org tags, effective stance); --tag hostile includes kos unless --exact
+contacts correct &lt;misread&gt; &lt;correct&gt;
+                                Fix a misread handle (e.g. PCP30 -&gt; PCP3O): merges the contact, keeps the misread as an alias, queues an RSI lookup
+contacts link &lt;handle&gt; &lt;other handle&gt; [--kind alt|same|renamed]
+                                Link two contacts as the same person (renamed: the first was renamed to the second); a warning (wary, hostile, kos) on one applies to the others
+contacts unlink &lt;handle&gt; &lt;other handle&gt;
+                                Remove that link
+contacts aliases &lt;handle&gt;       The handles linked to this one, how, and the warning they pass on
+contacts tidy [--dry-run]       Classify every handle (verified, not looked up yet, no longer on RSI, named by the game log, unverified), merge OCR misreads into the real handle and hide the unverified; also runs by itself after each RSI lookup batch
+contacts separate &lt;handle&gt;      Keep a handle apart: tidy and snapping never merge it into another
+contacts unmerge &lt;misread&gt;      Undo a merge: the sightings read as that name go back to a contact of that name
+contacts --hidden               Include the contacts tidy hid (unverified handles only OCR ever read)
+</code></pre>
+<p>Flags: <code>--tag</code>, <code>--limit</code>, <code>--kind</code>, <code>--hidden</code>, <code>--dry-run</code></p>
+<h3 id="tag"><a class="header" href="#tag"><code>tag</code></a></h3>
+<pre><code class="language-text">tag &lt;handle&gt; kos|hostile|neutral|friendly|clear [--note &lt;text&gt;] [--org-tag [--org &lt;ORG&gt;]]
+                                Personal tag (local only); --org-tag posts an org tag (officers)
+</code></pre>
+<p>Flags: <code>--note</code>, <code>--org</code>, <code>--org-tag</code></p>
+<h3 id="approve"><a class="header" href="#approve"><code>approve</code></a></h3>
+<pre><code class="language-text">approve [code]     Approve the web page that asked for admin rights (sharing on or off, deleting a contact, storage cleanup, reprocessing).
+                   The page shows a six-digit code; give it here. With only one page waiting the code can be left out. The page keeps the rights for ten minutes.
+</code></pre>
+<h3 id="now"><a class="header" href="#now"><code>now</code></a></h3>
+<pre><code class="language-text">now [--here|--shared|--all]     Contacts to know about now (ranked). No flag: the nowWindowMinutes window (default 45 min, hostiles 30);
+                                --here nearby in 15 min, --shared same shard in 2 h, --all every known contact (top 100)
+</code></pre>
+<p>Flags: <code>--here</code>, <code>--shared</code>, <code>--all</code></p>
+<h3 id="lookup"><a class="header" href="#lookup"><code>lookup</code></a></h3>
+<pre><code class="language-text">lookup &lt;handle&gt;                 Look up a contact's RSI profile and orgs now (adds a history entry; see 'contacts &lt;handle&gt;')
+</code></pre>
+<h3 id="category"><a class="header" href="#category"><code>category</code></a></h3>
+<pre><code class="language-text">category &lt;handle&gt; &lt;category&gt;|clear
+                                Set how you know someone (my-org, org-affiliate, alliance, friend, frequent-party, mission-partner, encountered, stranger)
+</code></pre>
+<h3 id="orgs"><a class="header" href="#orgs"><code>orgs</code></a></h3>
+<pre><code class="language-text">orgs                            My orgs and known orgs with trust settings
+orgs lookups on|off [--handle &lt;me&gt;]
+                                Background RSI citizen/org lookups (on by default; rate-limited, cached)
+orgs refresh [--force]          Re-read my orgs and their member lists from RSI
+orgs lookup &lt;handle&gt;            Same as 'lookup' (full profile lookup)
+orgs trust &lt;SID&gt; high|medium-high|medium|neutral|unknown|low|clear [--stance kos|hostile|neutral|friendly|unknown|clear]
+                                Org trust/stance that members inherit live (clear = relationship default)
+</code></pre>
+<p>Flags: <code>--force</code>, <code>--stance</code>, <code>--handle</code></p>
+<h3 id="notify"><a class="header" href="#notify"><code>notify</code></a></h3>
+<pre><code class="language-text">notify                          Notification settings (hostile, KOS and wary alerts play audio by default)
+notify test [--kind hostile|kos|wary]
+                                Send a test alert (audio and desktop pop-up when on) through the enabled channels (ignores quiet hours and the cooldown)
+notify set &lt;setting&gt; &lt;value&gt;    audio on|off, mute on|off, voice on|off (the overlay says alerts aloud), volume 0-100, cooldown &lt;minutes&gt;,
+                                desktop on|off (pop-ups, default off), desktop-hostile|desktop-kos|desktop-wary on|off,
+                                quiet on|off, quiet-start HH:MM, quiet-end HH:MM,
+                                hostile|kos|wary|party|org-online on|off (which alerts are sent; wary is a heads-up about a contact to watch, not a threat)
+</code></pre>
+<p>Flags: <code>--kind</code></p>
+<h3 id="suggestions"><a class="header" href="#suggestions"><code>suggestions</code></a></h3>
+<pre><code class="language-text">suggestions                     Open suggestions in groups (kind/from/to/source) with counts and confidence
+suggestions show &lt;group&gt;        The items of one group (handle, from → to, confidence, reasons)
+suggestions accept|dismiss &lt;id&gt; One suggestion
+suggestions accept|dismiss --group &lt;key&gt; [--min-confidence 0.8]
+                                A whole group, or only its items at least that confident; accepts skip (mark stale)
+                                items whose contact value changed since, and never override you
+suggestions accept|dismiss --all [--min-confidence 0.8] [--yes]
+                                Every open suggestion (asks to confirm; --yes for scripts). --json on any of these
+</code></pre>
+<p>Flags: <code>--group</code>, <code>--min-confidence</code>, <code>--all</code>, <code>--yes</code></p>
+<h3 id="combat"><a class="header" href="#combat"><code>combat</code></a></h3>
+<pre><code class="language-text">combat     Combat timeline: sessions from leaving armistice to entering it (newest first), with CrimeStat,
+           deaths, missile-nearby hints and target captures with friend-or-foe (--limit n sessions; --json)
+combat auto-capture [off | crime-stat | leave-armistice-with-target …]
+           Show or set when a screenshot is taken a moment after a combat event (off by default;
+           at most one per 20 s and 10 per hour, through the normal low-priority OCR queue)
+</code></pre>
+<p>Flags: <code>--limit</code>, <code>--json</code></p>
+<h3 id="voice"><a class="header" href="#voice"><code>voice</code></a></h3>
+<pre><code class="language-text">voice                           Whether the voice pack for spoken alerts is installed
+voice install                   Download the voice pack (the Kokoro model, its voices and the dictionaries, each checked by hash) into the data folder; needs no running Companion
+</code></pre>
+<h3 id="ocr-audit"><a class="header" href="#ocr-audit"><code>ocr-audit</code></a></h3>
+<pre><code class="language-text">ocr-audit quick [--sessions 3] [--cap 150] [--fast] [--now]
+                                Read your last few play sessions again with the medium model and list the likely problems
+ocr-audit verdicts              What your answers say about each rule, and whether the heavy model finds anything the others do not
+ocr-audit check                 Look at the examples in a local page: was it on screen, was it read right
+ocr-audit send                  Make a zip of up to 3 problem examples (screenshot with chat and player card pixelated, cleaned metadata) to attach to a GitHub issue
+ocr-audit [--last day|week|month] [--since &lt;date&gt; [--until &lt;date&gt;]] [--kind &lt;kind&gt;] [--jobs n]
+                                Read the stored captures again with the medium model and every voter; needs the game closed (or --now)
+ocr-audit report [--run &lt;id&gt;] [--scanner &lt;name&gt;] [--status &lt;s&gt;] [--all] [--json]
+                                Scores per scanner, the weakest fields and the scans that differ
+ocr-audit show &lt;n&gt;              One scan: what the Companion read and what the audit read
+ocr-audit submit &lt;n&gt; [--repo owner/name] [--yes] [--print]
+                                File that scan as a GitHub issue (shown first), then add notes
+ocr-audit runs                  The runs so far
+</code></pre>
+<h3 id="blueprints"><a class="header" href="#blueprints"><code>blueprints</code></a></h3>
+<pre><code class="language-text">blueprints [--json]             The crafting blueprints you have received, each once, with the date and the mission that gave it
+</code></pre>
+<p>Flags: <code>--json</code></p>
+<h3 id="models"><a class="header" href="#models"><code>models</code></a></h3>
+<pre><code class="language-text">models                          Where the PP-OCR models come from in this build, and the privacy classifier's state
+</code></pre>
+<p>Flags: <code>--json</code></p>
+<h3 id="logs"><a class="header" href="#logs"><code>logs</code></a></h3>
+<pre><code class="language-text">logs       The Companion's rotating log file: its path and the last lines (--limit n, default 50)
+           logs --errors: only warnings, errors and crash records; logs --since 1h (30m, 2d or an ISO date); logs --crashes: list the crash records
+</code></pre>
+<p>Flags: <code>--limit</code>, <code>--since</code>, <code>--errors</code>, <code>--crashes</code>, <code>--utc</code>, <code>--json</code></p>
+<!-- /generated:cli-commands -->
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="companion-database"><a class="header" href="#companion-database">Companion database</a></h1>
+<p>The Companion keeps everything in one SQLite file, <code>companion.db</code>, in its data folder (Linux <code>~/.local/share/citizens-edge-companion/</code>, Windows <code>%LOCALAPPDATA%\CitizensEdgeCompanion</code>). Only the running Companion writes to it (the <code>ce-store</code> crate). <code>status</code>, <code>captures</code>, <code>logs</code>, <code>ocr-report</code>, <code>models</code>, <code>contacts aliases</code> and <code>truth stats|queue|history</code> can read it with the Companion stopped. The Hub has its own database: <code>Citizens.Edge.Org/docs/DATABASE.md</code>. How the two connect: <code>docs/DB-API-REPORT.md</code>.</p>
+<p>This is schema version 4, with 32 tables and 42 indexes. The schema as SQLite stores it is <code>docs/generated/companion-schema.sql</code>, made by <code>cargo run -p ce-core --bin docgen</code>; CI fails if it is out of date. A test fails if a table or column is missing from this page, so change this page in the same PR as a table. Findings and measurements are in <code>DB-API-AUDIT.md</code> and <code>DB-API-REPORT.md</code>.</p>
+<h2 id="versioning"><a class="header" href="#versioning">Versioning</a></h2>
+<p>The version is stored in SQLite’s <code>user_version</code> (<code>crates/ce-store/src/schema_version.rs</code>).</p>
+<ul>
+<li><strong>Version 1</strong> is the original set of tables, created when the store opens. A file with no version is brought to version 1.</li>
+<li><strong>Later versions</strong> are entries in <code>MIGRATIONS</code>. They are only ever added, applied in order, each in a transaction that also records the version. Never change one that has shipped.</li>
+<li><strong>A newer file is refused.</strong> An older Companion will not open a store written by a newer one.</li>
+<li><strong>Version 2:</strong> <code>contact_seen</code> (a copy of four <code>contact_events</code> columns) was merged into <code>contact_events</code> and dropped.</li>
+<li><strong>Version 3:</strong> <code>CHECK</code> constraints on three columns with a fixed set of values: <code>sync_outbox.status</code>, <code>contact_suggestions.status</code> and <code>contact_links.link_kind</code>. Each table is rebuilt with its rows and indexes. A value outside the set is changed to <code>rejected</code>, <code>stale</code> or <code>alt</code> first, so no row is lost. Tested on a copy of a real store: every row count was the same afterwards.</li>
+<li><strong>Version 4:</strong> HTML entities in names read from RSI (<code>W&amp;ouml;lfe</code>, <code>DraXon&amp;trade;</code>, <code>Alor&amp;amp;amp;rsquo;ad</code>) are decoded in <code>org_memberships</code>, <code>orgs</code>, <code>citizen_profiles</code>, <code>citizen_profile_lookups</code> and <code>rsi_cache</code>. The decoder now knows every named entity and decodes names RSI escaped twice.</li>
+<li>The store can be rebuilt: <code>events</code> comes from <code>raw_lines</code>, and the contact tables from <code>events</code>, <code>contact_events</code> and <code>captures</code>.</li>
+</ul>
+<h2 id="how-the-tables-relate"><a class="header" href="#how-the-tables-relate">How the tables relate</a></h2>
+<p>The store has no foreign keys. Tables join by value and the Companion keeps them consistent. A foreign key would be wrong or unsafe in each case: contacts appear in sightings, profiles and org data before (or without) a <code>contacts</code> row; <code>commodity_truth</code> rows outlive an expired capture; a truth report outlives the truth row it was raised on; <code>deleted_contacts</code>, <code>handle_aliases</code> and <code>storage_registrations</code> keep their key after the thing is gone; and <code>org_memberships</code> is written for orgs the Companion has no <code>orgs</code> row for. A contact is identified by <code>handle_key</code> (the handle in lower case), a capture by <code>id</code> and an org by <code>sid</code>.</p>
+<pre class="mermaid">erDiagram
+  raw_lines ||--o{ events : "parsed into"
+  ingested_files ||--o{ raw_lines : "file"
+  events }o--o{ contact_events : "sighting from a log event"
+  captures ||--o{ contact_events : "capture_id"
+  captures ||--o{ commodity_truth : "capture_id"
+  captures ||--o{ storage_registrations : "protected by"
+  commodity_truth ||--o{ commodity_truth_reports : "reported"
+  contacts ||--o| contact_categories : "decided category, trust"
+  contacts ||--o{ contact_events : "sightings"
+  contacts ||--o{ contact_stance_history : "stance changes"
+  contacts ||--o{ contact_suggestions : "proposals"
+  contacts ||--o{ contact_links : "alt / same / renamed"
+  contacts ||--o| contact_pins : "pinned"
+  contacts ||--o{ handle_aliases : "misread spellings"
+  contacts ||--o| deleted_contacts : "deleted, suppressed"
+  contacts ||--o| citizen_profiles : "RSI profile"
+  citizen_profiles ||--o{ citizen_profile_lookups : "each attempt"
+  contacts ||--o{ org_memberships : "member of"
+  orgs ||--o{ org_memberships : "members"
+  org_memberships ||--o{ org_membership_changes : "joins, leaves"
+  sync_outbox }o--o| contact_events : "a shared sighting"
+  org_events }o--o{ contacts : "org tags and sightings"
+  org_ratings }o--o{ contacts : "rating by handle"
+  raw_lines { text file PK }
+  ingested_files { text name PK }
+  events { integer seq PK }
+  checkpoints { text name PK }
+  captures { text id PK }
+  commodity_truth { text capture_id PK }
+  commodity_truth_reports { text report_id PK }
+  storage_registrations { text capture_id PK }
+  contacts { text handle_key PK }
+  contact_categories { text handle_key PK }
+  contact_events { text handle_key PK }
+  contact_stance_history { integer id PK }
+  contact_suggestions { text id PK }
+  contact_links { text handle_key PK }
+  contact_pins { text handle_key PK }
+  handle_aliases { text alias_key PK }
+  deleted_contacts { text handle_key PK }
+  citizen_profiles { text handle_key PK }
+  citizen_profile_lookups { integer id PK }
+  rsi_cache { text key PK }
+  orgs { text sid PK }
+  org_memberships { text handle_key PK }
+  org_membership_changes { integer id PK }
+  sync_settings { integer id PK }
+  sync_state { integer id PK }
+  sync_outbox { text local_id PK }
+  org_ratings { text kind PK }
+  org_events { integer seq PK }
+  intel_settings { integer id PK }
+  combat_settings { integer id PK }
+  blueprint_overrides { text key PK }
+  maintenance_runs { integer id PK }
+</pre>
+
+<h2 id="tables"><a class="header" href="#tables">Tables</a></h2>
+<p>Types: <code>text</code>, <code>integer</code>, <code>number</code>, <code>JSON</code> (JSON stored as text). Times are ISO 8601 UTC text, e.g. <code>2026-10-26T07:40:43.938Z</code>, unless the column says milliseconds. “optional” means the column can be empty. Examples are made-up or taken from real use.</p>
+<h3 id="the-log"><a class="header" href="#the-log">The log</a></h3>
+<h4 id="raw_lines"><a class="header" href="#raw_lines"><code>raw_lines</code></a></h4>
+<p>Raw lines from the Game.log files. Key: <code>file</code>, <code>line_no</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>file</code></td><td>text</td><td>Log file name, e.g. <code>Game.log</code> or <code>Game Build(13220821) 25 Nov 26 (23 11 30).log</code></td></tr>
+<tr><td><code>line_no</code></td><td>integer</td><td>Line number in that file</td></tr>
+<tr><td><code>text</code></td><td>text</td><td>The line as written in the log</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="events"><a class="header" href="#events"><code>events</code></a></h4>
+<p>Events parsed from the log lines, and from screenshots read by OCR. Key: <code>seq</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>seq</code></td><td>integer</td><td>Running number in insertion order. Clients subscribe from it</td></tr>
+<tr><td><code>id</code></td><td>text</td><td>Unique event id, e.g. <code>b7fd105117ef1a4b</code></td></tr>
+<tr><td><code>kind</code></td><td>text</td><td>Event type, e.g. <code>session.start</code>, <code>location.change</code>, <code>party.joined</code>, <code>ocr.sighting</code></td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When it happened, ISO 8601 UTC, e.g. <code>2026-10-26T07:40:43.938Z</code></td></tr>
+<tr><td><code>payload</code></td><td>JSON</td><td>The event as JSON: its id, time, source (<code>log</code> or <code>ocr</code>, with the file or screenshot) and the fields for its kind, e.g. <code>handle</code> for a sighting</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="ingested_files"><a class="header" href="#ingested_files"><code>ingested_files</code></a></h4>
+<p>Log files that have been read, so a backup log is not read twice. Key: <code>name</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>name</code></td><td>text</td><td>Log file name</td></tr>
+<tr><td><code>size</code></td><td>integer</td><td>Size in bytes when it was read</td></tr>
+<tr><td><code>mtime_ms</code></td><td>integer</td><td>File modified time, unix milliseconds</td></tr>
+<tr><td><code>ingested_at</code></td><td>text</td><td>When it was read, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="checkpoints"><a class="header" href="#checkpoints"><code>checkpoints</code></a></h4>
+<p>Named positions and one-time job markers. Key: <code>name</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>name</code></td><td>text</td><td>What it marks, e.g. <code>tail:Game.log</code> (how far the log has been read), <code>live-state</code>, <code>captures:folders</code>, <code>chat-text-scrubbed</code></td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>Its data as JSON, e.g. <code>{"offset":1829479,"lineNo":8276}</code></td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When it was last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="captures-and-commodity-truth"><a class="header" href="#captures-and-commodity-truth">Captures and commodity truth</a></h3>
+<h4 id="captures-1"><a class="header" href="#captures-1"><code>captures</code></a></h4>
+<p>One row per screenshot. The image files are in the <code>captures/</code> folder, not in the database. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>text</td><td>Capture id, the screenshot time, e.g. <code>2026-10-29T07-27-31.899Z</code></td></tr>
+<tr><td><code>captured_at</code></td><td>text</td><td>When the screenshot was taken, ISO 8601 UTC</td></tr>
+<tr><td><code>kind</code></td><td>text</td><td>What the screen shows: <code>commodity-terminal</code>, <code>chat</code>, <code>target</code>, <code>party</code>, <code>nameplate</code>, <code>mobiglas-chat</code>, <code>fleet-manager</code>, <code>item-shop</code>, <code>main-menu</code>, <code>inventory</code> or <code>other</code></td></tr>
+<tr><td><code>status</code></td><td>text</td><td><code>processed</code>, <code>unrecognised</code>, <code>failed</code>, <code>ignored</code> or <code>processing</code></td></tr>
+<tr><td><code>tags</code></td><td>JSON</td><td>JSON list of tags, from <code>evidence</code>, <code>report-example</code>, <code>favourite</code>. Tagged captures are kept when old ones are cleaned up</td></tr>
+<tr><td><code>search</code></td><td>text</td><td>Text the capture search looks in. Does not include other players’ chat</td></tr>
+<tr><td><code>meta</code></td><td>JSON</td><td>The capture’s details as JSON: image file, what triggered it (e.g. <code>hotkey</code>), the player, shard and location at the time, and the OCR result</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="commodity_truth"><a class="header" href="#commodity_truth"><code>commodity_truth</code></a></h4>
+<p>The reviewed value of each row on a commodity terminal screenshot. Used to check the OCR. Key: <code>capture_id</code>, <code>row_index</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>capture_id</code></td><td>text</td><td>The screenshot, e.g. <code>2026-10-29T07-27-31.899Z</code></td></tr>
+<tr><td><code>row_index</code></td><td>integer</td><td>Row number in the terminal list, from 0</td></tr>
+<tr><td><code>commodity</code></td><td>text</td><td>Commodity name, e.g. <code>Ship Ammunition - Size 2</code></td></tr>
+<tr><td><code>price</code></td><td>integer, optional</td><td>Price per SCU in aUEC, e.g. <code>7126</code></td></tr>
+<tr><td><code>quantity</code></td><td>integer, optional</td><td>Quantity in SCU, e.g. <code>12000</code></td></tr>
+<tr><td><code>status</code></td><td>text, optional</td><td>Stock or demand text on the terminal, e.g. <code>Max Inventory</code></td></tr>
+<tr><td><code>tab</code></td><td>text</td><td><code>buy</code> or <code>sell</code></td></tr>
+<tr><td><code>terminal_title</code></td><td>text, optional</td><td>Terminal name, e.g. <code>Admin - Orbituary</code></td></tr>
+<tr><td><code>confirmed</code></td><td>integer</td><td>1 when a person (or the AI reviewer) has confirmed the row, otherwise 0</td></tr>
+<tr><td><code>confirmed_by</code></td><td>text, optional</td><td>Who confirmed it</td></tr>
+<tr><td><code>confirmed_at</code></td><td>text, optional</td><td>When it was confirmed, ISO 8601 UTC</td></tr>
+<tr><td><code>crop</code></td><td>JSON, optional</td><td>Where the row is in the screenshot, as JSON: <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code> in pixels</td></tr>
+<tr><td><code>resolution</code></td><td>text</td><td>Screenshot size in pixels, e.g. <code>2567x1472</code></td></tr>
+<tr><td><code>ui_scale</code></td><td>number, optional</td><td>In-game UI scale, e.g. <code>1.39</code></td></tr>
+<tr><td><code>terminal_type</code></td><td>text</td><td>Terminal layout, e.g. <code>admin</code></td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When the row was last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="commodity_truth_reports"><a class="header" href="#commodity_truth_reports"><code>commodity_truth_reports</code></a></h4>
+<p>Problems raised against a truth row, e.g. a bad crop. One open report per row. Key: <code>report_id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>report_id</code></td><td>integer</td><td>Report number</td></tr>
+<tr><td><code>capture_id</code></td><td>text</td><td>The screenshot</td></tr>
+<tr><td><code>row_index</code></td><td>integer</td><td>The row in it</td></tr>
+<tr><td><code>record</code></td><td>JSON</td><td>The report as JSON: the reason (<code>needs-reprocessing</code>, <code>bad-crop</code> or <code>unreadable</code>), the note, and the findings once resolved</td></tr>
+<tr><td><code>resolved_at</code></td><td>text, optional</td><td>When it was resolved, ISO 8601 UTC. Empty while open</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="storage_registrations"><a class="header" href="#storage_registrations"><code>storage_registrations</code></a></h4>
+<p>Reasons a screenshot must not be deleted or reduced by the storage cleanup. Key: <code>capture_id</code>, <code>reason</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>capture_id</code></td><td>text</td><td>The screenshot</td></tr>
+<tr><td><code>reason</code></td><td>text</td><td>Why it is kept, e.g. <code>confirmed-truth</code></td></tr>
+<tr><td><code>created_at</code></td><td>text</td><td>When the reason was registered, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="contacts-1"><a class="header" href="#contacts-1">Contacts</a></h3>
+<h4 id="contacts-1-1"><a class="header" href="#contacts-1-1"><code>contacts</code></a></h4>
+<p>The players you have seen, with your own tag and note. A player is identified by <code>handle_key</code>, the handle in lower case. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>Lower-case handle, used to find the player everywhere, e.g. <code>void_runner-7</code></td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as the game shows it, e.g. <code>Void_Runner-7</code></td></tr>
+<tr><td><code>personal_tag</code></td><td>text, optional</td><td>Your own tag: <code>kos</code>, <code>hostile</code>, <code>wary</code>, <code>neutral</code>, <code>friendly</code> or <code>ally</code>. Empty when not set</td></tr>
+<tr><td><code>note</code></td><td>text</td><td>Your note about the player. Empty text when none</td></tr>
+<tr><td><code>tag_updated_at</code></td><td>text, optional</td><td>When you last changed the tag, ISO 8601 UTC</td></tr>
+<tr><td><code>handle_status</code></td><td>text, optional</td><td>Whether the name is real: <code>unlooked</code> (not looked up on RSI yet), <code>verified</code> (found on RSI), <code>gone</code> (was on RSI, now not: renamed or banned), <code>log-only</code> (not on RSI but named by the game log, so exact), <code>unverified</code> (not on RSI and only read by OCR: probably a misread)</td></tr>
+<tr><td><code>hidden</code></td><td>integer</td><td>1 when the contact is hidden from lists (unverified names), otherwise 0</td></tr>
+<tr><td><code>keep_separate</code></td><td>integer</td><td>1 when the contact must never be merged into another, otherwise 0</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_events"><a class="header" href="#contact_events"><code>contact_events</code></a></h4>
+<p>Each time a player was seen. Key: <code>handle_key</code>, <code>event_id</code>, <code>source</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>event_id</code></td><td>text</td><td>The event or screenshot the sighting came from</td></tr>
+<tr><td><code>source</code></td><td>text</td><td>Where the name was seen: <code>chat</code>, <code>target</code>, <code>party</code>, <code>other</code> (e.g. a contact marker), or <code>sync</code> (reported by the org)</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as read</td></tr>
+<tr><td><code>shard</code></td><td>text, optional</td><td>Server instance, e.g. <code>pub_apse2a_11135423_030</code></td></tr>
+<tr><td><code>location</code></td><td>text, optional</td><td>Where the player was, e.g. <code>RR_JP_StantonMagnus</code></td></tr>
+<tr><td><code>capture_id</code></td><td>text, optional</td><td>The screenshot it was read from, when it came from one</td></tr>
+<tr><td><code>log_file</code></td><td>text, optional</td><td>The log file it came from, when it came from one</td></tr>
+<tr><td><code>observer_location</code></td><td>text, optional</td><td>Where you were at the time</td></tr>
+<tr><td><code>read_as</code></td><td>text, optional</td><td>The misread spelling, when the name was corrected afterwards. Lets a merge be undone</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_categories"><a class="header" href="#contact_categories"><code>contact_categories</code></a></h4>
+<p>How you know a player and how far you trust them, with where each value came from. One row per player. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>category</code></td><td>text</td><td><code>my-org</code>, <code>org-affiliate</code>, <code>alliance</code>, <code>friend</code>, <code>frequent-party</code>, <code>mission-partner</code>, <code>encountered</code> or <code>stranger</code></td></tr>
+<tr><td><code>category_source</code></td><td>text</td><td>Who set the category: <code>user</code> or <code>auto</code></td></tr>
+<tr><td><code>confidence</code></td><td>number</td><td>How sure the Companion is, 0 to 1. 1 when you set it</td></tr>
+<tr><td><code>reasons</code></td><td>JSON</td><td>JSON list of the reasons, e.g. <code>["member of FROSS (Recruit)","2 sessions in party"]</code></td></tr>
+<tr><td><code>trust</code></td><td>text, optional</td><td>Trust: <code>high</code>, <code>medium-high</code>, <code>medium</code>, <code>neutral</code>, <code>unknown</code> or <code>low</code>. Empty when not set</td></tr>
+<tr><td><code>trust_source</code></td><td>text, optional</td><td>Who set the trust, e.g. <code>user</code></td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When it was last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_stance_history"><a class="header" href="#contact_stance_history"><code>contact_stance_history</code></a></h4>
+<p>Every change to a player’s stance or category. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>scope</code></td><td>text</td><td>What changed: <code>personal</code> (your tag), <code>category</code> or <code>correction</code></td></tr>
+<tr><td><code>value</code></td><td>text, optional</td><td>The new value, e.g. <code>friendly</code></td></tr>
+<tr><td><code>by</code></td><td>text</td><td>Who changed it, e.g. <code>me</code></td></tr>
+<tr><td><code>reason</code></td><td>text, optional</td><td>Why, when given</td></tr>
+<tr><td><code>orgs_snapshot</code></td><td>JSON</td><td>JSON list of the player’s orgs at that moment</td></tr>
+<tr><td><code>ref</code></td><td>text, optional</td><td>Unique reference that stops the same change being recorded twice</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_suggestions"><a class="header" href="#contact_suggestions"><code>contact_suggestions</code></a></h4>
+<p>Changes the Companion proposes for you to accept or dismiss. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>text</td><td>Suggestion id</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as shown</td></tr>
+<tr><td><code>kind</code></td><td>text</td><td><code>category</code>, <code>trust</code>, <code>membership</code> or <code>security</code></td></tr>
+<tr><td><code>message</code></td><td>text</td><td>The text shown to you, e.g. <code>FSS_Maulkin: member of FROSS (Recruit). Change category from encountered to my-org?</code></td></tr>
+<tr><td><code>proposed</code></td><td>JSON, optional</td><td>The change as JSON, e.g. <code>{"category":"my-org"}</code></td></tr>
+<tr><td><code>created_at</code></td><td>text</td><td>When it was proposed, ISO 8601 UTC</td></tr>
+<tr><td><code>status</code></td><td>text</td><td><code>open</code>, <code>accepted</code>, <code>dismissed</code>, <code>stale</code> (the contact changed since) or <code>superseded</code> (replaced by a newer suggestion)</td></tr>
+<tr><td><code>resolved_at</code></td><td>text, optional</td><td>When it was accepted, dismissed or replaced, ISO 8601 UTC</td></tr>
+<tr><td><code>field</code></td><td>text, optional</td><td>Which value it would change, e.g. <code>category</code></td></tr>
+<tr><td><code>from_value</code></td><td>text, optional</td><td>The value now, e.g. <code>encountered</code></td></tr>
+<tr><td><code>to_value</code></td><td>text, optional</td><td>The proposed value, e.g. <code>my-org</code></td></tr>
+<tr><td><code>confidence</code></td><td>number, optional</td><td>How sure the Companion is, 0 to 1</td></tr>
+<tr><td><code>reasons</code></td><td>JSON, optional</td><td>JSON list of the reasons</td></tr>
+<tr><td><code>source</code></td><td>text, optional</td><td>The rule that made it, e.g. <code>auto-categorise</code>, <code>hostile-org-member</code>, <code>tier:known-org</code>, <code>org-left</code></td></tr>
+<tr><td><code>resolved_by</code></td><td>text, optional</td><td>Who resolved it, e.g. <code>me</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_links"><a class="header" href="#contact_links"><code>contact_links</code></a></h4>
+<p>Players known to be the same person (alts and renames). A warning on one applies to the others. Key: <code>handle_key</code>, <code>linked_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>One player</td></tr>
+<tr><td><code>linked_key</code></td><td>text</td><td>The other player</td></tr>
+<tr><td><code>link_kind</code></td><td>text</td><td><code>alt</code>, <code>same</code> or <code>renamed</code> (the first was renamed to the second)</td></tr>
+<tr><td><code>link_source</code></td><td>text</td><td>Who made the link, e.g. <code>user</code></td></tr>
+<tr><td><code>confidence</code></td><td>number, optional</td><td>How sure, 0 to 1</td></tr>
+<tr><td><code>reasons</code></td><td>JSON, optional</td><td>JSON list of the reasons</td></tr>
+<tr><td><code>linked_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="contact_pins"><a class="header" href="#contact_pins"><code>contact_pins</code></a></h4>
+<p>Players you have pinned. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as shown</td></tr>
+<tr><td><code>pinned_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="handle_aliases"><a class="header" href="#handle_aliases"><code>handle_aliases</code></a></h4>
+<p>Misread spellings that point to the real handle. Key: <code>alias_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>alias_key</code></td><td>text</td><td>The misread spelling in lower case, e.g. <code>v0id_runner-7</code></td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>The real handle, e.g. <code>Void_Runner-7</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="deleted_contacts"><a class="header" href="#deleted_contacts"><code>deleted_contacts</code></a></h4>
+<p>Players you deleted. Kept so the name is not added again. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>deleted_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="rsi-data"><a class="header" href="#rsi-data">RSI data</a></h3>
+<h4 id="citizen_profiles"><a class="header" href="#citizen_profiles"><code>citizen_profiles</code></a></h4>
+<p>The latest RSI profile of a player. Public data from the RSI site, fetched only when lookups are on. Key: <code>handle_key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>display_name</code></td><td>text, optional</td><td>Display name on the profile</td></tr>
+<tr><td><code>enlisted</code></td><td>text, optional</td><td>Enlisted date, e.g. <code>2016-02-10</code></td></tr>
+<tr><td><code>country</code></td><td>text, optional</td><td>Country on the profile, e.g. <code>Australia</code></td></tr>
+<tr><td><code>time_zone</code></td><td>text, optional</td><td>Time zone, when the profile shows one</td></tr>
+<tr><td><code>fluency</code></td><td>text, optional</td><td>Languages, e.g. <code>English</code></td></tr>
+<tr><td><code>title</code></td><td>text, optional</td><td>Profile title, e.g. <code>Mercenary</code></td></tr>
+<tr><td><code>main_org_sid</code></td><td>text, optional</td><td>Main org SID, e.g. <code>JAILBREAK</code></td></tr>
+<tr><td><code>main_org_name</code></td><td>text, optional</td><td>Main org name</td></tr>
+<tr><td><code>main_org_rank</code></td><td>text, optional</td><td>Rank in the main org</td></tr>
+<tr><td><code>affiliations</code></td><td>JSON</td><td>JSON list of the other orgs shown, each with SID, name and rank</td></tr>
+<tr><td><code>fetched_at</code></td><td>text</td><td>When it was fetched, ISO 8601 UTC</td></tr>
+<tr><td><code>not_found</code></td><td>integer</td><td>1 when RSI has no such player, otherwise 0</td></tr>
+<tr><td><code>hidden_orgs</code></td><td>integer</td><td>How many orgs the profile hides</td></tr>
+<tr><td><code>orgs_status</code></td><td>text, optional</td><td><code>listed</code> when the profile shows orgs, otherwise why none were read, e.g. <code>unknown</code></td></tr>
+<tr><td><code>main_org_redacted</code></td><td>integer</td><td>1 when the main org is hidden on the profile, otherwise 0</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="citizen_profile_lookups"><a class="header" href="#citizen_profile_lookups"><code>citizen_profile_lookups</code></a></h4>
+<p>Every RSI lookup attempt. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>fetched_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>outcome</code></td><td>text</td><td><code>ok</code>, <code>not-found</code> or <code>error</code></td></tr>
+<tr><td><code>error</code></td><td>text, optional</td><td>The error text, e.g. <code>The operation was aborted due to timeout</code></td></tr>
+<tr><td><code>snapshot</code></td><td>JSON, optional</td><td>What was read, as JSON</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="rsi_cache"><a class="header" href="#rsi_cache"><code>rsi_cache</code></a></h4>
+<p>Cached RSI answers. Key: <code>key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>key</code></td><td>text</td><td>What was asked, e.g. <code>citizen:void_runner-7</code> or an org</td></tr>
+<tr><td><code>fetched_at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>The answer as JSON</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="orgs-1"><a class="header" href="#orgs-1"><code>orgs</code></a></h4>
+<p>Orgs the Companion knows about, with your own trust and stance for each. Key: <code>sid</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>sid</code></td><td>text</td><td>Org SID, e.g. <code>JAILBREAK</code></td></tr>
+<tr><td><code>name</code></td><td>text, optional</td><td>Org name</td></tr>
+<tr><td><code>members</code></td><td>integer, optional</td><td>Member count shown by RSI</td></tr>
+<tr><td><code>hidden_members</code></td><td>integer, optional</td><td>Members RSI does not list</td></tr>
+<tr><td><code>my_relationship</code></td><td>text</td><td>How the org relates to you: <code>none</code>, <code>main</code> or <code>affiliate</code></td></tr>
+<tr><td><code>trust</code></td><td>text, optional</td><td>Your trust in the org: <code>high</code>, <code>medium-high</code>, <code>medium</code>, <code>neutral</code>, <code>unknown</code> or <code>low</code></td></tr>
+<tr><td><code>stance</code></td><td>text, optional</td><td>Your stance on the org, e.g. <code>hostile</code>. Members inherit it</td></tr>
+<tr><td><code>refreshed_at</code></td><td>text, optional</td><td>When it was last read from RSI, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_memberships"><a class="header" href="#org_memberships"><code>org_memberships</code></a></h4>
+<p>Who is in which org, as read from RSI. Key: <code>handle_key</code>, <code>org_sid</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>org_sid</code></td><td>text</td><td>The org</td></tr>
+<tr><td><code>handle</code></td><td>text</td><td>Handle as shown</td></tr>
+<tr><td><code>main</code></td><td>integer</td><td>1 when it is the player’s main org, otherwise 0</td></tr>
+<tr><td><code>rank</code></td><td>text, optional</td><td>Rank in the org</td></tr>
+<tr><td><code>seen_at</code></td><td>text</td><td>When the membership was last seen, ISO 8601 UTC</td></tr>
+<tr><td><code>left_at</code></td><td>text, optional</td><td>When the player was no longer in the org, ISO 8601 UTC. Empty while a member</td></tr>
+<tr><td><code>source</code></td><td>text</td><td>Where it was read: <code>citizen</code> (the player’s profile) or <code>members</code> (the org’s member list)</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_membership_changes"><a class="header" href="#org_membership_changes"><code>org_membership_changes</code></a></h4>
+<p>Joins, leaves and rank changes. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>handle_key</code></td><td>text</td><td>The player</td></tr>
+<tr><td><code>org_sid</code></td><td>text</td><td>The org</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When, ISO 8601 UTC</td></tr>
+<tr><td><code>change</code></td><td>text</td><td><code>joined</code>, <code>left</code>, <code>rank</code>, <code>main</code> or <code>affiliate</code></td></tr>
+<tr><td><code>previous</code></td><td>text, optional</td><td>The value before, e.g. <code>main</code></td></tr>
+<tr><td><code>current</code></td><td>text, optional</td><td>The value after, e.g. <code>affiliate</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="org-sync"><a class="header" href="#org-sync">Org sync</a></h3>
+<h4 id="sync_settings"><a class="header" href="#sync_settings"><code>sync_settings</code></a></h4>
+<p>What you share with the org. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>url</code> (the Hub), <code>shareSightings</code> (<code>off</code>, <code>confirmed</code> or <code>auto</code>), <code>shareStock</code>, <code>sharePresence</code>, <code>shareBlueprints</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="sync_state"><a class="header" href="#sync_state"><code>sync_state</code></a></h4>
+<p>Where the sync has got to. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>cursor</code> and <code>ratingsCursor</code> (how far events and ratings have been pulled), <code>epoch</code>, <code>role</code>, <code>memberName</code>, <code>lockdown</code>, <code>lockdownMode</code>, <code>needsSetup</code>, <code>lastPullAt</code>, <code>lastPushAt</code>, <code>lastError</code>, <code>blueprintsDigest</code> (fingerprint of the last blueprint list queued)</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="sync_outbox"><a class="header" href="#sync_outbox"><code>sync_outbox</code></a></h4>
+<p>Events waiting to be sent to the Hub, and what happened to them. Key: <code>local_id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>local_id</code></td><td>text</td><td>Local id</td></tr>
+<tr><td><code>sync_id</code></td><td>text</td><td>The event id sent to the Hub (a random UUID)</td></tr>
+<tr><td><code>status</code></td><td>text</td><td><code>pending</code>, <code>sent</code> or <code>rejected</code></td></tr>
+<tr><td><code>reason</code></td><td>text, optional</td><td>Why the Hub rejected it, e.g. <code>consent not given for stances</code></td></tr>
+<tr><td><code>event</code></td><td>JSON</td><td>The event exactly as sent, as JSON</td></tr>
+<tr><td><code>created_at</code></td><td>text</td><td>When it was queued, ISO 8601 UTC</td></tr>
+<tr><td><code>updated_at</code></td><td>text</td><td>When its status last changed, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_ratings"><a class="header" href="#org_ratings"><code>org_ratings</code></a></h4>
+<p>The org’s rating of players and orgs, as pulled from the Hub. Only sync changes it. Key: <code>kind</code>, <code>key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>kind</code></td><td>text</td><td><code>contact</code> or <code>org</code></td></tr>
+<tr><td><code>key</code></td><td>text</td><td>Lower-case handle, or org SID</td></tr>
+<tr><td><code>rev</code></td><td>integer</td><td>Hub revision number, used as the pull cursor</td></tr>
+<tr><td><code>rating</code></td><td>JSON</td><td>JSON: <code>standing</code>, <code>threat</code> and <code>tags</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="org_events"><a class="header" href="#org_events"><code>org_events</code></a></h4>
+<p>Events from org members, as pulled from the Hub. Key: <code>seq</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>seq</code></td><td>integer</td><td>The Hub’s sequence number</td></tr>
+<tr><td><code>id</code></td><td>text</td><td>Event id</td></tr>
+<tr><td><code>type</code></td><td>text</td><td>Event type: <code>sighting</code>, <code>tag</code>, <code>note</code>, <code>suggestion</code>, <code>stance</code>, <code>blueprints</code>, <code>fight</code>, <code>stock</code>, <code>void</code> or <code>unvoid</code></td></tr>
+<tr><td><code>payload</code></td><td>JSON</td><td>The event as JSON, with the author</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="settings-and-state"><a class="header" href="#settings-and-state">Settings and state</a></h3>
+<h4 id="intel_settings"><a class="header" href="#intel_settings"><code>intel_settings</code></a></h4>
+<p>Contact and RSI lookup settings. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>rsiLookups</code>, <code>rsiHandle</code>, <code>refreshDays</code>, <code>lookupIntervalMs</code>, <code>lookupHourlyCap</code>, <code>nowWindowMinutes</code>, <code>hostileWindowMinutes</code>, <code>nowLimit</code>, <code>hostileAlerts</code> and the <code>notifications</code> settings</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="combat_settings"><a class="header" href="#combat_settings"><code>combat_settings</code></a></h4>
+<p>Combat timeline settings. One row. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Always 1</td></tr>
+<tr><td><code>value</code></td><td>JSON</td><td>JSON: <code>autoCaptureOn</code>, the triggers that take a screenshot automatically</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="blueprint_overrides"><a class="header" href="#blueprint_overrides"><code>blueprint_overrides</code></a></h4>
+<p>Blueprints you have switched on or off by hand. Kept apart from what the log reports. Key: <code>key</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>key</code></td><td>text</td><td>Lower-case blueprint name</td></tr>
+<tr><td><code>name</code></td><td>text</td><td>Blueprint name, e.g. <code>P4-AR Rifle</code></td></tr>
+<tr><td><code>enabled</code></td><td>integer</td><td>1 when you say you have it, 0 when you say you do not</td></tr>
+<tr><td><code>at</code></td><td>text</td><td>When you set it, ISO 8601 UTC</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="maintenance_runs"><a class="header" href="#maintenance_runs"><code>maintenance_runs</code></a></h4>
+<p>History of the background upkeep tasks. Key: <code>id</code>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>integer</td><td>Row number</td></tr>
+<tr><td><code>task</code></td><td>text</td><td><code>db-health</code>, <code>capture-audit</code> or <code>data-audit</code></td></tr>
+<tr><td><code>started_at</code></td><td>text</td><td>ISO 8601 UTC</td></tr>
+<tr><td><code>finished_at</code></td><td>text</td><td>ISO 8601 UTC</td></tr>
+<tr><td><code>outcome</code></td><td>text</td><td><code>ok</code>, or what went wrong or why it was held</td></tr>
+<tr><td><code>dry_run</code></td><td>integer</td><td>1 when it only reported what it would do, otherwise 0</td></tr>
+<tr><td><code>changed</code></td><td>integer</td><td>How many things it changed</td></tr>
+<tr><td><code>duration_ms</code></td><td>integer</td><td>How long it took in milliseconds</td></tr>
+<tr><td><code>detail</code></td><td>text</td><td>JSON with a <code>summary</code> line and details, e.g. <code>database sound: 90.9 MB, 0.0% free pages</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="who-writes-what"><a class="header" href="#who-writes-what">Who writes what</a></h2>
+<ul>
+<li><strong>Log reader:</strong> <code>raw_lines</code>, <code>events</code>, <code>ingested_files</code>, <code>checkpoints</code>, and the contacts and org memberships found in log events.</li>
+<li><strong>Screenshot reader:</strong> <code>captures</code>, <code>contact_events</code> (names read from screenshots), <code>commodity_truth</code>.</li>
+<li><strong>Background work (lookups, upkeep, storage):</strong> <code>contact_categories</code>, <code>contact_suggestions</code>, <code>citizen_profiles</code>, <code>citizen_profile_lookups</code>, <code>rsi_cache</code>, <code>maintenance_runs</code>, <code>storage_registrations</code>.</li>
+<li><strong>Org sync:</strong> <code>org_ratings</code>, <code>org_events</code>, <code>sync_state</code>, <code>sync_outbox</code>, and <code>orgs</code> and <code>org_memberships</code> from the org feed.</li>
+<li><strong>You</strong> (web page, overlay, CLI, TUI): <code>contacts</code>, <code>contact_categories</code> (category, trust), <code>contact_pins</code>, <code>contact_links</code>, <code>handle_aliases</code>, <code>deleted_contacts</code>, <code>blueprint_overrides</code>, <code>intel_settings</code>, <code>combat_settings</code>, <code>sync_settings</code>, truth confirmations and reports, <code>orgs</code> (trust, stance), annotations and storage policy.</li>
+</ul>
+<p>Your value and the org’s value for the same thing are stored separately (<code>orgs.stance</code> and <code>contacts.personal_tag</code>, against <code>org_ratings</code>). Yours wins, and the Companion decides which one is shown (<code>docs/UI-LOGIC-AUDIT.md</code>).</p>
+<h2 id="what-stays-on-the-machine"><a class="header" href="#what-stays-on-the-machine">What stays on the machine</a></h2>
+<ul>
+<li>Everything above stays here until you delete it. <code>raw_lines</code> is never trimmed. Screenshots are tiered by <code>storage</code>.</li>
+<li>Other players’ chat text is not stored (since protocol 1.42.0). A one-time job (<code>chat-text-scrubbed</code>) removed it from older captures.</li>
+<li><code>contact_events</code> records where a named player was seen: shard, location, and where you were. It is only sent to the org as opt-in sightings.</li>
+<li><code>contact.delete</code> removes the contact’s rows from <code>contact_events</code> and the other contact tables, and stops the name being added again. The handle still appears in <code>events</code> payloads, in the <code>handles</code> of <code>captures.meta</code> and in <code>raw_lines</code> (open item C2 in <code>docs/DB-API-REPORT.md</code>).</li>
+<li>Data leaves the machine only through the opt-in paths in section 2 of <code>docs/DB-API-AUDIT.md</code>: org sync (the outbox), RSI lookups, the update check, reference data, the voice pack and hangar sync.</li>
+</ul>
+<h2 id="not-in-this-database"><a class="header" href="#not-in-this-database">Not in this database</a></h2>
+<ul>
+<li><strong>Reference data</strong> (ships, places, models, the game’s blueprints and missions) is built into the program from <code>crates/ce-core/data/reference.json</code>, made by <code>fetch-reference-data</code> from the Citizens.Edge.Data views. It is read-only.</li>
+<li><strong>Files:</strong> <code>captures/</code>, <code>token</code>, <code>ocr-settings.json</code>, <code>logs/</code>.</li>
+<li><strong>The pairing token</strong> is also kept in the browser’s <code>localStorage</code>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="org-sync-reference"><a class="header" href="#org-sync-reference">Org sync reference</a></h1>
+<p>How a Companion talks to its org’s Hub (<code>Citizens.Edge.Org</code>), seen from the Companion: setup, what is queued and sent, and where the replies are stored. The Hub’s side (routes, sign-in, consent checks) is <code>Citizens.Edge.Org/docs/API.md</code>. Each field and who can see it: <code>Citizens.Edge.Org/docs/DATA-INVENTORY.md</code>. The code is the <code>ce-sync</code> crate; its tables are in <code>docs/DATABASE.md</code>.</p>
+<p>Nothing leaves the machine until sync is set up (<code>sync setup</code>), and then only what the sharing switches and the member’s consent on the Hub allow.</p>
+<h2 id="what-starts-a-sync"><a class="header" href="#what-starts-a-sync">What starts a sync</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>From</th><th>How</th><th>Scope</th></tr>
+</thead>
+<tbody>
+<tr><td>CLI</td><td><code>ce-companion sync setup|status|now|catch-up|share</code> (<code>docs/CLI.md</code>), and <code>tag &lt;handle&gt; ... --org-tag</code></td><td>the user, on this PC</td></tr>
+<tr><td>UIs (page, overlay, TUI)</td><td><code>sync.status</code> (view), <code>sync.now</code> and <code>sync.share</code> (admin), <code>org.tag</code> (admin); <code>docs/PROTOCOL.md</code></td><td>admin needs <code>ce-companion approve</code> for a browser page</td></tr>
+<tr><td>The daemon</td><td>the sync loop every 60 seconds, a push after a capture finishes, presence on game events</td><td>none; it is the Companion itself</td></tr>
+</tbody>
+</table>
+</div>
+<p>A UI never talks to the Hub. The Companion pulls the data, decides what counts and sends the result to the UIs.</p>
+<h2 id="setup-and-credentials"><a class="header" href="#setup-and-credentials">Setup and credentials</a></h2>
+<p><code>sync setup --url &lt;worker&gt; --key &lt;key|-&gt;</code> first calls <code>GET /me</code> with the key. Only if that works is the key stored and the URL saved in <code>sync_settings</code>. The key goes into the system keyring (Linux: Secret Service via <code>secret-tool</code>; Windows: Credential Manager). It is passed to the keyring tool on stdin, never on a command line, and never appears in a log or an error. The key is a member key, or a device key from the Hub’s sign-in (<code>/auth/device/*</code>).</p>
+<p>Setting up against a different URL than before replaces the org: the pulled org data is dropped, and anything still pending in the outbox is marked <code>rejected</code> (“sync URL changed before it was sent”) rather than sent to the new org.</p>
+<h2 id="what-is-shared"><a class="header" href="#what-is-shared">What is shared</a></h2>
+<p><code>sync share</code> and <code>sync.share</code> set <code>sync_settings</code>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Switch</th><th>Values (default)</th><th>Sends</th></tr>
+</thead>
+<tbody>
+<tr><td><code>sightings</code></td><td><code>off</code>, <code>confirmed</code> (default), <code>auto</code></td><td><code>sighting</code> events: a handle read in chat or as a target, with place, shard and the Companion’s confidence. <code>confirmed</code> queues one only after the user confirms it (<code>sightings.confirm</code>); <code>auto</code> queues each read. Party-panel reads are never shared</td></tr>
+<tr><td><code>stock</code></td><td>on/off (off)</td><td><code>stock</code> events: one per capture and terminal tab, all rows</td></tr>
+<tr><td><code>presence</code></td><td>on/off (on)</td><td>your shard and ship, never location (<code>POST /presence</code>)</td></tr>
+<tr><td><code>blueprints</code></td><td>on/off (off)</td><td>a <code>blueprints</code> event: the ids of the blueprints you have, as the Companion decides them. A full snapshot, queued only when the list changed; turning it on sends the current list afresh</td></tr>
+</tbody>
+</table>
+</div>
+<p>Also sent, on purpose: an officer’s org tag (<code>tag</code> event, from <code>org.tag</code> or <code>tag --org-tag</code>) and your own stance on a player or org (<code>stance</code>). Never mapped: party members, mission participants, deaths, trades, location history, chat text. Screenshots stay local: an event carries only the local capture id, so an officer can ask for the evidence. Imported screenshots are never shared.</p>
+<p>The Hub applies its own gate on top: the member must have accepted the current consent text, and <code>sighting</code>, <code>stock</code>, <code>stance</code>, <code>blueprints</code> and <code>fight</code> need their own consent switch. A refused event comes back in <code>rejected</code> with a reason.</p>
+<p><strong>Catch-up:</strong> <code>sync catch-up [--since &lt;date&gt;] [--dry-run]</code> queues what the settings allow from captures taken before sync was set up or while sharing was off. Safe to repeat: ids already queued are kept.</p>
+<h2 id="the-sync-loop"><a class="header" href="#the-sync-loop">The sync loop</a></h2>
+<pre class="mermaid">sequenceDiagram
+  participant U as User / UI
+  participant C as Companion
+  participant S as companion.db
+  participant H as Hub
+  U-&gt;&gt;C: confirm a sighting, set a tag, a capture finishes
+  C-&gt;&gt;S: sync_outbox (status pending, a fresh UUID)
+  loop every 60 s, and on sync.now
+    C-&gt;&gt;H: GET /me
+    H--&gt;&gt;C: role, epoch, lockdown
+    C-&gt;&gt;S: sync_state (role, lockdown, epoch)
+    C-&gt;&gt;H: POST /events (up to 1000 pending, 200 per call)
+    H--&gt;&gt;C: accepted, duplicates, rejected, epoch
+    C-&gt;&gt;S: outbox sent or rejected
+    C-&gt;&gt;H: GET /events?after=cursor (pages of 500)
+    C-&gt;&gt;S: org_events, cursor
+    C-&gt;&gt;H: GET /ratings?after=cursor
+    C-&gt;&gt;S: org_ratings, ratings cursor
+    C-&gt;&gt;S: derive org state, update contacts and org tags
+  end
+  C--&gt;&gt;U: sync.status, contacts, alerts when a tag changed
+</pre>
+
+<ul>
+<li><strong>The outbox</strong> (<code>sync_outbox</code>) is the only way out. An entry is <code>pending</code> until the Hub answers; then <code>sent</code> (accepted or duplicate) or <code>rejected</code> (with the reason). An undelivered entry stays pending and is re-sent with the same id, so a retry cannot double-count: the Hub dedupes per member on the event id.</li>
+<li><strong>Failures:</strong> network errors, 5xx and 429 retry with exponential backoff (the Hub’s <code>Retry-After</code> wins when longer, capped at a minute). <code>401</code> means the key is revoked or expired: the Companion sets <code>needsSetup</code> and stops until <code>sync setup</code> runs again. <code>423</code> is a lockdown: the outbox stays pending. Any other status fails that run at once, and <code>sync.status</code> shows it in <code>error</code>.</li>
+<li><strong>Epoch:</strong> every Hub answer carries an <code>epoch</code>. When it changes (the Hub’s database was restored), the Companion drops its pulled org data and pulls again from 0. It never re-pushes what it already sent.</li>
+<li><strong>Cursors:</strong> <code>sync_state.cursor</code> for events and <code>ratings_cursor</code> for ratings; a pull that does not advance its cursor is an error, not a loop.</li>
+<li><strong>Derived state:</strong> org tags, standings and the org’s recent sightings are computed from the stored <code>org_events</code> and <code>org_ratings</code>, never kept as a second copy. The user’s own value and the org’s are stored apart and the user’s wins (<code>docs/UI-LOGIC-AUDIT.md</code>).</li>
+</ul>
+<h2 id="where-it-lands"><a class="header" href="#where-it-lands">Where it lands</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Hub gives</th><th>Companion stores</th><th>Shows as</th></tr>
+</thead>
+<tbody>
+<tr><td><code>GET /me</code></td><td><code>sync_state</code> (role, epoch, lockdown)</td><td><code>sync.status</code>; whether an officer tag may be sent</td></tr>
+<tr><td><code>GET /events</code></td><td><code>org_events</code> (type, payload, author, seq)</td><td>org tags and org sightings on contacts, <code>contact.alert</code> when a tag changes</td></tr>
+<tr><td><code>GET /ratings</code></td><td><code>org_ratings</code> (standing, threat, tags, <code>rev</code>)</td><td>the org’s stance on a contact or org, beside the user’s own</td></tr>
+<tr><td><code>GET /presence</code></td><td>not stored; fetched when asked</td><td><code>presence</code> message</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="syncstatus-fields"><a class="header" href="#syncstatus-fields"><code>sync.status</code> fields</a></h2>
+<p><code>configured</code>, <code>url</code>, <code>role</code>, <code>epoch</code>, <code>lastPullAt</code>, <code>lastPushAt</code>, <code>pending</code>, <code>rejected</code>, <code>lockdown</code>, <code>lockdownMode</code>, <code>needsSetup</code>, <code>error</code>, and <code>sharing</code> (the four switches above). The same object is what <code>ce-companion sync status</code> prints.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-rust-core-daemon-ce-companion-__daemon"><a class="header" href="#the-rust-core-daemon-ce-companion-__daemon">The Rust core daemon (<code>ce-companion __daemon</code>)</a></h1>
+<p><code>ce-companion start --sc-dir &lt;Star Citizen LIVE&gt; [--data-dir D] [--port 47823] [--host 127.0.0.1] [--allow-origin O] [--web-url U] [--data-url U] [--ocr-model small|medium] [--ocr-threads N] [--no-hotkey] [--no-lookups]</code></p>
+<p>The whole Companion core in one process: it tails Game.log into the SQLite store and the live state, serves the live protocol over
+WebSocket, takes and reads screenshots, answers the control socket for the Rust CLI and TUI, and runs contacts, org sync, RSI lookups,
+commodity truth review, combat, notifications and the CPU card. It uses the same <code>companion.db</code>, <code>token</code> file and port as the Node core, so run
+<strong>one or the other</strong> on a data dir: a live control socket for the data dir stops a second core starting.</p>
+<p>Flags for tests and cautious runs: <code>--no-hotkey</code> skips the desktop portal binding (the first bind shows a dialog), <code>--no-lookups</code> never starts
+the RSI queue. Environment: <code>CE_CREDENTIAL_STORE=file</code> keeps the org sync key out of the OS keyring, <code>CE_NOTIFY=off</code> plays no sound and shows no
+pop-up, <code>CE_FILE_LOG=off</code>, <code>CE_LOG_MAX_MB</code>, <code>CE_LOG_FILES</code> as in the Node core.</p>
+<h2 id="crates"><a class="header" href="#crates">Crates</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Crate</th><th>What it is</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ce-core</code></td><td>the <code>ce-companion</code> executable and the daemon library: <code>core</code> (store + state + tailer), <code>server</code> (WebSocket hub), <code>http</code>, <code>control</code> (socket), <code>capture</code> (worker), <code>runtime</code> (contacts, sync, RSI, presence, alerts, handlers), <code>intel</code> (the contacts intelligence service), <code>truth</code> and <code>truth_rows</code>, <code>combat</code>, <code>notify</code>, <code>status</code>, <code>cpu</code>, <code>game</code>, <code>ships</code>, <code>data</code>, <code>diagnostics</code>, <code>commands*</code></td></tr>
+<tr><td><code>ce-sync</code></td><td>org sync above the store: derived org state, ratings, the <code>[KOS]</code> wire encoding, the opt-in outbox, the Worker’s HTTP client (retries, epoch reset, batches), presence, key storage (libsecret, Windows Credential Manager, a 0600 file) and the sync service</td></tr>
+<tr><td><code>ce-rsi</code></td><td>RSI page parsers, the polite cached client (one request at a time, at least 1 s apart), profile and org lookups, handle probes (OCR confusables) and the background lookup queue</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What it does</a></h2>
+<p><strong>Start-up:</strong> open the store, ingest log backups not seen yet, restore the live state from its snapshot plus newer events, resume the tailer
+from its checkpoint, <strong>catch up to the end of Game.log</strong>, then start the capture worker, the contacts runtime and the control socket, bind and
+print the <code>/live</code> link. A client that connects gets a snapshot that already holds everything on disk.</p>
+<p><strong>Live protocol:</strong> token and Origin checks, <code>hello</code>, <code>snapshot</code>, live <code>event</code>, <code>subscribe</code> replay, <code>query</code>; the capture messages
+(<code>capture</code>, <code>captures.list</code>, <code>captures.update</code>, <code>captures.reprocess</code>); contacts (<code>contacts.now|counts|pin|category|trust|history|list|search|tag</code>,
+<code>contact.lookupProfile|correctHandle|merge|delete</code>), orgs (<code>orgs.list|refresh|lookup|trust</code>, <code>org.tag</code>), <code>suggestions.*</code>, <code>intel.settings</code>,
+<code>presence.list</code>, <code>sync.status|now|share</code>, <code>sightings.confirm</code>, <code>combat.timeline|settings</code>, <code>truth.queue|confirmed|confirm|stats|report|resolve</code>.
+Pushes: <code>contacts</code>, <code>contacts.now</code>, <code>contact.alert</code>, <code>alert.speak</code> (an alert worth saying aloud, in parts, for the UI to speak: the daemon no longer speaks), <code>background.state</code> (whether the player is engaged and the Companion is holding its background reads, why, until when and how many are waiting: sent when it changes and on connect; a UI shows it so a hold is never silent), <code>contact.deleted</code>, <code>contacts.counts</code>, <code>presence</code>, <code>suggestions</code>, <code>sync.status</code>,
+<code>truth.changed</code>, <code>system.cpu</code>. Every outgoing message is validated against the exported protocol schema; a breach is logged once per type and
+problem per five minutes.</p>
+<p><strong>HTTP:</strong> <code>/captures/:id/image|bundle|ocr|annotations</code> (GET, PUT for annotations) and <code>/captures/:id/rows/:n/crop</code> (the raw row cut; the upright
+rectified cut needs OpenCV and the Node route falls back to the raw cut too), with the WebSocket’s token and Origin rules.</p>
+<p><strong>Capture path:</strong> the portal hotkey, the <code>capture</code> request and <code>ce-companion capture [import &lt;file&gt;]</code> queue a screenshot. One worker thread grabs
+through the gated KWin provider (no desktop fallback; an optional local ONNX privacy classifier vetoes the capture, and a configured one that cannot load refuses it), writes the <code>processing</code> sidecar, reads it, stores the events and pushes the result. A live HUD read leaves the canopy area and the colour
+passes to a background completion (the result is <code>deferred</code>), reads speculatively within two minutes of a HUD capture (a speculative read that turns
+out to be another screen retracts its contacts), and a kiosk gets a background read with every voter. Live captures run before background work and
+never preempt a running read. The OCR engine loads on first use and unloads after five idle minutes. It runs on the capture thread, which is lowered to nice 10 (I/O best-effort level 7) before the engine loads so that ONNX Runtime’s threads inherit it and the game keeps the CPU (<code>ce-core/src/priority.rs</code>; <code>CE_OCR_NICE=&lt;0-19&gt;</code> or <code>off</code>; Linux only).</p>
+<p><strong>Contacts, sync and RSI:</strong> a store connection per background job (WAL + a 5 s busy timeout), never the core’s lock held across the network. The org
+sync loop runs every 60 s; RSI lookups follow the Node queue’s rules (2 s spacing, 300 per hour, exponential backoff, forced lookups first). A
+hostile or KOS contact seen in the window raises one alert per level per session, pushed to clients and through the notification channels (audio
+and desktop; plans for Linux, macOS and Windows, run detached at <code>nice 19</code>). A stance change recomputes only the handles concerned and re-evaluates
+their recent target captures.</p>
+<p><strong>Build-time downloads (nothing is fetched while the Companion runs):</strong> ONNX Runtime is linked into the executable (<code>ort</code> <code>download-binaries</code>, cached in
+<code>~/.cache/ort.pyke.io</code>). The PP-OCR V6 models are pinned by sha256 in <code>models.lock.json</code>; <code>cargo build</code> downloads the small model itself (ce-recognizer/build.rs; <code>CE_OFFLINE=1</code> skips it); <code>cargo run --release -p ce-core --bin fetch-models</code> puts them
+in <code>models/</code>, the small model is then compiled into the executable (<code>CE_REQUIRE_BUNDLED_MODELS=1</code> makes a missing file a build error), and the medium
+one is packaged in a <code>models/</code> folder beside it (development falls back to <code>~/.cache/ppu-paddle-ocr</code>; <code>CE_OCR_MODELS_DIR</code> overrides). The reference data
+(<code>ce-core/data/reference.json</code>) is committed. CI caches the cargo registry and target, the ONNX Runtime binaries and the models. <code>models</code> shows where each size
+comes from.</p>
+<p><strong>Control socket:</strong> <code>status</code>, <code>capture</code>, <code>captures</code>, <code>contacts</code>, <code>tag</code>, <code>now</code>, <code>category</code>, <code>lookup</code>, <code>orgs</code>, <code>suggestions</code>, <code>sync</code>, <code>combat</code>,
+<code>notify</code>, <code>truth queue|confirm|unconfirm|report|reports|resolve|crop|stats</code>, <code>logs</code>, <code>backfill [--captures] [--geometry on|off]</code>, <code>ocr-report [--quality [--truth &lt;file&gt;|confirmed] [--baseline &lt;report&gt;]]</code>, <code>annotations export</code>, <code>models</code>, <code>truth export|import|check|corpus|history</code>.
+The printed lines equal the Node CLI’s (<code>commands-check.mjs</code> compares them on a copy of the real database).</p>
+<p><strong>Diagnostics:</strong> <code>&lt;dataDir&gt;/logs/companion.log</code> (JSON lines, rotated by size), redaction of tokens and keys before anything is written, a panic hook
+that writes <code>crash-&lt;time&gt;-&lt;component&gt;.json</code> (message, source location, backtrace, a fingerprint and the last 20 log entries; the newest 10
+kept), <code>status.recentCrash</code>.</p>
+<p><strong>Crash reports:</strong> every executable (<code>ce-companion</code>, its TUI, <code>ce-overlay</code>) installs the hook through the <code>ce-crash</code> crate; paths under the home
+folder are shown as <code>~</code>. The next terminal run prints a one-line hint when a crash has not been looked at. <code>ce-companion report</code> shows the newest
+one and, only when you answer yes (or pass <code>--open</code>), opens a prefilled GitHub issue in the browser: <code>--print</code> shows the link instead, <code>--list</code>
+every record, <code>--file &lt;name&gt;</code> a particular one, <code>--dismiss</code> stops the hint, <code>--repo owner/name</code> (or <code>CE_REPORT_REPO</code>) files elsewhere. Issues go to
+the public releases repository (the Companion’s own is private). The program sends nothing and holds no token: you review the form and press
+Submit. The link is cut to fit a URL; the complete report is saved as <code>logs/report-&lt;fingerprint&gt;.md</code> to attach. The fingerprint (component,
+message without digits, source file) lets repeats be recognised. Native crashes (segfaults, GPU drivers) are not covered yet: that needs a
+minidump handler.</p>
+<h2 id="geometry-reader-and-the-golden-set"><a class="header" href="#geometry-reader-and-the-golden-set">Geometry reader and the golden set</a></h2>
+<p>Kiosk captures are read by the geometry-first reader (<code>ce-rectify</code>, <code>ce-pipeline/src/geometry.rs</code>): the theme is classified, the panel localised
+(accent frame, observed edges, anchor snap), warped upright at 2x, re-straightened from its own lines, its dividers found, and the grid read cell by
+cell (else a checked text read of the same panel); the table lines go back through the normal parse. It is pure Rust: the OpenCV operations it needs
+are re-implemented after OpenCV’s own algorithms (<code>ce-rectify/src/cv.rs</code>). <code>&lt;dataDir&gt;/ocr-settings.json</code> <code>{"ocr": {"geometryReader": true|false|"auto"}}</code>
+is read for every capture (unset = on); <code>captures.reprocess.geometry {id, geometry}</code> and <code>backfill --captures --geometry on|off</code> override it for one
+run. The trace is <code>commodity.geometry</code> in the sidecar.</p>
+<p><code>truth export|import|check|corpus|history</code> work on the same <code>tests/golden</code> folder as the Node CLI (labels, <code>baseline.json</code>, <code>history.jsonl</code> and the
+corpus manifest are byte-compatible). The check reads the cases on the capture worker: the fast tier is the OCR over each crop, the full tier the whole
+pipeline (voters and geometry reader) over scratch copies of the originals. On the repo’s 78 golden cases the full tier scores 100% on every field,
+as the Node core does.</p>
+<h2 id="not-in-the-rust-core-yet"><a class="header" href="#not-in-the-rust-core-yet">Not in the Rust core yet</a></h2>
+<ul>
+<li><code>backfill --captures --deep</code> and <code>truth check --deep</code> (the Florence-2 deep reader is not ported; there is no Tesseract reader either).</li>
+<li>Incremental staged publication of a live HUD read (the result is published once the aim, target and chat areas are read, not area by area).</li>
+<li>The supervisor lock hand-off, the main-loop and work-queue figures of <code>status</code> (there is no event loop to measure).</li>
+<li>Windows: the capture provider, the CPU figures, the CI leg (the <code>ce-ocr</code> spike uses Linux-only libc calls) and the Velopack updater run.</li>
+<li>Rust-native replacements for the end-to-end checks the Node tree used to provide (below): the daemon is covered by crate tests and the golden gate.</li>
+</ul>
+<h2 id="parity-checks-history"><a class="header" href="#parity-checks-history">Parity checks (history)</a></h2>
+<p>The Node tree was removed in stage 6. While it existed, <code>.mjs</code> scripts compared the Rust core with it on scratch copies of real data (WebSocket replay, capture reprocessing, contacts/sync handlers, truth queue, printed command lines, golden-set commands) and <code>(removed)/bench.py</code> benchmarked the two; the results are in <code>rust/baselines/</code>. Both the scripts and the Node implementation are at the tag <code>node-parity-oracle</code>.</p>
+<h2 id="one-executable-three-modes"><a class="header" href="#one-executable-three-modes">One executable, three modes</a></h2>
+<p><code>ce-companion</code> is the only binary a user runs.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>What runs</th></tr>
+</thead>
+<tbody>
+<tr><td><code>start</code>, or no arguments</td><td>The Companion and, on a terminal, its live view, in one process. The Companion runs on its own thread; the view is a client of its control socket on the main thread; leaving the view stops the Companion. <code>--no-ui</code>, or stdin/stdout not a terminal, runs it headless with plain logs.</td></tr>
+<tr><td><code>daemon</code></td><td>The Companion headless, for a service, systemd unit or autostart entry. <code>--supervise</code> (Linux) wraps it in the supervisor: <code>ce-companion daemon</code> is spawned as a child, restarted after a crash, SIGINT/SIGTERM forwarded, crashes logged to <code>logs/supervisor.log</code>.</td></tr>
+<tr><td><code>client</code> (alias <code>tui</code>)</td><td>The live view of a Companion that is already running, over the control socket.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The view (<code>ce-cli/src/tui.rs</code>) is a console, not just a status display: status panes on tall terminals, a scrolling feed (the Companion’s log lines, finished captures and events, polled from the hidden <code>feed --since &lt;seq&gt;</code> control command), and a prompt. Typed commands go to the Companion over the control socket on their own thread and their output lands in the feed. Prompt: <code>help [command]</code>, <code>clear</code>, <code>quit</code>; Tab completes commands, subcommands and flags; Up/Down is history (<code>&lt;data dir&gt;/prompt-history.txt</code>); PgUp/PgDn scroll the feed, Ctrl-End returns to live; Ctrl-C clears the line, then quits on an empty one. <code>start</code>, <code>daemon</code>, <code>client</code> and <code>update</code> run outside the view.</p>
+<p>Every other command talks to the running Companion over the control socket; the read-only ones also run with none. One Companion per data dir (an <code>flock</code> on <code>companion.lock</code>; under <code>--supervise</code> the supervisor holds it for the child). <code>--core &lt;exe&gt;</code> / <code>CE_CORE</code> run another executable under <code>--supervise</code> (the tests do). A Windows updater swaps the one file after stopping the process.</p>
+<h2 id="with-no-companion-running"><a class="header" href="#with-no-companion-running">With no Companion running</a></h2>
+<p>The read-only commands listed in <code>CLAUDE.md</code> run in the calling process (<code>offline.rs</code>): the store is opened as the daemon would open it, the command’s handler runs, the answer is printed as usual (<code>status</code> says the Companion is not running). Opening ingests Game.log backups not yet seen, as the daemon does at start. Commands that change data, use the network or need live state print “the Companion is not running”.</p>
+<h2 id="finding-star-citizen"><a class="header" href="#finding-star-citizen">Finding Star Citizen</a></h2>
+<p><code>--sc-dir</code> (alias <code>--log</code>), then <code>CE_SC_DIR</code>, then the first existing of the usual install places (<code>/mnt/games/star-citizen/star-citizen</code>, <code>~/Games/star-citizen</code>, <code>~/Games/star-citizen/star-citizen</code>, <code>~/Games/star-citizen-live</code>, <code>~/.wine</code>, each under <code>drive_c/Program Files/Roberts Space Industries/StarCitizen/LIVE</code>; on Windows <code>C:\Program Files\Roberts Space Industries\StarCitizen\LIVE</code>). If none exists the daemon lists what it tried. Commands that read the store do not need the folder.</p>
+<h2 id="contact-links-alts-and-renames"><a class="header" href="#contact-links-alts-and-renames">Contact links (alts and renames)</a></h2>
+<p><code>contact_links</code> (ce-store) holds one row per link between two contacts: <code>handle_key</code>, <code>linked_key</code>, <code>link_kind</code> (<code>alt</code>, <code>same</code>, <code>renamed</code> = <code>handle_key</code> was renamed to <code>linked_key</code>), <code>link_source</code> (<code>manual</code>/<code>suggested</code>), <code>confidence</code>, <code>reasons</code>, <code>linked_at</code>. Local only, never synced. Each handle stays its own contact (own RSI profile, orgs, sightings); a group is whatever you reach following links either way.</p>
+<ul>
+<li><code>contacts link &lt;handle&gt; &lt;handle&gt; [--kind alt|same|renamed]</code>, <code>contacts unlink &lt;handle&gt; &lt;handle&gt;</code>, <code>contacts aliases &lt;handle&gt;</code> (the last also works with no Companion running).</li>
+<li><strong>Only warnings travel.</strong> A contact with no stance of its own takes the worst of <code>wary</code>/<code>hostile</code>/<code>kos</code> tagged on a linked handle (<code>intel.stanceSource</code> = <code>linked</code>, <code>intel.linkedStance</code> = <code>{stance, via}</code>); <code>friendly</code>/<code>neutral</code>/<code>ally</code> are never passed on, so a wrong link can make a contact look more dangerous, never safer. An own tag (or org tag) always wins. The same rule feeds the stance counts.</li>
+<li>The contact view lists the group in <code>intel.linked</code> (protocol 1.15.0, additive); <code>contacts</code> lines show <code>also:&lt;handles&gt;</code>.</li>
+<li>Deleting a contact removes its links; folding a misread into the real handle moves its links.</li>
+</ul>
+<h2 id="stances-and-alerts-hostile-wary-kos"><a class="header" href="#stances-and-alerts-hostile-wary-kos">Stances and alerts: hostile, wary, KOS</a></h2>
+<p><code>kos</code> and <code>hostile</code> are hostile: the friend-or-foe rank <code>hostile</code>, “turned hostile”, hostile-org suggestions and the combat target flag all key off <code>is_hostile_stance</code> (ce-contacts). <code>wary</code> is a lesser warning for a contact to watch (a PvP group such as ZAP, say), not a threat:</p>
+<ul>
+<li>rank <code>wary</code> (sorts just below <code>hostile</code> on the “now” list and keeps the hostile window), alert level <code>wary</code>, notification kind <code>wary-sighted</code> (severity <code>info</code>, so a softer sound; spoken as “Wary, &lt;handle&gt;”). It is on by default and has its own switches: <code>notify set wary on|off</code>, <code>notify set desktop-wary on|off</code>, <code>notify test --kind wary</code>.</li>
+<li>a wary alert fires once per level: a wary contact who later turns hostile alerts again as hostile.</li>
+<li>a wary tag (or a wary org) still lowers trust, like a hostile one (<code>is_warning_stance</code>).</li>
+<li>the org sync wire carries <code>wary</code> as a hostile status with a <code>[WARY]</code> note marker (unchanged), so older Workers keep working.</li>
+</ul>
+<h2 id="who-may-do-what-scopes"><a class="header" href="#who-may-do-what-scopes">Who may do what (scopes)</a></h2>
+<p>Every WebSocket message needs one of three scopes (<code>crates/ce-core/src/scope.rs</code> lists them):</p>
+<ul>
+<li><strong>view</strong>: reads and subscriptions.</li>
+<li><strong>control</strong>: the user’s own choices that stay on this PC (tags, notes, pins, local settings, blueprints, truth review).</li>
+<li><strong>admin</strong>: anything that opens egress (<code>sync.share</code>, <code>intel.settings</code>, <code>sync.now</code>, <code>org.tag</code>), destroys data (<code>contact.delete</code>, <code>contact.merge</code>, <code>storage.configure</code>, <code>storage.cleanup</code>, <code>captures.reprocess*</code>, <code>truth.resolve</code>).</li>
+</ul>
+<p>A native client (the overlay, the TUI: no <code>Origin</code> header) was started by the user on this PC and holds <strong>admin</strong>. A browser page holds <strong>control</strong>. A page that needs an admin action gets <code>auth.required { for, scope }</code>, sends <code>auth.elevate</code>, and receives <code>auth.elevation { code, expiresInS }</code>. The user approves on this PC with <code>ce-companion approve [code]</code> (the control socket, which only a process that can read the token reaches); the daemon then broadcasts <code>auth.scope { connection, scope: "admin", expiresInS }</code> and that connection keeps admin for ten minutes. Each connection is told its own id and scope right after <code>hello</code> (<code>auth.scope</code>).</p>
+<p>A page offers the token as the WebSocket subprotocol <code>ce.token.&lt;token&gt;</code> (a browser cannot set headers on a WebSocket) instead of <code>?token=</code> in the URL, where it ends up in history and logs. <code>?token=</code> still works for older pages and will be removed once the web app has moved (protocol 1.42.0).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-53b67c53.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

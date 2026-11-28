@@ -1,0 +1,706 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Citizen's Edge Companion HTTP routes",
+    "version": "1.42.0",
+    "description": "Generated from docs/http-routes.json. Same port, token and Origin rules as the WebSocket API (docs/PROTOCOL.md)."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:47823"
+    }
+  ],
+  "paths": {
+    "/captures/{id}/image": {
+      "get": {
+        "summary": "The screenshot",
+        "description": "The capture's image as saved (PNG, or a JPEG preview once the capture has been reduced by storage tiering).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The capture id, e.g. C-261125-214310-482"
+          }
+        ],
+        "security": [
+          {
+            "pairingToken": []
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "origin not allowed (a browser page must match the Origin allowlist)"
+          },
+          "401": {
+            "description": "invalid token"
+          },
+          "405": {
+            "description": "method not allowed"
+          },
+          "404": {
+            "description": "capture image missing",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal error"
+          },
+          "200": {
+            "description": "The image",
+            "content": {
+              "image/png or image/jpeg": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "The capture image has expired",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/captures/{id}/bundle": {
+      "get": {
+        "summary": "The capture bundle",
+        "description": "A stored (uncompressed) zip with the image and its sidecar JSON, sent as an attachment named `<id>.zip`.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The capture id, e.g. C-261125-214310-482"
+          }
+        ],
+        "security": [
+          {
+            "pairingToken": []
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "origin not allowed (a browser page must match the Origin allowlist)"
+          },
+          "401": {
+            "description": "invalid token"
+          },
+          "405": {
+            "description": "method not allowed"
+          },
+          "404": {
+            "description": "unknown capture, or a path that is not one of these routes"
+          },
+          "500": {
+            "description": "internal error"
+          },
+          "200": {
+            "description": "Image and sidecar",
+            "content": {
+              "application/zip": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "The capture image has expired",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/captures/{id}/ocr": {
+      "get": {
+        "summary": "The OCR result",
+        "description": "The OCR detail file for the capture (validated against `ocrDetail` in protocol.schema.json).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The capture id, e.g. C-261125-214310-482"
+          }
+        ],
+        "security": [
+          {
+            "pairingToken": []
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "origin not allowed (a browser page must match the Origin allowlist)"
+          },
+          "401": {
+            "description": "invalid token"
+          },
+          "405": {
+            "description": "method not allowed"
+          },
+          "404": {
+            "description": "no OCR detail for this capture",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal error"
+          },
+          "200": {
+            "description": "The OCR detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "areaModes": {
+                      "additionalProperties": {
+                        "enum": [
+                          "fixed",
+                          "detected"
+                        ],
+                        "type": "string"
+                      },
+                      "propertyNames": {
+                        "enum": [
+                          "perf-overlay",
+                          "target-panel",
+                          "chat",
+                          "aim-centre",
+                          "canopy-markers",
+                          "on-foot-hotkeys",
+                          "on-foot-status"
+                        ],
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "areaProfile": {
+                      "type": "string"
+                    },
+                    "chromeInsets": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "bottom": {
+                          "type": "number"
+                        },
+                        "left": {
+                          "type": "number"
+                        },
+                        "right": {
+                          "type": "number"
+                        },
+                        "top": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "top",
+                        "left",
+                        "right",
+                        "bottom"
+                      ],
+                      "type": "object"
+                    },
+                    "detections": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "area": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "perf-overlay",
+                                  "target-panel",
+                                  "chat",
+                                  "aim-centre",
+                                  "canopy-markers",
+                                  "on-foot-hotkeys",
+                                  "on-foot-status"
+                                ],
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "colour": {
+                            "enum": [
+                              "white",
+                              "cyan",
+                              "green",
+                              "red"
+                            ],
+                            "type": "string"
+                          },
+                          "confidence": {
+                            "type": "number"
+                          },
+                          "note": {
+                            "type": "string"
+                          },
+                          "outcome": {
+                            "enum": [
+                              "kept",
+                              "dropped"
+                            ],
+                            "type": "string"
+                          },
+                          "pass": {
+                            "enum": [
+                              "classify",
+                              "full",
+                              "contrast",
+                              "colour"
+                            ],
+                            "type": "string"
+                          },
+                          "quad": {
+                            "items": false,
+                            "maxItems": 4,
+                            "minItems": 4,
+                            "prefixItems": [
+                              {
+                                "items": false,
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "prefixItems": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "type": "array"
+                              },
+                              {
+                                "items": false,
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "prefixItems": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "type": "array"
+                              },
+                              {
+                                "items": false,
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "prefixItems": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "type": "array"
+                              },
+                              {
+                                "items": false,
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "prefixItems": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "type": "array"
+                              }
+                            ],
+                            "type": "array"
+                          },
+                          "reason": {
+                            "enum": [
+                              "low-confidence",
+                              "label",
+                              "outside-roi",
+                              "outside-areas",
+                              "duplicate",
+                              "ignored-screen",
+                              "own-handle",
+                              "unimportant"
+                            ],
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "pass",
+                          "text",
+                          "confidence",
+                          "quad",
+                          "outcome"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "frame": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "height": {
+                          "maximum": 9007199254740991,
+                          "minimum": -9007199254740991,
+                          "type": "integer"
+                        },
+                        "width": {
+                          "maximum": 9007199254740991,
+                          "minimum": -9007199254740991,
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "width",
+                        "height"
+                      ],
+                      "type": "object"
+                    },
+                    "rois": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "height": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "pass": {
+                            "enum": [
+                              "classify",
+                              "full",
+                              "contrast",
+                              "colour",
+                              "parse"
+                            ],
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "pass",
+                          "x",
+                          "y",
+                          "width",
+                          "height"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "tableMode": {
+                      "enum": [
+                        "fixed",
+                        "detected"
+                      ],
+                      "type": "string"
+                    },
+                    "version": {
+                      "const": 2,
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "version",
+                    "frame",
+                    "rois",
+                    "detections"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/captures/{id}/annotations": {
+      "get": {
+        "summary": "Read annotations",
+        "description": "The capture's annotations: `{ id, kind, ... }`, an empty set when there are none.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The capture id, e.g. C-261125-214310-482"
+          }
+        ],
+        "security": [
+          {
+            "pairingToken": []
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "origin not allowed (a browser page must match the Origin allowlist)"
+          },
+          "401": {
+            "description": "invalid token"
+          },
+          "405": {
+            "description": "method not allowed"
+          },
+          "404": {
+            "description": "unknown capture, or a path that is not one of these routes"
+          },
+          "500": {
+            "description": "internal error"
+          },
+          "200": {
+            "description": "The annotations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Save annotations",
+        "description": "Replaces the capture's annotations. Refused (409) when the capture has been reduced to a preview, since annotations need the full-resolution image; an oversized body is refused (413).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The capture id, e.g. C-261125-214310-482"
+          }
+        ],
+        "security": [
+          {
+            "pairingToken": []
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "origin not allowed (a browser page must match the Origin allowlist)"
+          },
+          "401": {
+            "description": "invalid token"
+          },
+          "405": {
+            "description": "method not allowed"
+          },
+          "404": {
+            "description": "unknown capture, or a path that is not one of these routes"
+          },
+          "500": {
+            "description": "internal error"
+          },
+          "200": {
+            "description": "The stored annotations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid annotations: <reason>",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The capture is only a preview",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Body too large",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/captures/{id}/rows/{row}/crop": {
+      "get": {
+        "summary": "The raw cut of a commodity row",
+        "description": "The PNG crop of one commodity-terminal row (`row` counts from 0). `?refresh=1` regenerates it.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The capture id, e.g. C-261125-214310-482"
+          },
+          {
+            "name": "row",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ],
+        "security": [
+          {
+            "pairingToken": []
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "origin not allowed (a browser page must match the Origin allowlist)"
+          },
+          "401": {
+            "description": "invalid token"
+          },
+          "405": {
+            "description": "method not allowed"
+          },
+          "404": {
+            "description": "unknown row or crop",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal error"
+          },
+          "200": {
+            "description": "The row crop",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad row",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The crop cannot be made (the capture is only a preview)",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "pairingToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "The pairing token in the data dir. `?token=` is accepted for older pages."
+      }
+    }
+  }
+}

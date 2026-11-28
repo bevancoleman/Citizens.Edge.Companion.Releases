@@ -1,0 +1,75 @@
+{
+  "about": "Worked examples of the WebSocket messages, with realistic values and a note on what each field holds. Every example is validated against protocol.schema.json by a test (crates/ce-protocol/tests/examples.rs), and docgen copies them into docs/PROTOCOL.md and docs/generated/asyncapi.json. Handles are made up.",
+  "client": {
+    "subscribe": [
+      { "title": "Start the live feed after the last event you have", "notes": "`since` is the `seq` of the last `event` you received (the `cursor` of the snapshot on first connect). Omit it to get only new events.", "message": { "type": "subscribe", "since": 18342 } }
+    ],
+    "contacts.list": [
+      { "title": "Hostile contacts seen in chat, first 25", "notes": "`stance` filters on the decided stance (`kos` and `hostile` both count unless `exact`); `source` is where the player was seen; `requestId` comes back on the reply.", "message": { "type": "contacts.list", "stance": "hostile", "source": "chat", "limit": 25, "requestId": "r-101" } }
+    ],
+    "contacts.now": [
+      { "title": "Who is near me now", "notes": "`view`: `here` (nearby in 15 minutes), `shared` (same shard, 2 hours) or `all`. Leave it out for the configured window.", "message": { "type": "contacts.now", "view": "here" } }
+    ],
+    "contacts.tag": [
+      { "title": "Mark a player hostile, with a note", "notes": "A personal tag stays on this PC. `tag` is `kos`, `hostile`, `wary`, `neutral`, `friendly`, `ally` or `null` to clear it. `note` is free text up to 500 characters.", "message": { "type": "contacts.tag", "handle": "Void_Runner-7", "tag": "hostile", "note": "Pulled a gun at Port Tressler", "requestId": "r-102" } },
+      { "title": "Clear the tag", "message": { "type": "contacts.tag", "handle": "Void_Runner-7", "tag": null } }
+    ],
+    "contacts.category": [
+      { "title": "How you know someone", "notes": "`category` is one of `my-org`, `org-affiliate`, `alliance`, `friend`, `frequent-party`, `mission-partner`, `encountered`, `stranger`, or `null` to go back to the Companion's own decision.", "message": { "type": "contacts.category", "handle": "Quiet_Trader", "category": "friend" } }
+    ],
+    "org.tag": [
+      { "title": "An officer's org tag", "notes": "Needs `admin` (a native client, or a page after `ce-companion approve`) and an officer role on the Hub. `org` is the SID the tag applies to; leave it out for your main org. The tag is shared with the org.", "message": { "type": "org.tag", "handle": "Void_Runner-7", "status": "hostile", "org": "SIXTHWATCH", "note": "Interdicted two members", "requestId": "r-103" } }
+    ],
+    "contact.delete": [
+      { "title": "Delete a contact", "notes": "Needs `admin`. Removes the contact's rows and suppresses the name so it is not re-created.", "message": { "type": "contact.delete", "handle": "Misread_Name", "requestId": "r-104" } }
+    ],
+    "suggestions.accept": [
+      { "title": "Accept one suggestion", "notes": "`id` is the suggestion's `id` from `suggestions.list`.", "message": { "type": "suggestions.accept", "id": "sug-8f3a2c1d" } }
+    ],
+    "truth.confirm": [
+      { "title": "Confirm a commodity row with a corrected price", "notes": "`rowIndex` counts from 0 in the terminal listing. Send `reviewRevision` from the queue item: a stale revision (the capture was reprocessed) is rejected. `values` holds only what you corrected; prices are whole aUEC per SCU.", "message": { "type": "truth.confirm", "captureId": "C-261125-214310-482", "rowIndex": 3, "reviewRevision": 2, "values": { "commodity": "Laranite", "pricePerScu": 2870, "quantityScu": 412, "status": "Medium Demand" }, "requestId": "r-105" } }
+    ],
+    "sync.share": [
+      { "title": "Share confirmed sightings and presence, not stock or blueprints", "notes": "Needs `admin`. `sightings` is `off`, `confirmed` or `auto`; the others are on/off. Fields you leave out stay as they are.", "message": { "type": "sync.share", "sightings": "confirmed", "presence": true, "stock": false, "blueprints": false } }
+    ],
+    "blueprints.set": [
+      { "title": "Say you have a blueprint the log did not report", "notes": "`name` is the blueprint's name as the game shows it; the Companion matches it case-insensitively. `enabled: false` says you do not have it.", "message": { "type": "blueprints.set", "name": "P4-AR Rifle", "enabled": true } }
+    ],
+    "storage.cleanup": [
+      { "title": "Preview the storage cleanup", "notes": "Needs `admin`. `dryRun: true` changes nothing and returns what would be reduced or expired.", "message": { "type": "storage.cleanup", "dryRun": true, "requestId": "r-106" } }
+    ],
+    "auth.elevate": [
+      { "title": "Ask for admin on this connection", "notes": "The Companion answers with `auth.elevation` (a six-digit code); the user then runs `ce-companion approve <code>` on this PC.", "message": { "type": "auth.elevate", "requestId": "r-107" } }
+    ]
+  },
+  "server": {
+    "error": [
+      { "title": "A request failed", "notes": "`requestId` echoes the request, when it had one.", "message": { "type": "error", "message": "unknown contact: Nobody_Here", "requestId": "r-102" } }
+    ],
+    "auth.required": [
+      { "title": "The connection needs a higher scope", "notes": "`for` is the message type that was refused and `scope` what it needs.", "message": { "type": "auth.required", "for": "sync.share", "scope": "admin", "requestId": "r-108" } }
+    ],
+    "auth.elevation": [
+      { "title": "Approve this on the PC", "notes": "`code` is shown to the user, who runs `ce-companion approve <code>`. `connection` identifies this socket; `expiresInS` is how long the code is valid (120).", "message": { "type": "auth.elevation", "connection": 7, "code": "483920", "expiresInS": 120, "requestId": "r-107" } }
+    ],
+    "auth.scope": [
+      { "title": "The connection holds admin for ten minutes", "message": { "type": "auth.scope", "connection": 7, "scope": "admin", "expiresInS": 600 } }
+    ],
+    "sync.status": [
+      { "title": "Org sync set up and healthy", "notes": "`pending` are outbox entries not yet sent, `rejected` those the Hub refused. `lastPullAt` and `lastPushAt` are ISO times. `role` is the Hub's view of you. `sharing` shows the four switches.", "message": { "type": "sync.status", "configured": true, "url": "https://hub.example.org", "role": "member", "lastPullAt": "2026-11-28T10:41:07.000Z", "lastPushAt": "2026-11-28T10:41:06.000Z", "pending": 0, "rejected": 1, "epoch": "e-2026-11-20", "lockdown": false, "lockdownMode": "off", "needsSetup": false, "error": null, "sharing": { "sightings": "confirmed", "stock": false, "presence": true, "blueprints": false } } },
+      { "title": "Sync not set up", "message": { "type": "sync.status", "configured": false, "url": null, "role": null, "lastPullAt": null, "lastPushAt": null, "pending": 0, "rejected": 0, "epoch": null, "lockdown": false, "lockdownMode": "off", "needsSetup": true, "error": null, "sharing": { "sightings": "confirmed", "stock": false, "presence": true, "blueprints": false } } }
+    ],
+    "contact.deleted": [
+      { "title": "A contact was deleted", "notes": "`handleKey` is the lowercase handle, the key every contact table uses.", "message": { "type": "contact.deleted", "handleKey": "misread_name", "requestId": "r-104" } }
+    ],
+    "cz.timers": [
+      { "title": "Two running timers", "notes": "`startedAt` is unix milliseconds; `key` names the timer.", "message": { "type": "cz.timers", "timers": [ { "key": "cz-ruin-station", "startedAt": 1795859000000 } ] } }
+    ],
+    "companion.update": [
+      { "title": "A newer version is available", "message": { "type": "companion.update", "current": "0.1.0", "latest": "0.1.1", "available": true, "required": false, "channel": "production", "checkedAt": 1795859000000 } }
+    ],
+    "background.state": [
+      { "title": "Background work paused while the game is busy", "notes": "`waiting` is the number of queued jobs; `until` an ISO time when the hold ends, when known.", "message": { "type": "background.state", "engaged": true, "highLoad": false, "holdWhenEngaged": true, "holding": true, "waiting": 12, "reason": "in combat", "until": "2026-11-28T10:50:00.000Z" } }
+    ]
+  }
+}
